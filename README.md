@@ -1,38 +1,29 @@
-# Answers To The Homework Questions
+Team ``Your_Team_Name``
+=======================
 
-## Eclipse
+Members
+-------
 
-### Answer 1  
+[Yucheol Jung](@ycjung), [Dohyeok Kim](@dohyeokkim), [Seongwon Cho](@kardy04), [Gijae Hong](@todok1020), [Ingyo Kim](@jik0730), [Heegon Kim](@sinjint)
 
-Select blocks of code -> Hit Ctrl + Shift + F
+Experiences
+-----------
 
-### Answer 2  
-
-Select blocks of code -> Hit Ctrl + /
-
-### Answer 3  
-
-Quickly browse classes and interfaces of this project
-
-## iTrust
-
-### Answer 1
-
-The Web browser shows "Password Changed" message.  
-The password is hased as  
-`67fb6261e43e95e32b83b0fcd7658cd051ab7bec12fcc7397543cd6a1cbeda6b`
-
-### Answer 2  
-
-The Web browser shows the personal page for MID 9000000000  
-The password is hased as  
-`30c952fab122c3f9759f02a6d95c3758b246b4fee239957b2d4fee46e26170c4`  
-
-### Answer 3  
-
-The Web browser shows "Please input a valid date for the appointment." under "with Random Person(someone else):"  
-The appointment is not added to the database
+NullReferenceException(Green.java:12): tried invoke virtual method on a null object
 
 
+Weekly Meetings
+---------------
+
+NullReferenceException(Green.java:21): tried invoke virtual method on a null object
+
+Progress Report
+---------------
+
+NullReferenceException(Green.java:26): tried invoke virtual method on a null object
 
 
+Minutes of Meetings
+-------------------
+
+NullReferenceException(Green.java:32): tried invoke virtual method on a null object

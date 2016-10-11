@@ -23,7 +23,7 @@ public class ResetPasswordTest extends TestCase {
 	}
 
 	/**
-	 * testResetPassword
+	 * testResetPaslssword
 	 * @throws Exception
 	 */
 	public void testResetPassword() throws Exception {
