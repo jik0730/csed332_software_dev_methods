@@ -1,0 +1,31 @@
+stages:
+    - build
+    - deploy
+    - test
+
+compile:
+    stage: build
+    tags:
+        - rasp
+    script:
+        - mvn clean compile
+
+depoloy_to_tomcat:
+    stage: deploy
+    tags:
+        - rasp
+    script:
+        - mvn war:war
+        - rm -rf $CATALINA_HOME/webapps/iTrust-*.war
+        - yes | cp -rf target/*.war $CATALINA_HOME/webapps/.
+        - mv $CATALINA_HOME/webapps/iTrust-*.war $CATALINA_HOME/webapps/iTrust.war
+        - $CATALINA_HOME/bin/shutdown.sh
+        - $CATALINA_HOME/bin/startup.sh
+
+run_all_tests:
+    stage: test
+    tags:
+        - rasp
+    script:
+        - mvn test
+    
