@@ -5,8 +5,11 @@ run_java_tests:
     stage: test
     tags:
         - rasp
+    only:
+        - master
     script:
         - mvn clean compile
+        - mvn clean test-compile
         - mysql -u root iTrust < sql/dropTables.sql
         - mysql -u root iTrust < sql/createTables.sql
         - bash ./genTestData.sh
