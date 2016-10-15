@@ -9,7 +9,7 @@ run_java_tests:
         - master
     script:
         - mvn clean compile
-        - mvn clean test-compile
+        - mvn test-compile
         - mysql -u root iTrust < sql/dropTables.sql
         - mysql -u root iTrust < sql/createTables.sql
         - bash ./genTestData.sh
