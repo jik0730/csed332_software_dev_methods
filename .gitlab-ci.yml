@@ -15,10 +15,12 @@ depoloy_to_tomcat:
     stage: deploy
     tags:
         - rasp
+    only:
+        master
     script:
         - mvn war:war
         - rm -rf $CATALINA_HOME/webapps/iTrust-*.war $CATALINA_HOME/webapps/iTrust.war
-        - yes | cp -rf target/*.war $CATALINA_HOME/webapps/.
+        - yes | cp -rf $CI_PROJECT_DIR/target/*.war $CATALINA_HOME/webapps/.
         - mv $CATALINA_HOME/webapps/iTrust-*.war $CATALINA_HOME/webapps/iTrust.war
         - sudo $CATALINA_HOME/bin/shutdown.sh
         - sudo $CATALINA_HOME/bin/startup.sh
@@ -27,5 +29,7 @@ run_all_tests:
     stage: test
     tags:
         - rasp
+    only:
+        - master
     script:
         - mvn verify -P all-tests
