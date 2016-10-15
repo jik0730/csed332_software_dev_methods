@@ -16,7 +16,7 @@ depoloy_to_tomcat:
     tags:
         - rasp
     only:
-        master
+        - master
     script:
         - mvn war:war
         - rm -rf $CATALINA_HOME/webapps/iTrust-*.war $CATALINA_HOME/webapps/iTrust.war
