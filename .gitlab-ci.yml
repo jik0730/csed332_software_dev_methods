@@ -1,22 +1,26 @@
-image : maven:3.3.9-jdk-8-alpine
+image : maven:3.3.9-jdk-8
 
 services:
     - mysql:8.0.0
 
+variables:
+    MYSQL_DATABASE: itrust
+    MYSQL_ALLOW_EMPTY_PASSWORD: yes
+
 stages:
     - test
 
-run_java_tests:
+run_master_tests:
     stage: test
     tags:
-        - aws
+        - itrust
     only:
         - master
     script:
         - mvn clean compile
         - mvn test-compile
-        - mysql -u root iTrust < sql/dropTables.sql
-        - mysql -u root iTrust < sql/createTables.sql
+        - mysql -u root itrust < sql/dropTables.sql
+        - mysql -u root itrust < sql/createTables.sql
         - bash ./genTestData.sh
         - mvn test
         - mvn jacoco:report
