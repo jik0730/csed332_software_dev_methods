@@ -4,8 +4,8 @@ services:
     - mysql:8.0.0
 
 variables:
-    MYSQL_DATABASE: itrust
-    MYSQL_ALLOW_EMPTY_PASSWORD: yes
+    MYSQL_DATABASE: "itrust"
+    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
 
 stages:
     - test
