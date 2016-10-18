@@ -1,6 +1,9 @@
 Team ``Green``
 =======================
 
+[![build status](http://141.223.163.190/teamgreen/iTrust/badges/master/build.svg)](http://141.223.163.190/teamgreen/iTrust/commits/master)
+[![coverage report](http://141.223.163.190/teamgreen/iTrust/badges/master/coverage.svg)](http://141.223.163.190/teamgreen/iTrust/commits/master)
+
 Members
 -------
 
@@ -26,4 +29,9 @@ Every Wednesday, 10:30 P.M. (Can be postponed to Sunday in exam week)
 Progress Report
 ---------------
 
+NULL
 
+Meeting Minutes
+---------------
+
+[1st Meeting](meeting_log/first_meeting.md)
