@@ -4,6 +4,8 @@ Team ``Green``
 [![build status](http://141.223.163.190/teamgreen/iTrust/badges/master/build.svg)](http://141.223.163.190/teamgreen/iTrust/commits/master)
 [![coverage report](http://141.223.163.190/teamgreen/iTrust/badges/master/coverage.svg)](http://141.223.163.190/teamgreen/iTrust/commits/master)
 
+You can use the latest released iTrust app in [HERE](http://itrustgreen.ze.am/)
+
 Members
 -------
 
