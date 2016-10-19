@@ -25,6 +25,7 @@ deploy_to_server:
     only:
         - master
     script:
+        - mvn clean compile
         - mvn war:war
         - python deploy.py
 
