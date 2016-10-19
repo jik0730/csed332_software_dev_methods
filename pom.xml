@@ -71,6 +71,7 @@
         <version>2.6</version>
         <configuration>
           <warSourceDirectory>WebRoot</warSourceDirectory>
+          <warName>${project.artifactId}</warName>
         </configuration>
       </plugin>
       <plugin>

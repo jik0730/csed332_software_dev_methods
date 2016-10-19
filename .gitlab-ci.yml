@@ -1,5 +1,6 @@
 stages:
     - test
+    - deploy
 
 run_master_tests:
     stage: test
@@ -16,4 +17,14 @@ run_master_tests:
         - mvn test
         - mvn jacoco:report
         - cat target/site/jacoco/index.html
+
+deploy_to_server:
+    stage: deploy
+    tags:
+        - itrust
+    only:
+        - master
+    script:
+        - mvn war:war
+        - python deploy.py
 
