@@ -3,7 +3,7 @@ import os
 
 ftp = FTP('itrustgreen.ze.am')
 ftp.set_pasv(False);
-ftp.login('deployer', 'green')
+ftp.login(os.environ['AWS_DEPLOYER_USERNAME'], os.environ['AWS_DEPLOYER_PASSWORD'])
 print ('login success')
 os.chdir('target')
 ftp.cwd('/opt/tomcat9/webapps')
