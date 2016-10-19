@@ -17,6 +17,9 @@ run_master_tests:
         - mvn test
         - mvn jacoco:report
         - cat target/site/jacoco/index.html
+    cache:
+        paths:
+        - target/
 
 deploy_to_server:
     stage: deploy
