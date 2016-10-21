@@ -337,4 +337,47 @@ public class TransactionDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	
+	/**
+	 * 
+	 * @param type : attributes(type 0 : loggedinMID, type 1 : secondary MID, type 2 : transactionType(Code)
+	 * @return List<TransactionBean>
+	 * @throws DBException
+	 * To get transaction log data grouped by type
+	 */
+	public List<TransactionBean> getTransactionGroupBy(int type) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		String s;
+		try {
+			conn = factory.getConnection();
+			s = "SELECT * FROM transactionlog ";
+			switch(type)
+			{
+			case 0:
+				s += "GROUP BY loggedinMID ";
+				break;
+			case 1:
+				s += "GROUP BY secondaryMID ";
+				break;
+			case 2:
+				s += "GROUP BY transactionCode ";
+				break;
+			}
+			s += "ORDER BY timeLogged DESC";
+			ps = conn.prepareStatement(s);
+			ResultSet rs = ps.executeQuery();
+			List<TransactionBean> tbList = loader.loadList(rs);
+			rs.close();
+			ps.close();
+			return tbList;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
 }
