@@ -379,5 +379,55 @@ public class TransactionDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	/**
+	 * The Most Thorough Fetch 
+	 * @param mid MID of the logged in user
+	 * @param dlhcpID MID of the user's DLHCP
+	 * @param start Index to start pulling entries from
+	 * @param range Number of entries to retrieve
+	 * @return List of <range> TransactionBeans affecting the user starting from the <start>th entry
+	 * @throws DBException
+	 */
+	public List<TransactionBean> getTransactionList(long mid, long secMid, 
+			java.util.Date start, java.util.Date end, 
+			int transactionCode) throws DBException {
+		
+		Connection conn = null;
+		PreparedStatement ps = null;
+		String s;
+		try {
+			conn = factory.getConnection();
+			s = "SELECT * FROM transactionlog "
+					+ "WHERE "
+					+ "(timeLogged >= ? AND timeLogged <= ?)";
+			if (mid >= 0)
+			{
+				s += " AND (loggedInMID = " + Long.toString(mid) + ")";
+			}
+			if (secMid >= 0)
+			{
+				s += " AND (secondaryMID = " + Long.toString(secMid) + ")";
+			}
+			if (transactionCode >= 0)
+			{
+				s += " AND (transactionCode = " + Integer.toString(transactionCode) + ")";
+			}
+			s += " ORDER BY timeLogged DESC";
+			
+			ps = conn.prepareStatement(s);
+			ps.setTimestamp(1, new Timestamp(start.getTime()));
+			ps.setTimestamp(2, new Timestamp(end.getTime()));
+			ResultSet rs = ps.executeQuery();
+			List<TransactionBean> tbList = loader.loadList(rs);
+			rs.close();
+			ps.close();
+			return tbList;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
 }
 
