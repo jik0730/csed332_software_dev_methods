@@ -6,6 +6,7 @@ Team ``Green``
 
 You can use the latest released iTrust app in [HERE](http://itrustgreen.ze.am/)  
 [Git Workflow Guideline](https://docs.google.com/presentation/d/1um2WQeBSv8GYaRCqJa_Af3SaeY5dDBqiItsEHOkjK8E/edit?usp=sharing)
+
 [User stories Overview](https://docs.google.com/presentation/d/1fjutQRhzh-SfCh08sXixXwQVBGP1SYrSCLDet5khDbo/edit?usp=sharing)
 
 Members
