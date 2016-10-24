@@ -23,18 +23,19 @@ Planning future plan(with planning poker) with SP(Story Points)
 - UC91 : Patient View, SP :
 - UC92 : Schedule Physical Therapy/Orthopedic Appointment, SP :
 - Gantt Chart with existing User stories
-- 
+- Available time of workers per iterations
+
+name / 1st / 2nd / 3rd
+김도혁 / 3 / 15 / 10
+김희곤 / 8 / 20 / 8
+조성원 / 8 / 12 / 8
+정유철 / 8 / 16 / 15
+정인교 / 8 / 20 / 15
+홍기재 / 10 / 15 / 10
 
 Planning first Iteration
-- UC39 : 
-- UC41 :
-- UC92 :
+- UC39 : 정인교, 홍기재
+- UC41 : 김도혁, 정유철
+- UC92 : 김희곤 조성원
 
-
-
-User stories accomplished this iteration
-Automated tests
-Major problems/breakthroughs this iteration
-Reevaluating user stories and estimates
-Risk items and risk-management actions
-- Deliverables by next meeting:
+Deliverables by next meeting:
