@@ -6,14 +6,14 @@
   Planning future plan(with planning poker), Planning first iteration, Git convention notification
 
 - Meeting notes:
-+Planning future plan(with planning poker) with SP(Story Points)
-++UC39 : View Transaction Logs, SP : 
-++UC41 : Reminder, Story Points, SP :
-++UC88 : Orthopedic Office Visit, SP :
-++UC89 : Physical Therapy Visit, SP :
-++UC90 : Orthopedic Surgery, SP :
-++UC91 : Patient View, SP :
-++UC92 : Schedule Physical Therapy/Orthopedic Appointment, SP :
+- Planning future plan(with planning poker) with SP(Story Points)
+- UC39 : View Transaction Logs, SP : 
+- UC41 : Reminder, Story Points, SP :
+- UC88 : Orthopedic Office Visit, SP :
+- UC89 : Physical Therapy Visit, SP :
+- UC90 : Orthopedic Surgery, SP :
+- UC91 : Patient View, SP :
+- UC92 : Schedule Physical Therapy/Orthopedic Appointment, SP :
 
 + First Iteration
 
