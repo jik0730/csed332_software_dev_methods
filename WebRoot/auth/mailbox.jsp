@@ -43,6 +43,7 @@
 
 boolean outbox=(Boolean)session.getAttribute("outbox");
 boolean isHCP=(Boolean)session.getAttribute("isHCP");
+boolean isReminder=(Boolean)session.getAttribute("isReminder");
 
 String pageName="messageInbox.jsp";
 if(outbox){
@@ -54,7 +55,8 @@ PatientDAO patientDAO = new PatientDAO(prodDAO);
 
 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-ViewMyMessagesAction action = new ViewMyMessagesAction(prodDAO, loggedInMID.longValue());
+long mid=(isReminder)?9000000009L:loggedInMID.longValue(); 
+ViewMyMessagesAction action = new ViewMyMessagesAction(prodDAO, mid);
 
 List<MessageBean> messages = outbox?action.getAllMySentMessages():action.getAllMyMessages();
 session.setAttribute("messages", messages);
