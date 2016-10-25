@@ -10,18 +10,19 @@ Agenda:
 - Planning future plan(with planning poker)
 - Planning first iteration
 - Git convention notification
+- Brainstroming for a new user story
 - Deliverbles by next meeting
 
 Meeting notes:
   
 Planning future plan(with planning poker) with SP(Story Points)
-- UC39 : View Transaction Logs, SP : 
-- UC41 : Reminder, Story Points, SP :
-- UC88 : Orthopedic Office Visit, SP :
-- UC89 : Physical Therapy Visit, SP :
-- UC90 : Orthopedic Surgery, SP :
-- UC91 : Patient View, SP :
-- UC92 : Schedule Physical Therapy/Orthopedic Appointment, SP :
+- UC39 : View Transaction Logs, SP : 3
+- UC41 : Reminder, Story Points, SP : 2
+- UC88 : Orthopedic Office Visit, SP : 8
+- UC89 : Physical Therapy Visit, SP : 5
+- UC90 : Orthopedic Surgery, SP : 5
+- UC91 : Patient View, SP : 2
+- UC92 : Schedule Physical Therapy/Orthopedic Appointment, SP : 3
 - Gantt Chart with existing User stories
 - Available time of workers per iterations
 
@@ -38,4 +39,15 @@ Planning first Iteration
 - UC41 : 김도혁, 정유철
 - UC92 : 김희곤 조성원
 
+Brainstorming for a new user story
+- 약 처방에 대한 기록
+- 실시간으로 로그인해 있는 사용자들을 보여준다
+- 병실 change 기능을 만들자
+- General한 방에 대한 정보
+- 환자가 의사한테 Request 할 수 있다.
+- 약 먹는지 다이어리
+- 약국 추가
+- 의사 등급제
+
 Deliverables by next meeting:
+- materialization of ideas about new user stories
