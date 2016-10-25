@@ -12,7 +12,7 @@
 pageTitle = "iTrust - View My Sent Messages";
 session.setAttribute("outbox",true);
 session.setAttribute("isHCP",userRole.equals("hcp"));
-session.setAttribute("isReminder", true);
+session.setAttribute("isReminder", false);
 loggingAction.logEvent(TransactionType.OUTBOX_VIEW, loggedInMID.longValue(), 0L, "");
 
 %>

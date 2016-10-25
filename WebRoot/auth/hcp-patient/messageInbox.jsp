@@ -13,7 +13,7 @@
 pageTitle = "iTrust - View My Message ";
 session.setAttribute("outbox",false);
 session.setAttribute("isHCP",userRole.equals("hcp"));
-session.setAttribute("isReminder", true);
+session.setAttribute("isReminder", false);
 loggingAction.logEvent(TransactionType.INBOX_VIEW, loggedInMID.longValue(), 0L, "");
 %>
 
