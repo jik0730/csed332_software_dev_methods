@@ -25,9 +25,8 @@ public abstract class ApptAction {
 	/**
 	 * ApptAction
 	 * @param factory factory
-	 * @param loggedInMID loggedMID
 	 */
-	public ApptAction(DAOFactory factory, long loggedInMID) {
+	public ApptAction(DAOFactory factory) {
 		this.apptDAO = factory.getApptDAO();
 		this.patientDAO = factory.getPatientDAO();
 		this.personnelDAO = factory.getPersonnelDAO();

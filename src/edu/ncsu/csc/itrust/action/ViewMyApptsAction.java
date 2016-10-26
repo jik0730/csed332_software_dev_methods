@@ -10,7 +10,7 @@ public class ViewMyApptsAction extends ApptAction {
 	private long loggedInMID;
 	
 	public ViewMyApptsAction(DAOFactory factory, long loggedInMID) {
-		super(factory, loggedInMID);
+		super(factory);
 		this.loggedInMID = loggedInMID;
 	}
 	

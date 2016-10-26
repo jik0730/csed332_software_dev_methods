@@ -854,6 +854,12 @@ public class TestDataGenerator {
 			IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/admin3.sql");
 	}
+	
+	public void uc41_add_appointments() throws SQLException,
+			FileNotFoundException, IOException{
+		new DBBuilder(factory).executeSQLFile(DIR + 
+				"/uc41_add_appointments.sql");
+	}
 
 	public void uc44_acceptance_scenario_2() throws SQLException,
 			FileNotFoundException, IOException {
