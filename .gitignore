@@ -3,3 +3,5 @@
 /target/
 /WebRoot/WEB-INF/lib/*
 !/WebRoot/WEB-INF/lib/cewolf-1.1.jar
+/.settings
+/WEBRoot/META-INF/context.xml
