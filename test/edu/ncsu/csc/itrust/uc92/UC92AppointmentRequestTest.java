@@ -33,7 +33,7 @@ public class UC92AppointmentRequestTest extends TestCase {
 	public void patientRequestforPT() throws Exception {
 		ApptBean b = new ApptBean();
 		b.setApptType("Physical Therapy");
-		b.setHcp(9000000100L);
+		b.setHcp(9210000000L); // Physical Therapiest's MID
 		b.setPatient(2L);
 		b.setComment("Test for UC92");
 		
