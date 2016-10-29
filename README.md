@@ -9,6 +9,7 @@ You can use the latest released iTrust app in [HERE](http://itrustgreen.ze.am/)
 
 [Use Cases Overview](https://docs.google.com/presentation/d/1fjutQRhzh-SfCh08sXixXwQVBGP1SYrSCLDet5khDbo/edit?usp=sharing)
 
+[User stories](https://drive.google.com/open?id=0B_Fh2EjkQuUfZlhQWFF3N2lFM3M)
 Members
 -------
 
