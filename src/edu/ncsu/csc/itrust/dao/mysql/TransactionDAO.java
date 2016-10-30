@@ -380,12 +380,13 @@ public class TransactionDAO {
 		}
 	}
 	/**
-	 * The Most Thorough Fetch 
+	 * Get transaction list which is satisfying some criteria(inputs).
 	 * @param mid MID of the logged in user
-	 * @param dlhcpID MID of the user's DLHCP
+	 * @param second MID of the logged in user
 	 * @param start Index to start pulling entries from
-	 * @param range Number of entries to retrieve
-	 * @return List of <range> TransactionBeans affecting the user starting from the <start>th entry
+	 * @param end Index to end pulling entries to
+	 * @param trasaction code 
+	 * @return List of <range> TransactionBeans satisfying some criteria
 	 * @throws DBException
 	 */
 	public List<TransactionBean> getTransactionList(long mid, long secMid, 
@@ -416,6 +417,8 @@ public class TransactionDAO {
 			
 			ps = conn.prepareStatement(s);
 			ps.setTimestamp(1, new Timestamp(start.getTime()));
+			// Adjustment of end date.
+			end = new java.util.Date(end.getTime() + (1000 * 60 * 60 * 24));
 			ps.setTimestamp(2, new Timestamp(end.getTime()));
 			ResultSet rs = ps.executeQuery();
 			List<TransactionBean> tbList = loader.loadList(rs);
