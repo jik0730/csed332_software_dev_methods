@@ -364,6 +364,8 @@ public class TransactionDAO {
 			case 2:
 				s += "GROUP BY transactionCode ";
 				break;
+			default:
+				throw new SQLException();
 			}
 			s += "ORDER BY timeLogged DESC";
 			ps = conn.prepareStatement(s);
