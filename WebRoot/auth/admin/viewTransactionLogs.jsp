@@ -23,7 +23,7 @@
 <%@include file="/global.jsp" %>
 
 <%
-pageTitle = "iTrust - Survey Results";
+pageTitle = "iTrust - View Transaction Logs";
 loginMessage = "";
 session.removeAttribute("personnelList");
 %>
@@ -36,11 +36,12 @@ session.removeAttribute("personnelList");
 	// Default start date and end date.
 	Date dt = new Date();
 	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+	SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd/yyyy");
 	String startDate = sdf.format(dt).toString();
-	String endDate = startDate;
+	String endDate = sdf2.format(dt).toString();
 	
 	// Define transactionDAO.
-	TransactionDAO transactionDAO = new TransactionDAO(prodDAO);
+	TransactionDAO transactionDAO = DAOFactory.getProductionInstance().getTransactionDAO();
 	
     // Get all users mid, secmids, transactioncodes.
 	List<TransactionBean> mids = transactionDAO.getTransactionGroupBy(0);
@@ -58,6 +59,7 @@ session.removeAttribute("personnelList");
 			&& request.getParameter("formIsFilled").equals("true");
 
 	if (formIsFilled) {
+		
 		// Set start date and end date.
 		startDate = request.getParameter("startDate");
 		startDate = startDate.trim();
@@ -86,9 +88,11 @@ session.removeAttribute("personnelList");
 		} else {
 			inputTransactionCode = Integer.valueOf(transactionCode).intValue();
 		}
-		
-		transactionResults = transactionDAO.getTransactionList(inputMid, inputSecMid, 
-				sdf.parse(startDate), sdf.parse(endDate), inputTransactionCode); 
+		try {
+			transactionResults = transactionDAO.getTransactionList(inputMid, inputSecMid, 
+					sdf.parse(startDate), sdf2.parse(endDate), inputTransactionCode); 
+		} catch (Exception e){
+		}
 	}
 %>
 
@@ -98,7 +102,7 @@ session.removeAttribute("personnelList");
 <br />
 <br />
 </div>
-<table>
+<table id = "criteria_table">
 	<tr>
 		<td>Mid:</td>
 		<td><select name="transactionMid">
@@ -156,175 +160,180 @@ session.removeAttribute("personnelList");
 			style="font-size: 16pt; font-weight: bold;" name = "graph" value = "Graph"></td>
 	</tr>
 </table>
-<table class="fTable">
-	<tr>
-		<%
-		if (transactionResults != null && request.getParameter("view") != null) {
-			%>
-			<tr class="subHeader">
-				<th>Transaction ID</th>
-				<th>TimeLogged</th>
-				<th>name</th>
-				<th>code</th>
-				<th>Description</th>
-				<th>LoggedInMID</th>
-				<th>SecondaryMID</th>
-				<th>AddedInfo</th>
-			</tr>
-			<%
-			// Iterate through transaction logs results to build logs list.
-			for (TransactionBean t : transactionResults) {
-			%>
-			<tr>
-				<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionID())) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + (t.getTimeLogged())) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().name())) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().getCode())) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().getDescription())) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + (t.getLoggedInMID())) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + (t.getSecondaryMID())) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + (t.getAddedInfo())) %></td>
-			</tr>
-			<%
-			}
-		}
-		if (transactionResults != null && request.getParameter("graph") != null) {
-			HashMap<Long, Integer> loggedInUser = new HashMap<Long, Integer>();
-			HashMap<Long, Integer> secondaryUser = new HashMap<Long, Integer>();
-			HashMap<String, Integer> transactionMonth = new HashMap<String, Integer>();
-			HashMap<Integer, Integer> transactionType = new HashMap<Integer, Integer>();
-			// Iterate transaction logs results to build graphs.
-			for (TransactionBean tb : transactionResults) {
-				long key = tb.getLoggedInMID();
-				long key2 = tb.getSecondaryMID();
-				String key3 = tb.getTimeLogged().toString();
-				key3 = key3.substring(0, 7);
-				int key4 = tb.getTransactionType().getCode();
-				// For first graph.
-				if (loggedInUser.get(key) == null) {
-					loggedInUser.put(key, 1);
-				} else {
-					loggedInUser.put(key, loggedInUser.get(key) + 1);
-				}
-				// For second graph.
-				if (secondaryUser.get(key2) == null) {
-					secondaryUser.put(key2, 1);
-				} else {
-					secondaryUser.put(key2, secondaryUser.get(key2) + 1);
-				}
-				// For third graph.
-				if (transactionMonth.get(key3) == null){
-					transactionMonth.put(key3, 1);
-				} else {
-					transactionMonth.put(key3, transactionMonth.get(key3) + 1);
-				}
-				// For fourth graph.
-				if (transactionType.get(key4) == null) {
-					transactionType.put(key4, 1);
-				} else {
-					transactionType.put(key4, transactionType.get(key4) + 1);
-				}
-			}
-			%>
-			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-			<script type="text/javascript">
-
-			      // Load the Visualization API and the corechart package.
-			      google.charts.load('current', {'packages':['corechart']});
-
-			      // Set a callback to run when the Google Visualization API is loaded.
-			      google.charts.setOnLoadCallback(drawChart);
-
-			      // Callback that creates and populates a data table,
-			      // instantiates the pie chart, passes in the data and
-			      // draws it.
-			      function drawChart() {
-
-			        // Create the data table.
-			        var data = new google.visualization.DataTable();
-			        data.addColumn('string', 'LoggedInMID');
-			        data.addColumn('number', 'Count');
-			        
-			        // Second data table.
-			        var data2 = new google.visualization.DataTable();
-			        data2.addColumn('string', 'SecondaryMID');
-			        data2.addColumn('number', 'Count');
-			        
-			     	// Fourth data table.
-			        var data3 = new google.visualization.DataTable();
-			        data3.addColumn('string', 'Month');
-			        data3.addColumn('number', 'Count');
-			        
-			        // Fourth data table.
-			        var data4 = new google.visualization.DataTable();
-			        data4.addColumn('string', 'TransactionType');
-			        data4.addColumn('number', 'Count');
-			        
-			        <%for (long key : loggedInUser.keySet()) {%>
-			        	data.addRows([['<%=key%>', <%=loggedInUser.get(key)%>]]);
-			        <%}%>
-			        
-			        <%for (long key : secondaryUser.keySet()) {%>
-			        	data2.addRows([['<%=key%>', <%=secondaryUser.get(key)%>]]);
-			        <%}%>
-			        
-			        <%for (String key : transactionMonth.keySet()) {%>
-		        		data3.addRows([['<%=key%>', <%=transactionMonth.get(key)%>]]);
-		        	<%}%>
-			        
-			        <%for (int key : transactionType.keySet()) {%>
-		        		data4.addRows([['<%=key%>', <%=transactionType.get(key)%>]]);
-		        	<%}%>
-
-			        // Set chart options
-			        var options = {'title':'LoggedInUser / Count',
-			                       'width':400,
-			                       'height':300};
-			        // Second chart options.
-			        var options2 = {'title':'SecondaryUser / Count',
-		                       'width':400,
-		                       'height':300};
-			     	// Third chart options.
-			        var options3 = {'title':'Month / Count',
-		                       'width':400,
-		                       'height':300};
-			     	// Fourth chart options.
-			        var options4 = {'title':'TransactionType / Count',
-		                       'width':400,
-		                       'height':300};
-
-			        // Instantiate and draw our chart, passing in some options.
-			        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-			        var chart2 = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
-			        var chart3 = new google.visualization.ColumnChart(document.getElementById('chart_div3'));
-			        var chart4 = new google.visualization.ColumnChart(document.getElementById('chart_div4'));
-			        chart.draw(data, options);
-			        chart2.draw(data2, options2);
-			        chart3.draw(data3, options3);
-			        chart4.draw(data4, options4);
-			      }
-			</script>
-			<tr>
-				<td>
-					<div id="chart_div"></div>
-				</td>
-				<td>
-					<div id="chart_div2"></div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div id="chart_div3"></div>
-				</td>
-				<td>
-					<div id="chart_div4"></div>
-				</td>
-			</tr>
-			<%
-		}
+<%
+if (transactionResults != null && request.getParameter("view") != null) {
+%>
+<table id = "list_table" class="fTable">
+	<tr class="subHeader">
+		<th>Transaction ID</th>
+		<th>TimeLogged</th>
+		<th>name</th>
+		<th>code</th>
+		<th>Description</th>
+		<th>LoggedInMID</th>
+		<th>SecondaryMID</th>
+		<th>AddedInfo</th>
+	</tr>
+	<%
+	// Iterate through transaction logs results to build logs list.
+	for (TransactionBean t : transactionResults) {
 	%>
+	<tr>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionID())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTimeLogged())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().name())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().getCode())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().getDescription())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getLoggedInMID())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getSecondaryMID())) %></td>
+		<td><%= StringEscapeUtils.escapeHtml("" + (t.getAddedInfo())) %></td>
+	</tr>
+	<%
+	}
+	%>
+</table>
+	<%
+}
+%>
+<%
+if (transactionResults != null && request.getParameter("graph") != null) {
+	HashMap<Long, Integer> loggedInUser = new HashMap<Long, Integer>();
+	HashMap<Long, Integer> secondaryUser = new HashMap<Long, Integer>();
+	HashMap<String, Integer> transactionMonth = new HashMap<String, Integer>();
+	HashMap<Integer, Integer> transactionType = new HashMap<Integer, Integer>();
+	// Iterate transaction logs results to build graphs.
+	for (TransactionBean tb : transactionResults) {
+		long key = tb.getLoggedInMID();
+		long key2 = tb.getSecondaryMID();
+		String key3 = tb.getTimeLogged().toString();
+		key3 = key3.substring(0, 7);
+		int key4 = tb.getTransactionType().getCode();
+		// For first graph.
+		if (loggedInUser.get(key) == null) {
+			loggedInUser.put(key, 1);
+		} else {
+			loggedInUser.put(key, loggedInUser.get(key) + 1);
+		}
+		// For second graph.
+		if (secondaryUser.get(key2) == null) {
+			secondaryUser.put(key2, 1);
+		} else {
+			secondaryUser.put(key2, secondaryUser.get(key2) + 1);
+		}
+		// For third graph.
+		if (transactionMonth.get(key3) == null){
+			transactionMonth.put(key3, 1);
+		} else {
+			transactionMonth.put(key3, transactionMonth.get(key3) + 1);
+		}
+		// For fourth graph.
+		if (transactionType.get(key4) == null) {
+			transactionType.put(key4, 1);
+		} else {
+			transactionType.put(key4, transactionType.get(key4) + 1);
+		}
+	}
+	%>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+
+	      // Load the Visualization API and the corechart package.
+	      google.charts.load('current', {'packages':['corechart']});
+
+	      // Set a callback to run when the Google Visualization API is loaded.
+	      google.charts.setOnLoadCallback(drawChart);
+
+	      // Callback that creates and populates a data table,
+	      // instantiates the pie chart, passes in the data and
+	      // draws it.
+	      function drawChart() {
+
+	        // Create the data table.
+	        var data = new google.visualization.DataTable();
+	        data.addColumn('string', 'LoggedInMID');
+	        data.addColumn('number', 'Count');
+	        
+	        // Second data table.
+	        var data2 = new google.visualization.DataTable();
+	        data2.addColumn('string', 'SecondaryMID');
+	        data2.addColumn('number', 'Count');
+	        
+	     	// Fourth data table.
+	        var data3 = new google.visualization.DataTable();
+	        data3.addColumn('string', 'Month');
+	        data3.addColumn('number', 'Count');
+	        
+	        // Fourth data table.
+	        var data4 = new google.visualization.DataTable();
+	        data4.addColumn('string', 'TransactionType');
+	        data4.addColumn('number', 'Count');
+	        
+	        <%for (long key : loggedInUser.keySet()) {%>
+	        	data.addRows([['<%=key%>', <%=loggedInUser.get(key)%>]]);
+	        <%}%>
+	        
+	        <%for (long key : secondaryUser.keySet()) {%>
+	        	data2.addRows([['<%=key%>', <%=secondaryUser.get(key)%>]]);
+	        <%}%>
+	        
+	        <%for (String key : transactionMonth.keySet()) {%>
+        		data3.addRows([['<%=key%>', <%=transactionMonth.get(key)%>]]);
+        	<%}%>
+	        
+	        <%for (int key : transactionType.keySet()) {%>
+        		data4.addRows([['<%=key%>', <%=transactionType.get(key)%>]]);
+        	<%}%>
+
+	        // Set chart options
+	        var options = {'title':'LoggedInUser / Count',
+	                       'width':400,
+	                       'height':300};
+	        // Second chart options.
+	        var options2 = {'title':'SecondaryUser / Count',
+                       'width':400,
+                       'height':300};
+	     	// Third chart options.
+	        var options3 = {'title':'Month / Count',
+                       'width':400,
+                       'height':300};
+	     	// Fourth chart options.
+	        var options4 = {'title':'TransactionType / Count',
+                       'width':400,
+                       'height':300};
+
+	        // Instantiate and draw our chart, passing in some options.
+	        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+	        var chart2 = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+	        var chart3 = new google.visualization.ColumnChart(document.getElementById('chart_div3'));
+	        var chart4 = new google.visualization.ColumnChart(document.getElementById('chart_div4'));
+	        chart.draw(data, options);
+	        chart2.draw(data2, options2);
+	        chart3.draw(data3, options3);
+	        chart4.draw(data4, options4);
+	      }
+	</script>
+<table id="graph_table" class="fTable">
+	<tr>
+		<td>
+			<div id="chart_div"></div>
+		</td>
+		<td>
+			<div id="chart_div2"></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div id="chart_div3"></div>
+		</td>
+		<td>
+			<div id="chart_div4"></div>
+		</td>
 	</tr>
 </table>
+<%
+}
+%>
+
 </form>
 
 <%@include file="/footer.jsp" %>
