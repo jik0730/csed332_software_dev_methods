@@ -1,0 +1,14 @@
+1. Send Request
+ Patient can send requests to HCP for physical therapy or orthopedic appoitnment with date, time, and comments.
+ 
+2. Check Pending States
+ Patient can check whether HCP responds.
+ 
+3. Check Responds of HCP
+ Patient can check HCP's respond that is accepted or rejected.
+ 
+4. Check Request List
+ HCP can check requests from patients in iTrust.
+
+5. Respond Request
+ HCP can respond to accept or reject that request.
