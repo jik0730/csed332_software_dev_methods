@@ -6,11 +6,13 @@ import edu.ncsu.csc.itrust.beans.TransactionBean;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.unit.datagenerators.TestDataGenerator;
+import edu.ncsu.csc.itrust.unit.testutils.EvilDAOFactory;
 import edu.ncsu.csc.itrust.unit.testutils.TestDAOFactory;
 import junit.framework.TestCase;
 
 public class GetTransactionGroupByTest extends TestCase {
 	private TransactionDAO tranDAO = TestDAOFactory.getTestInstance().getTransactionDAO();
+	private TransactionDAO evilDAO = EvilDAOFactory.getEvilInstance().getTransactionDAO();
 	
 	private TestDataGenerator gen;
 	@Override
@@ -45,12 +47,22 @@ public class GetTransactionGroupByTest extends TestCase {
 	}
 	
 	public void testInputErrorException() throws Exception {
-		try{
-			List<TransactionBean> list = tranDAO.getTransactionGroupBy(3);
-			fail("exception should have been thrown");
+		try {
+			List<TransactionBean> list = evilDAO.getTransactionGroupBy(2);
+			fail("DBException should have been thrown");
 			list.get(0);
-		}catch(DBException e){
-			// Don't know how to add assert statement.
+		} catch (DBException e) {
+			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
+		}
+	}
+	
+	public void testInputErrorException2() throws Exception {
+		try {
+			List<TransactionBean> list = tranDAO.getTransactionGroupBy(3);
+			fail("DBException should have been thrown");
+			list.get(0);
+		} catch (DBException e) {
+			// Don't know how to add assert statement when throwing exception.
 		}
 	}
 }
