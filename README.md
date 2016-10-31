@@ -34,7 +34,13 @@ Every Wednesday, 10:30 P.M. (Can be postponed to Sunday in exam week)
 Progress Report
 ---------------
 
-NULL
+### Iteration 1
+
+| actual  | estimated | case  | description |
+| ------  | --------- | ----- | ----------- |
+| 3 units | 2 units   | UC 41 | Elicit user stories and write tests |
+| 3 units | 3 units   | UC 39 | Elicit user stories and write tests  |
+| 3 units | 2 units   | UC 91 | Elicit user stories and write tests             |
 
 Meeting Minutes
 ---------------
