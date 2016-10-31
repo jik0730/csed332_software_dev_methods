@@ -10,6 +10,7 @@
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.HospitalsDAO"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PersonnelBean"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO"%>
+<%@page import="edu.ncsu.csc.itrust.enums.TransactionLogColumnType" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
@@ -42,11 +43,11 @@ session.removeAttribute("personnelList");
 	
 	// Define transactionDAO.
 	TransactionDAO transactionDAO = DAOFactory.getProductionInstance().getTransactionDAO();
-	
+
     // Get all users mid, secmids, transactioncodes.
-	List<TransactionBean> mids = transactionDAO.getTransactionGroupBy(0);
-	List<TransactionBean> secMids = transactionDAO.getTransactionGroupBy(1);
-	List<TransactionBean> transactionCodes = transactionDAO.getTransactionGroupBy(2);
+	List<TransactionBean> mids = transactionDAO.getTransactionGroupBy(TransactionLogColumnType.parse(1));
+	List<TransactionBean> secMids = transactionDAO.getTransactionGroupBy(TransactionLogColumnType.parse(2));
+	List<TransactionBean> transactionCodes = transactionDAO.getTransactionGroupBy(TransactionLogColumnType.parse(3));
 	List<TransactionBean> transactionResults = null;
 	String mid = "";
 	String secMid = "";

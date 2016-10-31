@@ -16,6 +16,7 @@ import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
+import edu.ncsu.csc.itrust.enums.TransactionLogColumnType;
 
 /**
  * Used for the logging mechanism.
@@ -347,22 +348,22 @@ public class TransactionDAO {
 	 * @throws DBException
 	 * To get transaction log data grouped by type
 	 */
-	public List<TransactionBean> getTransactionGroupBy(int type) throws DBException, ITrustException {
+	public List<TransactionBean> getTransactionGroupBy(TransactionLogColumnType type) throws DBException, ITrustException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		String s;
 		try {
 			conn = factory.getConnection();
 			s = "SELECT * FROM transactionlog ";
-			switch(type)
+			switch(type.getCode())
 			{
-			case 0:
+			case 1:
 				s += "GROUP BY loggedinMID ";
 				break;
-			case 1:
+			case 2:
 				s += "GROUP BY secondaryMID ";
 				break;
-			case 2:
+			case 3:
 				s += "GROUP BY transactionCode ";
 				break;
 			default:
