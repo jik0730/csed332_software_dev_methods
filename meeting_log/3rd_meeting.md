@@ -2,9 +2,9 @@ Minutes of Meetings
 -------------------
 
 #### Minutes of Meeting held on (PUT DATE HERE)
-- Venue: 
-- Members Present (with roles): person1 (Moderator), person2 (Author), person3 (Reviewer), person4 (Scribe)
-- Agenda:
+- Venue: Oct 29, 2016
+- Members Present (with roles): 전원이 리뷰어로 참석. (정유철 서기)
+- Agenda: 현재 상황 보고와 새로운 유즈케이스 뽑아내기
 
   ...
 - Meeting notes:
@@ -41,5 +41,6 @@ Minutes of Meetings
   3. 타임스탬프. 병원, 와드. 와드룸. 의사 이름. 승인여부. Read Comment버튼. 취소버튼.
   ...
 - Deliverables by next meeting:
-  * 일요일 오후 9시. 월요일 데모 시간. 홍기재씨 조는 아마 구현까지. 정유철 조 지금 멈춤. 조성현조 유즈케이스 문서화까지. 아마 테스트 할지도.  
+  * 일요일 오후 9시. 월요일 데모 시간. 홍기재씨 조는 아마 구현까지. 정유철 조 지금 멈춤. 조성현조 유즈케이스 문서화까지. 아마 테스트 할지도.
+  * 정유철이 유즈 케이스 포매팅 함.
   ...
