@@ -40,4 +40,5 @@ Meeting Minutes
 ---------------
 
 [1st Meeting](meeting_log/first_meeting.md),
-[2st Meeting](meeting_log/second_meeting.md)
+[2st Meeting](meeting_log/second_meeting.md),
+[2st Meeting](meeting_log/3rd_meeting.md),
