@@ -24,25 +24,22 @@ public class GetTransactionGroupByTest extends TestCase {
 	
 	public void testGetTransactionGroupByLoggedInMID() throws Exception {
 		List<TransactionBean> list = tranDAO.getTransactionGroupBy(0);
-		// Size check.
+
 		assertEquals(4, list.size());
-		// Element check.
 		assertEquals(9000000000L, list.get(0).getLoggedInMID());
 	}
 	
 	public void testGetTransactionGroupBySecondaryMID() throws Exception {
 		List<TransactionBean> list = tranDAO.getTransactionGroupBy(1);
-		// Size check.
+
 		assertEquals(2, list.size());
-		// Element check.
 		assertEquals(2L, list.get(0).getSecondaryMID());
 	}
 	
 	public void testGetTransactionGroupByTransactionCode() throws Exception {
 		List<TransactionBean> list = tranDAO.getTransactionGroupBy(2);
-		// Size check.
+
 		assertEquals(3, list.size());
-		// Element check.
 		assertEquals(1900, list.get(0).getTransactionType().getCode());
 	}
 	
@@ -59,10 +56,10 @@ public class GetTransactionGroupByTest extends TestCase {
 	public void testInputErrorException2() throws Exception {
 		try {
 			List<TransactionBean> list = tranDAO.getTransactionGroupBy(3);
-			fail("DBException should have been thrown");
+			fail("iTrustException should have been thrown");
 			list.get(0);
 		} catch (DBException e) {
-			// Don't know how to add assert statement when throwing exception.
+			// TODO: Add assert statement when throwing exception.
 		}
 	}
 }

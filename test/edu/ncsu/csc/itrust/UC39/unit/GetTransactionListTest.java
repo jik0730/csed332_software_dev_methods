@@ -32,9 +32,7 @@ public class GetTransactionListTest extends TestCase {
 		Date end = fmt.parse("2007-06-25");
 		List<TransactionBean> list = tranDAO.getTransactionList(1L, 0L, start, end, 410);
 		
-		// Size check.
 		assertEquals(1, list.size());
-		// Element check.
 		assertEquals(1L, list.get(0).getLoggedInMID());
 	}
 	
@@ -44,9 +42,7 @@ public class GetTransactionListTest extends TestCase {
 		Date end = fmt.parse("2007-06-25");
 		List<TransactionBean> list = tranDAO.getTransactionList(-1, -1, start, end, -1);
 		
-		// Size check.
 		assertEquals(8, list.size());
-		// Element check.
 		assertEquals(9000000000L, list.get(0).getLoggedInMID());
 	}
 	
@@ -56,7 +52,7 @@ public class GetTransactionListTest extends TestCase {
 			Date start = fmt.parse("2007-06-21");
 			Date end = fmt.parse("2007-06-25");
 			List<TransactionBean> list = evilDAO.getTransactionList(1L, 0L, start, end, 410);
-			fail("DBException should have been thrown");
+			fail("Exception should have been thrown");
 			list.get(0);
 		} catch (DBException e) {
 			assertEquals(EvilDAOFactory.MESSAGE, e.getSQLException().getMessage());
