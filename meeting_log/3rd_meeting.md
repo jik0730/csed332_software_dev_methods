@@ -2,7 +2,7 @@ Minutes of Meetings
 -------------------
 
 #### Minutes of Meeting held on (PUT DATE HERE)
-- Venue: Oct 29, 2016
+- Venue: Oct 29, 2016 GSR
 - Members Present (with roles): 전원이 리뷰어로 참석. (정유철 서기)
 - Agenda: 현재 상황 보고와 새로운 유즈케이스 뽑아내기
 
