@@ -7,26 +7,32 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+import com.meterware.httpunit.HttpUnitOptions;
+
 
 
 /**
- * Test class for the viewVisitedHCPs.jsp
+ * Test class for the viewTransactionLogs.jsp
  */
 public class ViewTransactionLogTest extends iTrustSeleniumTest {
 
 	private HtmlUnitDriver driver;
-	
-	@Override
-	protected void setUp() throws Exception {
-		//super.setUp(); // clear tables is called in super
-		//gen.clearAllTables();
-		//gen.standardData();
-	}
 
 	/**
-	 * testViewMyProviders1
+	 * set up testViewTransactionLog
+	 * This is for setting up this test
+	 */
+	@Override
+	protected void setUp() throws Exception{
+		super.setUp();
+		HttpUnitOptions.setScriptingEnabled(false);
+		gen.clearAllTables();
+		gen.standardData();		
+	}
+	
+	/**
+	 * testViewTransactionLog1
 	 * This is for checking list
-	 * @throws Exception
 	 */
 	public void testViewTransactionLog1() throws Exception {
 		driver = (HtmlUnitDriver)login("9000000001","pw");
@@ -50,9 +56,8 @@ public class ViewTransactionLogTest extends iTrustSeleniumTest {
 	
 	
 	/**
-	 * testViewMyProviders2
+	 * testViewTransactionLogs2
 	 * this is for checking graph
-	 * @throws Exception
 	 */
 	public void testViewTransactionLog2() throws Exception {
 		driver = (HtmlUnitDriver)login("9000000001","pw");
