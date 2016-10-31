@@ -15,6 +15,7 @@ import edu.ncsu.csc.itrust.beans.loaders.TransactionBeanLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.DBException;
+import edu.ncsu.csc.itrust.exception.ITrustException;
 
 /**
  * Used for the logging mechanism.
@@ -346,7 +347,7 @@ public class TransactionDAO {
 	 * @throws DBException
 	 * To get transaction log data grouped by type
 	 */
-	public List<TransactionBean> getTransactionGroupBy(int type) throws DBException {
+	public List<TransactionBean> getTransactionGroupBy(int type) throws DBException, ITrustException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		String s;
@@ -365,7 +366,7 @@ public class TransactionDAO {
 				s += "GROUP BY transactionCode ";
 				break;
 			default:
-				throw new SQLException();
+				throw new ITrustException("Wrong input type!");
 			}
 			s += "ORDER BY timeLogged DESC";
 			ps = conn.prepareStatement(s);
