@@ -64,7 +64,7 @@ These are meeting logs summarizing our dicussions in every meeting.
 
 Demo Presentation
 ---------------
-There are presention files presented at each demo.
+These are presention files presented at each demo.
 
 - [1st Demo](https://docs.google.com/presentation/d/1lwDME0utRWTX3jxj1UNgGDe14Cj3zOgUVykHWnVPuvo/edit?usp=drive_web)
 
