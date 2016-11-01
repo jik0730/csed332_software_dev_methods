@@ -36,7 +36,7 @@ Use Cases & User Stories
 ---------------
 
 |__Use Case__|__Comment__|__User Stories__|
-|:---:|---|
+|:---:|---|---|
 | UC39 | Theme: View Transaction Logs.  See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc39.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC39/userstories/uc39.md) |
 | UC41 | Theme: Reminder.  See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc41.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC41/usecases/uc41.md) |
 | UC88 | Theme: Orthopedic Office Visit. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc88.md) | |
