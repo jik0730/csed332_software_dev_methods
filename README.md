@@ -48,6 +48,16 @@ These are main use cases that we have to implement in iTrust.
 | UC92 | Theme: Schedule Physical Therapy/Orthopedic Appointment. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc92.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC92/Usercase/UC92) |
 | Our Use Case | Theme: Room Change Request and Acceptance. See details [here](usecases/custom_use_case.md) | |
 
+Risks
+---------------
+These are possibly occurred risks that team members have to keep in mind of.
+
+|__Risk__|__Possiblity of Occurence__|__Impact of The Loss__|__Mitigation Strategies__|
+|---|---|---|---|
+|   |   |   |   |
+|   |   |   |   |
+|   |   |   |   |
+
 Weekly Meetings
 ---------------
 This is our weekly meeting schedule and can be rearranged in certain situation like exam week.
