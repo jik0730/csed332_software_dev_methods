@@ -9,8 +9,9 @@ You can use the latest released iTrust app in [HERE](http://itrustgreen.ze.am/)
 
 [Use Cases Overview](https://docs.google.com/presentation/d/1fjutQRhzh-SfCh08sXixXwQVBGP1SYrSCLDet5khDbo/edit?usp=sharing)
 
-Members & Experiences
+Members & Experiences & Roles
 -----------
+The green team consists of these brilliant members. 
 
 |__Name__|__Experiences__|__Iteration 1__|__Iteration 2__|__Iteration 3__|__Iteration 4__|
 |:---:|:---:|:---:|:---:|:---:|:---:|
@@ -34,6 +35,7 @@ Timeline & Progress Report
 
 Use Cases & User Stories
 ---------------
+These are main use cases that we have to implement in iTrust.
 
 |__Use Case__|__Comment__|__User Stories__|
 |:---:|---|---|
@@ -48,11 +50,13 @@ Use Cases & User Stories
 
 Weekly Meetings
 ---------------
+This is our weekly meeting schedule and can be rearranged in certain situation like exam week.
 
-Every Wednesday, 10:30 P.M. (Can be postponed to Sunday in exam week)
+>> Every Wednesday, 10:30 P.M.
 
-Meeting Minutes
+Meeting Logs
 ---------------
+These are meeting logs summarizing our dicussions in every meeting.
 
 - [1st Meeting](meeting_log/first_meeting.md)
 - [2st Meeting](meeting_log/second_meeting.md)
@@ -60,6 +64,7 @@ Meeting Minutes
 
 Demo Presentation
 ---------------
+There are presention files presented at each demo.
 
 - [1st Demo](https://docs.google.com/presentation/d/1lwDME0utRWTX3jxj1UNgGDe14Cj3zOgUVykHWnVPuvo/edit?usp=drive_web)
 
