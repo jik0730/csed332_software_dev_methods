@@ -35,8 +35,8 @@ Timeline & Progress Report
 Use Cases & User Stories
 ---------------
 
-| __Use Case__ | __Comment__  | __User Stories__|
-|:--------:|----------|
+|__Use Case__|__Comment__|__User Stories__|
+|:---:|---|
 | UC39 | Theme: View Transaction Logs.  See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc39.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC39/userstories/uc39.md) |
 | UC41 | Theme: Reminder.  See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc41.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC41/usecases/uc41.md) |
 | UC88 | Theme: Orthopedic Office Visit. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc88.md) | |
@@ -44,7 +44,7 @@ Use Cases & User Stories
 | UC90 | Theme: Orthopedic Surgery. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc90.md) | |
 | UC91 | Theme: Patient View. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc91.md) | |
 | UC92 | Theme: Schedule Physical Therapy/Orthopedic Appointment. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc92.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC92/Usercase/UC92) |
-| Our Use Case  | Theme: Room Change Request and Acceptance. See details [here](usecases/custom_use_case.md) | |
+| Our Use Case | Theme: Room Change Request and Acceptance. See details [here](usecases/custom_use_case.md) | |
 
 Weekly Meetings
 ---------------
