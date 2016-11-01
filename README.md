@@ -12,14 +12,14 @@ You can use the latest released iTrust app in [HERE](http://itrustgreen.ze.am/)
 Members & Experiences
 -----------
 
-|__Name__|__Experiences__|
-|:---:|---|
-|[정인교](@jik0730)|Java, Intellij|
-|[김희곤](@sinjint)|Java, Unity|
-|[조성원](@kardy04)|Android, Eclipse, Unity, Django|
-|[김도혁](@dohyeokkim)|PHP, Web Hacking|
-|[정유철](@ycjung)|Java, JavaScript, Web|
-|[홍기재](@todok1020)|Java, JavaScript, ExtJs, Intellij|
+|__Name__|__Experiences__|__Iteration 1__|__Iteration 2__|__Iteration 3__|__Iteration 4__|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|[정인교](@jik0730)|Java, Intellij|1st Presenter|Team Leader | | |
+|[김희곤](@sinjint)|Java, Unity| | | | |
+|[조성원](@kardy04)|Android, Eclipse, Unity, Django| | QA Leader | | |
+|[김도혁](@dohyeokkim)|PHP, Web Hacking| QA Leader | Planning Leader | | |
+|[정유철](@ycjung)|Java, JavaScript, Web| Team Leader | | | |
+|[홍기재](@todok1020)|Java, JavaScript, ExtJs, Intellij| Planning Leader | | | |
 
 Timeline & Progress Report
 ---------------
