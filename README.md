@@ -52,7 +52,7 @@ Weekly Meetings
 ---------------
 This is our weekly meeting schedule and can be rearranged in certain situation like exam week.
 
->> Every Wednesday, 10:30 P.M.
+> Every Wednesday, 10:30 P.M.
 
 Meeting Logs
 ---------------
