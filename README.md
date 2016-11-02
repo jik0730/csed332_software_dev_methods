@@ -50,13 +50,18 @@ These are main use cases that we have to implement in iTrust.
 
 Risks
 ---------------
-These are possibly occurred risks that team members have to keep in mind of.
+These are possibly occurred risks that team members have to keep in mind of. Anaylsis is based on the method named 'Failure Mode and Effects Analysis(FMEA)'.
 
-|__Risk__|__Possiblity of Occurence__|__Impact of The Loss__|__Mitigation Strategies__|
-|---|---|---|---|
-|   |   |   |   |
-|   |   |   |   |
-|   |   |   |   |
+|__Risk__|__Possiblity of Occurence__|__Impact of The Loss__|__Possibility of Detection__|__RPN(Risk Priority Number)__|__Mitigation Strategies__|
+|---|---|---|---|---|---|
+|A member cannot attend a general meeting or a pair programming meeting, but can work in remote.|2|3|1|6|Use TeamViewer.|
+|A member cannot attend a general meeting or a pair programming meeting, and cannot work in remote.|2|4|2|16|Move a meeting schedule temporarily.|
+|A scheduled meeting cannot be made by inevitable accident such as natural disaster.|1|4|6|24|Move a meeting schedule temporarily.|
+|A member get ill.|1|4|5|20|Keep meeting going and inform him of meeting contents.|
+|A member drops out of the class because of some reasons.|1|5|6|30|Report to the professor.|
+|A member pushes his code directly to remote master in Gitlab.|3|4|3|36|Let QA leader make revert commit.|
+|A computer breaks down for some mysterious reasons.|1|5|6|30|Reimplement of corresponding parts.|
+|A professor's computer(Remote repository) breaks down for some mysterious reasons.|1|4|6|24|Repush one of our local repository to Gitlab again.|
 
 Weekly Meetings
 ---------------
@@ -71,10 +76,18 @@ These are meeting logs summarizing our dicussions in every meeting.
 - [1st Meeting](meeting_log/first_meeting.md)
 - [2st Meeting](meeting_log/second_meeting.md)
 - [3rd Meeting](meeting_log/3rd_meeting.md)
+- [4th Meeting](meeting_log/4th_meeting.md)
 
 Demo Presentation
 ---------------
 These are presention files presented at each demo.
 
 - [1st Demo](https://docs.google.com/presentation/d/1lwDME0utRWTX3jxj1UNgGDe14Cj3zOgUVykHWnVPuvo/edit?usp=drive_web)
+
+PPT Sources
+---------------
+These are ppt sources that we used in planning.
+
+- [Plan 1](pptresource/Planning1.pptx)
+- [Plan 2](pptresource/plan2.pptx)
 
