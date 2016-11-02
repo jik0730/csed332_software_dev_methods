@@ -27,7 +27,7 @@ Planning future plan(with planning poker) with SP(Story Points)
 - Available time of workers per iterations
 
 name / 1st / 2nd / 3rd
-김도혁 / 3 / 15 / 10
+김도혁 / 9 / 15 / 10
 김희곤 / 8 / 20 / 8
 조성원 / 8 / 12 / 8
 정유철 / 8 / 16 / 15
