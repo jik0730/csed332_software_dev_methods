@@ -50,8 +50,8 @@ These are main use cases that we have to implement in iTrust.
 
 Risks
 ---------------
-These are possibly occurred risks that team members have to keep in mind of.\s\s
-Anaylsis is based on the method named 'Failure Mode and Effects Analysis(FMEA)'.\s\s
+These are possibly occurred risks that team members have to keep in mind of.  
+Anaylsis is based on the method named 'Failure Mode and Effects Analysis(FMEA)'.  
 Higher RPN implies that those risks have high risk.
 
 |__Risk__|__Possiblity of Occurence__|__Impact of The Loss__|__Possibility of Detection__|__RPN(Risk Priority Number)__|__Mitigation Strategies__|
