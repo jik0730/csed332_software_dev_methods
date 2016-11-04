@@ -31,8 +31,8 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 		return driver;
 	}
 
-	Pattern subjectPattern = Pattern.compile("^Reminder: upcoming appointment in (\\d) day[(]s[)]$");
-	Pattern bodyPattern = Pattern.compile("^You have an appointment on \\d{4}-\\d{2}-\\d{2}, with Dr. (\\w+)$");
+	Pattern subjectPattern = Pattern.compile("Reminder: upcoming appointment in (\\d) day[(]s[)]$");
+	Pattern bodyPattern = Pattern.compile("You have an appointment on \\d{4}-\\d{2}-\\d{2}, with Dr[.] (\\w+)");
 	
 	@Test
 	public void testWhenInputIsValid() throws Exception {
@@ -77,11 +77,13 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 	@Test
 	public void testReadReminderMessageOutboxEntry() throws Exception {
 		WebDriver driver = testSendReminder("7");
+		driver.findElement(By.linkText("Reminder Message Outbox")).click();
 		List<WebElement> readButtons = driver.findElements(By.linkText("Read"));
+		int messageCount = readButtons.size();
 		
 		boolean contains6 = false , contains7 = false;
-		for (WebElement readButton: readButtons) {
-			readButton.click();
+		for (int i=0; i<messageCount; i++) {
+			driver.findElements(By.linkText("Read")).get(i).click();
 			WebElement headTable = driver.findElement(By.xpath("id('iTrustContent')/div/table"));
 			WebElement bodyTable = driver.findElement(By.xpath("id('iTrustContent')/table"));
 
@@ -90,11 +92,11 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 			WebElement bodyField = bodyTable.findElements(By.xpath("tbody/tr/td")).get(1);
 			
 			Matcher subjectMatcher = subjectPattern.matcher(subjectField.getText());
-			Matcher bodyMatcher = subjectPattern.matcher(subjectField.getText());
+			Matcher bodyMatcher = bodyPattern.matcher(bodyField.getText());
 			subjectMatcher.find();
 			bodyMatcher.find();
 			
-			if(toField.getText().contains("Kelly Doctor")) {
+			if(toField.getText().contains("Anakin Skywalker")) {
 				if (bodyMatcher.group(1).equals("Kelly")) {
 					if (subjectMatcher.group(1).equals("6")) contains6 = true;
 					if (subjectMatcher.group(1).equals("7")) contains7 = true;
