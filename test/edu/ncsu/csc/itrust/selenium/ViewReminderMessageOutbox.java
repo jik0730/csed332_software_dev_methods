@@ -2,6 +2,7 @@ package edu.ncsu.csc.itrust.selenium;
 
 import static org.junit.Assert.*;
 
+import java.util.regex.*;
 import java.util.List;
 
 import org.junit.Before;
@@ -28,18 +29,10 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 		driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();	
 		
 		return driver;
-		/*
-		assertTrue(driver.getPageSource().contains(expected));
-
-		driver.findElement(By.linkText("Reminder Message Outbox")).click();
-		if (noMessagesAfterSubmit) {
-			assertTrue(driver.getPageSource().contains("no messages"));
-		}
-		else { //check format
-
-		}
-		*/
 	}
+
+	Pattern subjectPattern = Pattern.compile("^Reminder: upcoming appointment in (\\d) day(s)$");
+	Pattern bodyPattern = Pattern.compile("^You have an appointment on \\d{4}-\\d{2}-\\d{2}, with Dr. (\\w+)$");
 	
 	@Test
 	public void testWhenInputIsValid() throws Exception {
@@ -53,13 +46,61 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 		assertTrue(driver.getPageSource().contains("Failed"));
 	}
 	
-	@Test //TODO: Not finished
+	@Test
 	public void testCheckReminderMessageOutbox() throws Exception {
 		WebDriver driver = testSendReminder("7");
 		WebElement table = driver.findElement(By.id("mailbox"));
 		List<WebElement> rows = table.findElements(By.xpath("id('mailbox')/tbody/tr"));
-		for(WebElement row: rows) {
+		
+		
+		boolean contains6 = false, contains7 = false; 
+		for(WebElement row: rows){
 			List<WebElement> cols = row.findElements(By.xpath("td"));
+			
+			assertEquals(cols.get(0).getText(), "Anakin Skywalker");
+
+			Matcher m = subjectPattern.matcher(cols.get(1).getText());
+			m.find();
+			int parsedDay = Integer.valueOf(m.group());
+			if (parsedDay == 6)
+				contains6 = true;
+			else if(parsedDay == 7)
+				contains7 = true;
 		}
+		assertTrue(contains6);
+		assertTrue(contains7);
+	}
+	
+	@Test
+	public void testReadReminderMessageOutboxEntry() throws Exception {
+		WebDriver driver = testSendReminder("7");
+		List<WebElement> readButtons = driver.findElements(By.linkText("Read"));
+		
+		boolean contains6 = false , contains7 = false;
+		for (WebElement readButton: readButtons) {
+			readButton.click();
+			WebElement headTable = driver.findElement(By.xpath("id('iTrustContent')/div/table"));
+			WebElement bodyTable = driver.findElement(By.xpath("id('iTrustContent')/table"));
+
+			WebElement toField = headTable.findElements(By.xpath("tbody/tr/td")).get(0);
+			WebElement subjectField = headTable.findElements(By.xpath("tbody/tr/td")).get(1);
+			WebElement bodyField = bodyTable.findElements(By.xpath("tbody/tr/td")).get(1);
+			
+			Matcher subjectMatcher = subjectPattern.matcher(subjectField.getText());
+			Matcher bodyMatcher = subjectPattern.matcher(subjectField.getText());
+			subjectMatcher.find();
+			bodyMatcher.find();
+			
+			if(toField.getText().contains("Kelly Doctor")) {
+				if (bodyMatcher.group().equals("Kelly")) {
+					if (subjectMatcher.group().equals("6")) contains6 = true;
+					if (subjectMatcher.group().equals("7")) contains7 = true;
+				}
+			}
+			
+			driver.findElement(By.linkText("Back")).click();
+		}
+		assertTrue(contains6);
+		assertTrue(contains7);
 	}
 }
