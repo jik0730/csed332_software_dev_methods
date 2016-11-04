@@ -16,6 +16,7 @@ import edu.ncsu.csc.itrust.dao.mysql.MessageDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.DBException;
+import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.unit.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.unit.testutils.TestDAOFactory;
 import edu.ncsu.csc.itrust.action.SendReminderMessageAction;
@@ -48,12 +49,12 @@ public class SendReminderMessageActionTest {
 		gen.clearAllTables();
 		gen.standardData();
 		gen.uc41_add_appointments();
-		action = new SendReminderMessageAction(factory);
+		action = new SendReminderMessageAction(factory, 9000000000L);
 	}
 
 
 	@Test
-	public void testSendReminderMessage() throws DBException, SQLException {
+	public void testSendReminderMessage() throws DBException, SQLException, ITrustException {
 		action.sendReminderMessage(7);
 		checkMessages();
 		checkEmails();
@@ -100,7 +101,7 @@ public class SendReminderMessageActionTest {
 	}
 	
 	private void checkLogs() throws DBException, SQLException {
-		List<TransactionBean> transactions = transactionDAO.getRecordAccesses(0, 9000000000L, curDate, ltDate, false);
+		List<TransactionBean> transactions = transactionDAO.getTransactionList(9000000000L, 0, new Date(curDate.getTime() - oneDay), ltDate, 4100);
 		assertTrue(transactions.size() == 1);
 		TransactionBean log = transactions.get(0);
 		assertTrue(log.getTransactionType() == TransactionType.SYSTEM_REMINDERS_VIEW);

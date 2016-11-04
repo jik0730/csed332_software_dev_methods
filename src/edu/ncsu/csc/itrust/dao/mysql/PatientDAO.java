@@ -1203,5 +1203,31 @@ public class PatientDAO {
 		}
 	}
 
-	
+	/**
+	 * Get email for certain patient's MID.
+	 */
+	public String getEmailFor(long patientMID) throws DBException, ITrustException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT email FROM patients WHERE MID = ?;");
+			ps.setLong(1, patientMID);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				String result = rs.getString("email");
+				rs.close();
+				ps.close();
+				return result;
+			} else {
+				rs.close();
+				ps.close();
+				throw new ITrustException("User does not exist");
+			}
+		} catch (SQLException e) {
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
 }
