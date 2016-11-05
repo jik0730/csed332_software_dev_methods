@@ -3,8 +3,10 @@ package edu.ncsu.csc.itrust.action;
 import java.sql.SQLException;
 import java.util.List;
 import edu.ncsu.csc.itrust.beans.ApptBean;
+import edu.ncsu.csc.itrust.beans.ApptRequestBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.ApptDAO;
+import edu.ncsu.csc.itrust.dao.mysql.ApptRequestDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
@@ -17,6 +19,7 @@ public abstract class ApptAction {
 	
 	/**apptDAO*/
 	protected ApptDAO apptDAO;
+	private ApptRequestDAO arDAO;
 	/**patientDAO*/
 	protected PatientDAO patientDAO;
 	/**personnelDAO*/
@@ -31,6 +34,7 @@ public abstract class ApptAction {
 		this.apptDAO = factory.getApptDAO();
 		this.patientDAO = factory.getPatientDAO();
 		this.personnelDAO = factory.getPersonnelDAO();
+		this.arDAO = factory.getApptRequestDAO();
 	}
 	
 	/**
@@ -59,6 +63,19 @@ public abstract class ApptAction {
 			return apptDAO.getAllConflictsForDoctor(mid);
 	}
 	
+	///////////UC92
+	/**
+	 * returns a list of appointments that conflict for a given patient/hcp
+	 * @param mid the MID of the user
+	 * @return list of apptBeans
+	 * @throws SQLException 
+	 * @throws DBException 
+	 */
+	public List<ApptRequestBean> getAllConflictsUC92(long mid) throws SQLException, DBException{
+
+			return arDAO.getAllConflicts(mid);
+	}
+	///////////	
 	/**
 	 * Gets a users's name from their MID
 	 * 
