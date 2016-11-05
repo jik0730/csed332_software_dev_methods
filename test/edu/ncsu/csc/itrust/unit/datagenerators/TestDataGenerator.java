@@ -756,6 +756,10 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/hcp922.sql");
 	}	
 	
+	public void uc92() throws SQLException, FileNotFoundException, IOException{
+		new DBBuilder(factory).executeSQLFile(DIR + "/uc92.sql");
+	}
+	
 	public void uc44_acceptance_scenario_2() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/uc44_acceptance_scenario_2.sql");
 	}
@@ -977,6 +981,7 @@ public class TestDataGenerator {
 		// Add for UC92
 		hcp921();
 		hcp922();
+		uc92();
 		
 	}
 

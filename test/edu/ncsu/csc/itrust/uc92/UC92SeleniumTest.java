@@ -35,6 +35,10 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 		assertEquals("iTrust - Appointment Requests", driver.getTitle());
 		
 		// fill form
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		cal.add(Calendar.DAY_OF_YEAR, 1);
+		
 		Select select;
 		select = new Select (driver.findElement(By.name("apptType")));
 		select.selectByValue("Orthopedic");
@@ -48,18 +52,18 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 		select.selectByValue("9220000000");
 		element = driver.findElement(By.name("startDate"));
 		element.clear();
-		element.sendKeys("1/12/2016");
+		element.sendKeys(format.format(cal.getTime()));;
 		element.submit();
 		
-		assertEquals("iTrust - Appointment Requests", driver.getTitle());
 		assertTrue(driver.findElement(By.xpath("//*[@id='iTrustContent']")).getText().contains("Your appointment request has been saved and is pending."));
-		
+
 		//find element of View My Requests
 		element = driver.findElement(By.linkText("View My Requests"));
 		element.click();
 		assertEquals("iTrust - View My Requests", driver.getTitle());
 		//find there exists new request with status is pending
-			//Not Implemented of Interface of View My Requests
+		assertTrue(driver.findElement(By.xpath("//*[@id='iTrustContent']")).getText().contains("Pending"));
+		
 		
 		//log-out and log-in as physical therapist
 		driver.close();
@@ -95,7 +99,9 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 		
 		//check request result from request view page
 		element = driver.findElement(By.linkText("View My Requests"));
-			//Not yet implemented
+		element.click();
+		assertEquals("iTrust - View My Requests", driver.getTitle());
+		assertTrue(driver.findElement(By.xpath("//*[@id='iTrustContent']")).getText().contains("Approved"));
 		
 	}
 	
@@ -110,11 +116,15 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 		assertEquals("iTrust - Appointment Requests", driver.getTitle());
 
 		// fill form
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		cal.add(Calendar.DAY_OF_YEAR, 1);
+		
 		Select select;
 		select = new Select (driver.findElement(By.name("apptType")));
 		select.selectByValue("Orthopedic");
 		select = new Select (driver.findElement(By.name("time1")));
-		select.selectByValue("1");
+		select.selectByValue("01");
 		select = new Select (driver.findElement(By.name("time2")));
 		select.selectByValue("00");
 		select = new Select (driver.findElement(By.name("time3")));
@@ -123,10 +133,9 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 		select.selectByValue("9220000000");
 		element = driver.findElement(By.name("startDate"));
 		element.clear();
-		element.sendKeys("1/12/2016");
+		element.sendKeys(format.format(cal.getTime()));;
 		element.submit();
-
-		assertEquals("iTrust - Appointment Requests", driver.getTitle());
+		
 		assertTrue(driver.findElement(By.xpath("//*[@id='iTrustContent']")).getText().contains("Your appointment request has been saved and is pending."));
 
 		//find element of View My Requests
@@ -134,7 +143,7 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 		element.click();
 		assertEquals("iTrust - View My Requests", driver.getTitle());
 		//find there exists new request with status is pending
-			//Not Implemented of Interface of View My Requests
+		assertTrue(driver.findElement(By.xpath("//*[@id='iTrustContent']")).getText().contains("Pending"));
 
 		//log-out and log-in as physical therapist
 		driver.close();
@@ -161,7 +170,9 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 
 		//check request result from request view page
 		element = driver.findElement(By.linkText("View My Requests"));
-			//Not yet implemented
+		element.click();
+		assertEquals("iTrust - View My Requests", driver.getTitle());
+		assertTrue(driver.findElement(By.xpath("//*[@id='iTrustContent']")).getText().contains("Rejected"));
 	}
 	
 	public void testApptTypeMiss() throws Exception {
