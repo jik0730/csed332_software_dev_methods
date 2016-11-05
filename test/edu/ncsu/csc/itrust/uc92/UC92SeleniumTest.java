@@ -147,7 +147,7 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 				assertEquals("iTrust - View My Appointment Requests", driver.getTitle());
 				
 				//check there exists request from random person
-				assertTrue(driver.findElement(By.xpath("//*[@id='iTrustContent']")).getText().contains("Request from: Random Person"));
+				assertTrue(driver.findElement(By.xpath("//*[@id='iTrustContent']")).getText().contains("Request from: Philip Fry"));
 				
 				//Accept request
 				driver.findElement(By.linkText("Reject")).click();
