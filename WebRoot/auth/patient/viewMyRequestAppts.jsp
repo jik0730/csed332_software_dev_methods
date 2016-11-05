@@ -63,13 +63,22 @@ pageTitle = "iTrust - View My Messages";
 				row = "<tr style='font-weight: bold;'";
 			else
 				row = "<tr";
+			String checkPending = "";
+			
+			if (a.isPending() == true)
+				checkPending = "Pending";
+			else if(a.isAccepted() == true)
+				checkPending = "Approved";
+				else
+				checkPending = "Rejected";
+					
 %>
 			<%=row+" "+((index%2 == 1)?"class=\"alt\"":"")+">"%>
 				<td><%= StringEscapeUtils.escapeHtml("" + ( action.getName(a.getRequestedAppt().getHcp()) )) %></td>
 				<td><%= StringEscapeUtils.escapeHtml("" + ( a.getRequestedAppt().getApptType() )) %></td>
 				<td><%= StringEscapeUtils.escapeHtml("" + ( format.format(d) )) %></td>
  				<td><%= StringEscapeUtils.escapeHtml("" + ( apptTypeDAO.getApptType(a.getRequestedAppt().getApptType()).getDuration()+" minutes" )) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + ( a.isPending())) %></td>
+				<td><%= StringEscapeUtils.escapeHtml("" + ( checkPending)) %></td>
 				<td><%= comment %></td>
 			</tr>
 	<%		index ++; %>
