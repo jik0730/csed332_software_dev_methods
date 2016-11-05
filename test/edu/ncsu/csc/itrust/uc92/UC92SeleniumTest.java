@@ -24,10 +24,10 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 		gen.apptRequestConflicts();
 	}
 	
-	public void testRequestAndAcceptWell() throws Exception {
+	public void testRequestAndAccept() throws Exception {
 		// login as "Random Person"
 		driver = login("1", "pw"); 
-		assertEquals("iTrust - HCP Home", driver.getTitle());
+		assertEquals("iTrust - Patient Home", driver.getTitle());
 		
 		// find element of Appointment Requests
 		element = driver.findElement(By.linkText("Appointment Requests"));
@@ -63,7 +63,7 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 		
 		//log-out and log-in as physical therapist
 		driver.close();
-		driver = login("9210000000", "");
+		driver = login("9210000000", "pw");
 		assertEquals("iTrust - HCP Home", driver.getTitle());
 		
 		//find element appointment request
@@ -73,8 +73,29 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 		
 		//check there exists request from random person
 		assertTrue(driver.findElement(By.xpath("//*[@id='iTrustContent']")).getText().contains("Request from: Random Person"));
-		driver.findElement(By.linkText("Approve")).click();	
 		
+		//Accept request
+		driver.findElement(By.linkText("Approve")).click();
+		
+			//The appointment request you selected has been accepted and scheduled.
+		
+		//Check appointment
+		element = driver.findElement(By.linkText("View My Appointments"));
+		
+		//logout and login as patient
+		driver.close();
+		driver = login("1", "pw"); 
+		assertEquals("iTrust - Patient Home", driver.getTitle());
+		
+		//check request result
+		element = driver.findElement(By.linkText("View My Appointments"));
+		element.click();
+		
+		assertTrue(driver.findElement(By.xpath("//*[@id='iTrustContent']")).getText().contains("Taylor Physical Therapist"));
+	}
+	
+	public void testReqeustAndReject() throws Exception {
 		
 	}
+	
 }
