@@ -14,7 +14,7 @@
 <%@include file="/global.jsp" %>
 
 <%
-pageTitle = "iTrust - View My Messages";
+pageTitle = "iTrust - View My Appointments";
 %>
 
 <%@include file="/header.jsp" %>

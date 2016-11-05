@@ -15,7 +15,7 @@
 <%@include file="/global.jsp" %>
 
 <%
-pageTitle = "iTrust - View My Messages";
+pageTitle = "iTrust - View My Requests";
 %>
 
 <%@include file="/header.jsp" %>
@@ -38,7 +38,7 @@ pageTitle = "iTrust - View My Messages";
 			<th>Appointment Type</th>
 			<th>Appointment Date/Time</th>
 			<th>Duration</th>
-			<th>Pending</th>
+			<th>Status</th>
 			<th>Comment</th>
 			<th></th>
 		</tr>
