@@ -33,7 +33,7 @@ CREATE TABLE wards(
 ) ENGINE=MyISAM;
 
 CREATE TABLE personnel(
-	MID BIGINT unsigned default NULL,
+	MID BIGINT unsigned,
 	AMID BIGINT unsigned default NULL,
 	role enum('admin','hcp','uap','er','tester','pha', 'lt') NOT NULL default 'admin',
 	enabled tinyint(1) unsigned NOT NULL default '0',
@@ -797,3 +797,54 @@ CREATE TABLE IF NOT EXISTS opdiagnosis(
 	ICDCode DECIMAL( 5, 2 ) NOT NULL COMMENT 'Code for the Diagnosis',
     URL VARCHAR(512) COMMENT 'URL for information'
 ) ENGINE=MyISAM;
+
+/*department table to match speciality of HCP and department detail table*/
+CREATE TABLE IF NOT EXISTS department(
+	DepartmentID INT(10) auto_increment primary key,
+	Specialty varchar(50) NOT NULL,
+	TableName varchar(50) NOT NULL
+) ENGINE=MyISAM;
+
+/*Orthopedic office visit table*/
+CREATE TABLE IF NOT EXISTS orthopedic(
+	OrthopedicVisitID INT( 10 ) auto_increment primary key,
+	VisitID INT( 10 ) NOT NULL,
+	PatientID BIGINT NOT NULL,
+	HCPID BIGINT NOT NULL,
+	XRay LONGBLOB,
+	MRI LONGBLOB,
+	MRIReport VARCHAR(512),
+	Diagnosis VARCHAR(512) NOT NULL
+) ENGINE = MyISAM;
+
+/*Physical Therapy office visit table*/
+CREATE TABLE IF NOT EXISTS orthopedicPhysicalTherapy(
+	PhysicalTherapyVisitID INT( 10 ) auto_increment primary key,
+	VisitID INT( 10 ) NOT NULL,
+	PatientID BIGINT NOT NULL,
+	HCPID BIGINT NOT NULL,
+	Wellness VARCHAR(512) NOT NULL,
+	WellnessScore INT(3) NOT NULL,
+	Exercise VARCHAR(512)
+) ENGINE = MyISAM;
+
+/*Orthopedic surgery office visit table*/
+
+CREATE TABLE IF NOT EXISTS orthopedicSurgery(
+	SurgeryVisitID INT( 10 ) auto_increment primary key,
+	VisitID INT( 10 ) NOT NULL,
+	PatientID BIGINT NOT NULL,
+	HCPID BIGINT NOT NULL,
+	SurgeryType VARCHAR(50) NOT NULL,
+	SurgeryNote VARCHAR(512)
+) ENGINE = MyISAM;
+
+/*Order table to certifcate order of HCP to another HCP*/
+CREATE TABLE IF NOT EXISTS orderTable(
+	OrderID INT( 10 ) auto_increment primary key,
+	VisitID INT( 10 ) NOT NULL,
+	OrderHCPID BIGINT NOT NULL,
+	OrderedHCPID BIGINT NOT NULL,
+	PatientID BIGINT NOT NULL,
+	Completed BOOLEAN NOT NULL
+) ENGINE = MyISAM;
