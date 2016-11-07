@@ -15,6 +15,8 @@ import edu.ncsu.csc.itrust.beans.loaders.TransactionBeanLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.DBException;
+import edu.ncsu.csc.itrust.exception.ITrustException;
+import edu.ncsu.csc.itrust.enums.TransactionLogColumnType;
 
 /**
  * Used for the logging mechanism.
@@ -337,8 +339,8 @@ public class TransactionDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * @param type : attributes(type 0 : loggedinMID, type 1 : secondary MID, type 2 : transactionType(Code)
@@ -346,24 +348,26 @@ public class TransactionDAO {
 	 * @throws DBException
 	 * To get transaction log data grouped by type
 	 */
-	public List<TransactionBean> getTransactionGroupBy(int type) throws DBException {
+	public List<TransactionBean> getTransactionGroupBy(TransactionLogColumnType type) throws DBException, ITrustException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		String s;
 		try {
 			conn = factory.getConnection();
 			s = "SELECT * FROM transactionlog ";
-			switch(type)
+			switch(type.getCode())
 			{
-			case 0:
+			case 1:
 				s += "GROUP BY loggedinMID ";
 				break;
-			case 1:
+			case 2:
 				s += "GROUP BY secondaryMID ";
 				break;
-			case 2:
+			case 3:
 				s += "GROUP BY transactionCode ";
 				break;
+			default:
+				throw new ITrustException("Wrong input type!");
 			}
 			s += "ORDER BY timeLogged DESC";
 			ps = conn.prepareStatement(s);
@@ -379,14 +383,14 @@ public class TransactionDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
-	
 	/**
-	 * The Most Thorough Fetch 
+	 * Get transaction list which is satisfying some criteria(inputs).
 	 * @param mid MID of the logged in user
-	 * @param dlhcpID MID of the user's DLHCP
+	 * @param second MID of the logged in user
 	 * @param start Index to start pulling entries from
-	 * @param range Number of entries to retrieve
-	 * @return List of <range> TransactionBeans affecting the user starting from the <start>th entry
+	 * @param end Index to end pulling entries to
+	 * @param trasaction code 
+	 * @return List of <range> TransactionBeans satisfying some criteria
 	 * @throws DBException
 	 */
 	public List<TransactionBean> getTransactionList(long mid, long secMid, 
@@ -417,6 +421,8 @@ public class TransactionDAO {
 			
 			ps = conn.prepareStatement(s);
 			ps.setTimestamp(1, new Timestamp(start.getTime()));
+			// Adjustment of end date.
+			end = new java.util.Date(end.getTime() + (1000 * 60 * 60 * 24));
 			ps.setTimestamp(2, new Timestamp(end.getTime()));
 			ResultSet rs = ps.executeQuery();
 			List<TransactionBean> tbList = loader.loadList(rs);
@@ -430,5 +436,4 @@ public class TransactionDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
-	
 }

@@ -22,7 +22,7 @@ import edu.ncsu.csc.itrust.unit.testutils.TestDAOFactory;
  * clears all of the tables so that no data from a previous test can affect your
  * current test.</li>
  * <li>We do not recommend having one test method call another test method
- * (except "standardData" or other intentionally "meta" methods). For example,
+ * (except "Data" or other intentionally "meta" methods). For example,
  * loincs() should not call patient1() first. Instead, put BOTH patient1() and
  * loincs() in your test case. If we keep this convention, then every time you
  * call a method, you know that ONLY your sql file is called and nothing else.
@@ -983,6 +983,7 @@ public class TestDataGenerator {
 		hcp922();
 		uc92();
 		
+		departmentInit();
 	}
 
 	public void uc47SetUp() throws FileNotFoundException, SQLException, IOException {
@@ -1165,6 +1166,17 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ophthalmologydiagnosis.sql");
 	}
 
+	/**
+	 * Inserts a department init into the system
+	 * 
+	 * @throws SQLException
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	public void departmentInit() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/departmentInit.sql");
+	}
+	
 	/**
 	 * Do we have zipcodes?
 	 * 
