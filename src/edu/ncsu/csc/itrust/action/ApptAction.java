@@ -36,6 +36,13 @@ public abstract class ApptAction {
 		this.arDAO = factory.getApptRequestDAO();
 	}
 	
+	public ApptAction(DAOFactory factory, long loggedInMID) {
+		this.apptDAO = factory.getApptDAO();
+		this.patientDAO = factory.getPatientDAO();
+		this.personnelDAO = factory.getPersonnelDAO();
+		this.arDAO = factory.getApptRequestDAO();
+	}
+	
 	/**
 	 * Driver method to get all appointment conflicts, used in jsp files
 	 * @param mid mid
