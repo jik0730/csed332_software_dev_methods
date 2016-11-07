@@ -12,6 +12,7 @@
 pageTitle = "iTrust - View My Sent Messages";
 session.setAttribute("outbox",true);
 session.setAttribute("isHCP",userRole.equals("hcp"));
+session.setAttribute("isReminder", false);
 loggingAction.logEvent(TransactionType.OUTBOX_VIEW, loggedInMID.longValue(), 0L, "");
 
 %>
@@ -26,7 +27,7 @@ loggingAction.logEvent(TransactionType.OUTBOX_VIEW, loggedInMID.longValue(), 0L,
 		<a href="/iTrust/auth/patient/sendMessage.jsp">Compose a Message</a>
 	<% } %>
 	<br /><br />
-	<%@include file="/auth/hcp-patient/mailbox.jsp" %>
+	<%@include file="/auth/mailbox.jsp" %>
 </div>
 
 <%@include file="/footer.jsp" %>

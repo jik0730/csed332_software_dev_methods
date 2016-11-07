@@ -746,6 +746,12 @@ public class TestDataGenerator {
 	public void admin3() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/admin3.sql");
 	}
+	
+	public void uc41_add_appointments() throws SQLException,
+			FileNotFoundException, IOException{
+		new DBBuilder(factory).executeSQLFile(DIR + 
+				"/uc41_add_appointments.sql");
+	}
 
 	//for UC92 test
 	public void hcp921() throws SQLException, FileNotFoundException, IOException {

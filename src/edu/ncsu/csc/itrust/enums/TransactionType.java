@@ -320,6 +320,8 @@ public enum TransactionType {
     CALENDAR_VIEW(4000, "View calendar", "viewed your calendar", false),
     /**UPCOMING_APPOINTMENTS_VIEW*/
     UPCOMING_APPOINTMENTS_VIEW(4010, "View Upcoming Appointments", "viewed upcoming appointments", false),
+    /**SEND_SYSTEM_REMINDERS_VIEW*/
+    SYSTEM_REMINDERS_VIEW(4100, "Send system reminders", "sent system reminders", false),
     /**NOTIFICATIONS_VIEW*/
     NOTIFICATIONS_VIEW(4200, "View Notifications", "viewed your notification center", false),
     /**ACTIVITY_FEED_VIEW*/

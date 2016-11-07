@@ -12,7 +12,7 @@ public class AddApptAction extends ApptAction {
 	private ApptBeanValidator validator = new ApptBeanValidator();
 	
 	public AddApptAction(DAOFactory factory, long loggedInMID) {
-		super(factory, loggedInMID);
+		super(factory);
 	}
 	
 	public String addAppt(ApptBean appt, boolean ignoreConflicts) throws FormValidationException, SQLException, DBException {

@@ -1,7 +1,10 @@
 /build/classes/
 /build/
 /target/
+/doc/
 /WebRoot/WEB-INF/lib/*
 !/WebRoot/WEB-INF/lib/cewolf-1.1.jar
 /.settings
 /WebRoot/META-INF/context.xml
+ycjung.sh
+dohyeokkim.sh

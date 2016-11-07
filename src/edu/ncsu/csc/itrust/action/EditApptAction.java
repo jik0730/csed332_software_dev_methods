@@ -22,7 +22,7 @@ public class EditApptAction extends ApptAction {
 	 * @param loggedInMID loggedInMID
 	 */
 	public EditApptAction(DAOFactory factory, long loggedInMID) {
-		super(factory, loggedInMID);
+		super(factory);
 	}
 	
 	/**

@@ -10,10 +10,10 @@
 <%@include file="/global.jsp" %>
 
 <%
-pageTitle = "iTrust - View My Message ";
-session.setAttribute("outbox",false);
+pageTitle = "iTrust - View System Remider Message ";
+session.setAttribute("outbox",true);
 session.setAttribute("isHCP",userRole.equals("hcp"));
-session.setAttribute("isReminder", false);
+session.setAttribute("isReminder", true);
 loggingAction.logEvent(TransactionType.INBOX_VIEW, loggedInMID.longValue(), 0L, "");
 %>
 
@@ -21,8 +21,9 @@ loggingAction.logEvent(TransactionType.INBOX_VIEW, loggedInMID.longValue(), 0L, 
 
 <div align=center>
 	<h2>My Messages</h2>
-	<%@include file="/auth/mailbox.jsp" %>
-
+		<%
+			if (userRole.equals("admin")) %>
+				<%@ include file="/auth/mailbox.jsp" %>
 </div>
 
 <%@include file="/footer.jsp" %>
