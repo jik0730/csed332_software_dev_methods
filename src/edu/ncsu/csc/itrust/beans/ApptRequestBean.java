@@ -23,6 +23,7 @@ public class ApptRequestBean {
 		return status == null;
 	}
 
+	
 	/**
 	 * isAccepted
 	 * @return status

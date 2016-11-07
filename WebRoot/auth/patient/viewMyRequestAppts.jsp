@@ -6,15 +6,16 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="edu.ncsu.csc.itrust.action.EditApptTypeAction"%>
-<%@page import="edu.ncsu.csc.itrust.action.ViewMyApptsAction"%>
+<%@page import="edu.ncsu.csc.itrust.action.ViewMyApptsActionUC92"%>
 <%@page import="edu.ncsu.csc.itrust.beans.ApptBean"%>
+<%@page import="edu.ncsu.csc.itrust.beans.ApptRequestBean"%>
 <%@page import="edu.ncsu.csc.itrust.dao.mysql.ApptTypeDAO"%>
 <%@page import="edu.ncsu.csc.itrust.dao.DAOFactory"%>
 
 <%@include file="/global.jsp" %>
 
 <%
-pageTitle = "iTrust - View My Appointments";
+pageTitle = "iTrust - View My Requests";
 %>
 
 <%@include file="/header.jsp" %>
@@ -22,12 +23,12 @@ pageTitle = "iTrust - View My Appointments";
 <div align=center>
 	<h2>My Appointments</h2>
 <%
-	loggingAction.logEvent(TransactionType.APPOINTMENT_ALL_VIEW, loggedInMID.longValue(), 0, "");
+	loggingAction.logEvent(TransactionType.APPOINTMENT_ALL_VIEW, loggedInMID.longValue(), 0, ""); //Transaction 후에 변경사항
 	
-	ViewMyApptsAction action = new ViewMyApptsAction(prodDAO, loggedInMID.longValue());
+	ViewMyApptsActionUC92 action = new ViewMyApptsActionUC92(prodDAO, loggedInMID.longValue());
 	EditApptTypeAction types = new EditApptTypeAction(prodDAO, loggedInMID.longValue());
 	ApptTypeDAO apptTypeDAO = prodDAO.getApptTypeDAO();
-	List<ApptBean> appts = action.getMyAppointments();
+	List<ApptRequestBean> appts = action.getMyAppointments();
 	session.setAttribute("appts", appts);
 	if (appts.size() > 0) {
 %>	
@@ -37,22 +38,24 @@ pageTitle = "iTrust - View My Appointments";
 			<th>Appointment Type</th>
 			<th>Appointment Date/Time</th>
 			<th>Duration</th>
+			<th>Status</th>
+			<th>Comment</th>
 			<th></th>
 		</tr>
 <%		 
 		
 
-		List<ApptBean>conflicts = action.getAllConflicts(loggedInMID.longValue());
+		List<ApptRequestBean>conflicts = action.getAllConflictsUC92(loggedInMID.longValue());
 
 		int index = 0;
-		for(ApptBean a : appts) { 
+		for(ApptRequestBean a : appts) { 
 			String comment = "";
-			if(a.getComment() == null)
+			if(a.getRequestedAppt().getComment() == null)
 				comment = "No Comment";
 			else
-				comment = "<a href='viewAppt.jsp?apt=" + a.getApptID() + "'>Read Comment</a>";
+				comment = "<a href='viewAppt.jsp?apt=" + a.getRequestedAppt().getApptID() + "'>Read Comment</a>";
 				
-			Date d = new Date(a.getDate().getTime());
+			Date d = new Date(a.getRequestedAppt().getDate().getTime());
 			DateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
 			
 			String row = "";
@@ -60,12 +63,22 @@ pageTitle = "iTrust - View My Appointments";
 				row = "<tr style='font-weight: bold;'";
 			else
 				row = "<tr";
+			String checkPending = "";
+			
+			if (a.isPending() == true)
+				checkPending = "Pending";
+			else if(a.isAccepted() == true)
+				checkPending = "Approved";
+				else
+				checkPending = "Rejected";
+					
 %>
 			<%=row+" "+((index%2 == 1)?"class=\"alt\"":"")+">"%>
-				<td><%= StringEscapeUtils.escapeHtml("" + ( action.getName(a.getHcp()) )) %></td>
-				<td><%= StringEscapeUtils.escapeHtml("" + ( a.getApptType() )) %></td>
+				<td><%= StringEscapeUtils.escapeHtml("" + ( action.getName(a.getRequestedAppt().getHcp()) )) %></td>
+				<td><%= StringEscapeUtils.escapeHtml("" + ( a.getRequestedAppt().getApptType() )) %></td>
 				<td><%= StringEscapeUtils.escapeHtml("" + ( format.format(d) )) %></td>
- 				<td><%= StringEscapeUtils.escapeHtml("" + ( apptTypeDAO.getApptType(a.getApptType()).getDuration()+" minutes" )) %></td>
+ 				<td><%= StringEscapeUtils.escapeHtml("" + ( apptTypeDAO.getApptType(a.getRequestedAppt().getApptType()).getDuration()+" minutes" )) %></td>
+				<td><%= StringEscapeUtils.escapeHtml("" + ( checkPending)) %></td>
 				<td><%= comment %></td>
 			</tr>
 	<%		index ++; %>

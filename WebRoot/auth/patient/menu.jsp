@@ -67,6 +67,7 @@
 		<ul class="nav nav-sidebar">
 			<li><a href="/iTrust/auth/patient/appointmentRequests.jsp">Appointment Requests</a>
 			<li><a href="/iTrust/auth/patient/viewMyAppts.jsp">View My Appointments</a>
+			<li><a href="/iTrust/auth/patient/viewMyRequestAppts.jsp">View My Requests</a>
 		</ul>
 	</div>
 </div>
