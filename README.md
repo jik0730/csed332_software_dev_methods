@@ -52,7 +52,7 @@ These are main use cases that we have to implement in iTrust.
 |__Use Case__|__Comment__|__User Stories__|
 |:---:|---|---|
 | UC39 | Theme: View Transaction Logs.  See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc39.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC39/userstories/uc39.md) |
-| UC41 | Theme: Reminder.  See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc41.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC41/usecases/uc41.md) |
+| UC41 | Theme: Reminder.  See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc41.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC41/userstories/uc41.md) |
 | UC88 | Theme: Orthopedic Office Visit. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc88.md) | |
 | UC89 | Theme: Physical Therapy Visit. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc89.md) | |
 | UC90 | Theme: Orthopedic Surgery. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc90.md) | |
