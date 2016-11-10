@@ -831,12 +831,14 @@ CREATE TABLE IF NOT EXISTS orthopedicPhysicalTherapy(
 /*Orthopedic surgery office visit table*/
 
 CREATE TABLE IF NOT EXISTS orthopedicSurgery(
-	SurgeryVisitID INT( 10 ) auto_increment primary key,
-	VisitID INT( 10 ) NOT NULL,
-	PatientID BIGINT NOT NULL,
-	HCPID BIGINT NOT NULL,
-	SurgeryType VARCHAR(50) NOT NULL,
-	SurgeryNote VARCHAR(512)
+	MID BIGINT unsigned NOT NULL default '0',
+	OID BIGINT unsigned auto_increment,
+	dateVisit DATE,
+	docLastName varchar(20),
+	docFirstName varchar(20),
+	surgery varchar(400),
+	surgeryNotes varchar(512),
+	PRIMARY KEY (OID)
 ) ENGINE = MyISAM;
 
 /*Order table to certifcate order of HCP to another HCP*/
