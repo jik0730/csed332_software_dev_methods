@@ -41,6 +41,8 @@ We estimated our plan based on how much time we have for each iteration and eval
 |Desired SP|8 SP|20.5 SP|   |   |
 |Expected Velocity|8 SP / 1 iteration|20.5 SP / 1 iteration|   |   |
 |Actual Velocity|5.5 SP / 1 iteration|-|   |   |
+|Time we can spend|51 Hours|98 Hours|66 Hours|-|
+|Time per SP|9.3 Hour / 1 SP|-|   |   |
 |Duration|1 iteration|1 iteration|   |   |
 
 Use Cases & User Stories
