@@ -27,11 +27,14 @@ Timeline & Progress Report
 
 ### Iteration 1
 
-| actual  | estimated | case  | description |
-| ------  | --------- | ----- | ----------- |
-| 3 units | 2 units   | UC 41 | Elicit user stories and write tests |
-| 3 units | 3 units   | UC 39 | Elicit user stories and write tests  |
-| 3 units | 2 units   | UC 91 | Elicit user stories and write tests             |
+|Plan|Iteration1 Expected|Iteration1 Actual|Iteration2 Expected|Iteration2 Actual|
+|:-:|:-:|:-:|:-:|:-:|
+|Total SP Remaining|33 SP|33 SP|   |   |
+|Desired Features|UC39, 41, 92 user stories|   |   |   |
+|Desired SP|8 SP|   |   |   |
+|Expected Velocity|8 SP / 1 iteration|   |   |   |
+|Actual Velocity|5.5 SP / 1 iteration|   |   |   |
+|Duration|1 iteration|   |   |   |
 
 Use Cases & User Stories
 ---------------
