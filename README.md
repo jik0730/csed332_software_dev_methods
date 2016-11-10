@@ -25,16 +25,23 @@ The green team consists of these brilliant members.
 Timeline & Progress Report
 ---------------
 
-### Iteration 1
+### Timeline
 
-|Plan|Iteration1 Expected|Iteration1 Actual|Iteration2 Expected|Iteration2 Actual|
+We used gantt chart to manage our plan and schedule.
+- [Gantt Chart](https://docs.google.com/spreadsheets/d/1KbovW27ciVdclzW3kYWYgyjgxLC8OU-mRbYSotVAn8Q/edit?usp=sharing)
+
+### Progress Report
+
+We estimated our plan based on how much time we have for each iteration and evaluated how much we achieved. This will help us to alert where we are in the project and to manage our schedule.
+
+|__Plan__|__Iteration 1__|__Iteration 2__|__Iteration 3__|__Iteration 4__|
 |:-:|:-:|:-:|:-:|:-:|
-|Total SP Remaining|33 SP|33 SP|   |   |
-|Desired Features|UC39, 41, 92 user stories|   |   |   |
-|Desired SP|8 SP|   |   |   |
-|Expected Velocity|8 SP / 1 iteration|   |   |   |
-|Actual Velocity|5.5 SP / 1 iteration|   |   |   |
-|Duration|1 iteration|   |   |   |
+|Total SP Remaining|33 SP (0 %)|27.5 SP (17 %)|   |   |
+|Desired Features|UC 39, 41, 92 user stories|Remaining tasks of iteraion 1 and UC 88, 89, 90 user stories|   |   |
+|Desired SP|8 SP|20.5 SP|   |   |
+|Expected Velocity|8 SP / 1 iteration|20.5 SP / 1 iteration|   |   |
+|Actual Velocity|5.5 SP / 1 iteration|-|   |   |
+|Duration|1 iteration|1 iteration|   |   |
 
 Use Cases & User Stories
 ---------------
