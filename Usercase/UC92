@@ -1,14 +1,29 @@
-1. Send Request
- Patient can send requests to HCP for physical therapy or orthopedic appoitnment with date, time, and comments.
+1. Title: Send Request
+ - Priority: 1
+ - Units (Story Points): 1
+ - Acceptance Test: testRequestAndAceept, testRequestAndReject
+ - Patient can send requests to HCP for physical therapy or orthopedic appoitnment with date, time, and comments.
  
-2. Check Pending States
- Patient can check whether HCP responds.
+2. Title: Check Pending States
+ - Priority: 2
+ - Units (Story Points): 2
+ - Acceptance Test: testRequestAndAceept, testRequestAndReject
+ - Patient can check whether HCP responds.
  
-3. Check Responds of HCP
- Patient can check HCP's respond that is accepted or rejected.
+3. Title: Check Responds of HCP
+ - Priority: 2
+ - Units (Story Points): 2
+ - Acceptance Test: testRequestAndAceept, testRequestAndReject
+ - Patient can check HCP's respond that is accepted or rejected.
  
-4. Check Request List
- HCP can check requests from patients in iTrust.
+4. Title: Check Request List
+ - Priority: 2
+ - Units (Story Points): 1
+ - Acceptance Test: testRequestAndAceept, testRequestAndReject
+ - HCP can check requests from patients in iTrust.
 
-5. Respond Request
- HCP can respond to accept or reject that request.
+5. Title: Respond Request
+ - Priority: 1
+ - Units (Story Points): 1
+ - Acceptance Test: testRequestAndAceept, testRequestAndReject
+ - HCP can respond to accept or reject that request.
