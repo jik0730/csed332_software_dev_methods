@@ -1,4 +1,4 @@
-package edu.ncsu.csc.itrust.uc92;
+package edu.ncsu.csc.itrust.selenium;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
