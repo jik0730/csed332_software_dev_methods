@@ -387,7 +387,7 @@ public class DAOFactory {
 
 	/** 
 	 * Gets the DOA for Orthopedic surgery records.
-	 * @return this DAO factory's OrthopedicSurgeryRecordDAO
+	 * @return this DAO factory's OphthalmologyOVRecordDAO
 	 */
 	public OrthopedicSurgeryRecordDAO getOrthopedicSurgeryRecordDAO(){
 		return new OrthopedicSurgeryRecordDAO(this);
@@ -461,4 +461,11 @@ public class DAOFactory {
 		return new OphthalmologyDiagnosisDAO(this);
 	}
 	
+	/**
+	 * Creates a new DAO for Orthopedic Disease interactions
+	 * @return this DAO factory's Orthopedic Disease interactions
+	 */
+	public OrthopedicDiagnosisDAO getORDiagnosisDAO() {
+		return new OrthopedicDiagnosisDAO(this);
+	}
 }
