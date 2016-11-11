@@ -14,6 +14,7 @@ public class DiagnosisBean {
 	private String description;
 	private String classification;
 	private String ophthalmology = "no";
+	private String orthopedic = "no";
 	private String URL = "";
 	private long visitID;
 
@@ -33,6 +34,7 @@ public class DiagnosisBean {
 		this.icdCode = code;
 		this.description = description;
 		this.ophthalmology = "no";
+		this.orthopedic = "no";
 		if (null != classification && classification.equals("yes")) {
 			this.classification = classification;
 		}
@@ -53,6 +55,7 @@ public class DiagnosisBean {
 		this.description = description;
 		this.URL = URL;
 		this.ophthalmology = "no";
+		this.orthopedic = "no";
 		if (null != classification && classification.equals("yes")) {
 			this.classification = classification;
 		}
@@ -69,7 +72,7 @@ public class DiagnosisBean {
 	 * @param classification classification
 	 * @param URL URL
 	 */
-	public DiagnosisBean(String code, String description, String classification, String URL, String ophthalmology) {
+	public DiagnosisBean(String code, String description, String classification, String URL, String ophthalmology, String orthopedic) {
 		this.icdCode = code;
 		this.description = description;
 		this.URL = URL;
@@ -87,7 +90,40 @@ public class DiagnosisBean {
 		else {
 			this.ophthalmology = "no";
 		}
+		if (null != orthopedic && orthopedic.equals("yes")) {
+			this.orthopedic = orthopedic;
+		}
+		else {
+			this.orthopedic = "no";
+		}
 	}
+	
+	/**
+	 * diagnosesBean
+	 * @param code code
+	 * @param description description
+	 * @param classification classification
+	 * @param URL URL
+	 */
+//	public DiagnosisBean(String code, String description, String classification, String URL, String ophthalmology) {
+//		this.icdCode = code;
+//		this.description = description;
+//		this.URL = URL;
+//		
+//		if (null != classification && classification.equals("yes")) {
+//			this.classification = classification;
+//		}
+//		else {
+//			this.classification = "no";
+//		}
+//		
+//		if (null != ophthalmology && ophthalmology.equals("yes")) {
+//			this.ophthalmology = ophthalmology;
+//		}
+//		else {
+//			this.ophthalmology = "no";
+//		}
+//	}
 	
 	/**
 	 * Gets the ICD Code for this procedure
@@ -120,6 +156,14 @@ public class DiagnosisBean {
 	 */
 	public String getOphthalmology() {
 		return ophthalmology;
+	}
+	
+	/**
+	 * getClassification
+	 * @return classification
+	 */
+	public String getOrthopedic() {
+		return orthopedic;
 	}
 	
 	/**
