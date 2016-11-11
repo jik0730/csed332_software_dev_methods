@@ -35,7 +35,7 @@ public class DiagnosisBeanLoader implements BeanLoader<DiagnosisBean> {
 
 	public DiagnosisBean loadSingle(ResultSet rs) throws SQLException {
 
-		DiagnosisBean diag = new DiagnosisBean(rs.getString("Code"), rs.getString("Description"), rs.getString("Chronic"), rs.getString("URL"), rs.getString("ophthalmology"));
+		DiagnosisBean diag = new DiagnosisBean(rs.getString("Code"), rs.getString("Description"), rs.getString("Chronic"), rs.getString("URL"), rs.getString("ophthalmology"), rs.getString("orthopedic"));
 		if (loadOVDiagnosisID) {
 			diag.setOvDiagnosisID(rs.getInt("ID"));
 			diag.setVisitID(rs.getLong("VisitID"));
