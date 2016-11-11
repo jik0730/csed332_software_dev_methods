@@ -240,6 +240,7 @@ CREATE TABLE icdcodes (
   Description TEXT NOT NULL,
   Chronic enum('no','yes') NOT NULL default 'no',
   Ophthalmology enum('no','yes') NOT NULL default 'no',
+  Orthopedic enum('no','yes') NOT NULL default 'no',
   URL varchar(512) NOT NULL default '',
   PRIMARY KEY (Code)
 ) ENGINE=MyISAM;
@@ -794,6 +795,13 @@ CREATE TABLE IF NOT EXISTS designatedNutritionist(
 CREATE TABLE IF NOT EXISTS opdiagnosis(
     ID INT(10) auto_increment primary key,
 	VisitID INT( 10 ) unsigned NOT NULL COMMENT 'ID of the Ophthalmology Visit',
+	ICDCode DECIMAL( 5, 2 ) NOT NULL COMMENT 'Code for the Diagnosis',
+    URL VARCHAR(512) COMMENT 'URL for information'
+) ENGINE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS ordiagnosis(
+    ID INT(10) auto_increment primary key,
+	VisitID INT( 10 ) unsigned NOT NULL COMMENT 'ID of the Orthopedic Visit',
 	ICDCode DECIMAL( 5, 2 ) NOT NULL COMMENT 'Code for the Diagnosis',
     URL VARCHAR(512) COMMENT 'URL for information'
 ) ENGINE=MyISAM;
