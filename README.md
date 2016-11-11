@@ -36,14 +36,14 @@ We estimated our plan based on how much time we have for each iteration and eval
 
 |__Plan__|__Iteration 1__|__Iteration 2 (~ing)__|__Iteration 3__|__Iteration 4__|
 |:-:|:-:|:-:|:-:|:-:|
-|Total SP Remaining|33 SP (0 %)|27.5 SP (17 %)|   |   |
-|Desired Features|UC 39, 41, 92 user stories|Remaining tasks of iteraion 1 and UC 88, 89, 90 user stories|   |   |
-|Desired SP|8 SP|20.5 SP|   |   |
-|Expected Velocity|8 SP / 1 iteration|20.5 SP / 1 iteration|   |   |
-|Actual Velocity|5.5 SP / 1 iteration|-|   |   |
+|Total SP Remaining|61 SP (0 %)|50 SP (18 %)|14 SP (77 %)(Expected)|0 SP (100 %)(Expected)|
+|Desired Features|UC 39, 41, 92 user stories|Remaining tasks of iteraion 1 and UC 88, 89, 90 user stories|Remaining tasks of iteraion 2 and UC 91, custom user stories|   |
+|Desired SP|17 SP|36 SP|   |   |
+|Expected Velocity|17 SP / 1 iteration|36 SP / 1 iteration|   |   |
+|Actual Velocity|11 SP / 1 iteration|-|   |   |
 |Time we can spend|51 Hours|98 Hours|66 Hours|-|
-|Time per SP|9.3 Hour / 1 SP|-|   |   |
-|Duration|1 iteration|1 iteration|   |   |
+|Time per SP|4.64 Hour / 1 SP|-|   |   |
+|Duration|1 iteration|1 iteration|1 iteration|1 iteration|
 
 Use Cases & User Stories
 ---------------
