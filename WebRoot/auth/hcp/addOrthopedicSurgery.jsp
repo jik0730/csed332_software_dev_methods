@@ -43,9 +43,9 @@
 	PersonnelBean currentPersonnel = personnelAction.getPersonnel("" + loggedInMID);
 	
 	
-	if (!currentPersonnel.getSpecialty().equalsIgnoreCase("orthopedic")) {
+	if (!currentPersonnel.getSpecialty().equalsIgnoreCase("Orthopedic")) {
 		response.sendRedirect("/iTrust/auth/hcp-uap/editOfficeVisit.jsp");
-	}*/
+	}
 	
 	//don't run unless the form was actually submitted
 	if ("true".equals(request.getParameter("formIsFilled"))) {

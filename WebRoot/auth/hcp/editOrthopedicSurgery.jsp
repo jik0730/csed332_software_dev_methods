@@ -12,7 +12,7 @@
 <%@page import="edu.ncsu.csc.itrust.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.exception.ITrustException"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException" %>
-<%@page import="edu.ncsu.csc.itrust.action.EditOPDiagnosesAction"%> 
+<%@page import="edu.ncsu.csc.itrust.action.EditORDiagnosesAction"%> 
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean"%>
 <%@page import="edu.ncsu.csc.itrust.validate.OrthopedicDiagnosisBeanValidator"%>
 <%@page import="edu.ncsu.csc.itrust.BeanBuilder"%>
@@ -52,22 +52,22 @@
 	//now double-check this bean's status AND the HCP's specialty to see if should redirect back to view
 	ViewPersonnelAction personnelAction = new ViewPersonnelAction(prodDAO, loggedInMID);
 	PersonnelBean currentPersonnel = personnelAction.getPersonnel("" + loggedInMID);
-	if (!currentPersonnel.getSpecialty().equalsIgnoreCase("orthopedic")) {
+	if (!currentPersonnel.getSpecialty().equalsIgnoreCase("Orthopedic")) {
 		response.sendRedirect("/iTrust/auth/hcp/viewOrthopedicSurgery.jsp?oid=" + oidString);
 	}
 	
 	if ("true".equals(request.getParameter("formIsFilled")) && "removediagnosesForm".equals(request.getParameter("submittedFormName"))){
-	    EditOPDiagnosesAction diagnoses = new EditOPDiagnosesAction(prodDAO,oidString);
+	    EditORDiagnosesAction diagnoses = new EditORDiagnosesAction(prodDAO,oidString);
 	    
 	    String remID = request.getParameter("removeDiagID");
 	    OrthopedicDiagnosisBean beanSub = new OrthopedicDiagnosisBean();
-	    beanSub.setOpDiagnosisID(Long.parseLong(remID));
+	    beanSub.setOrDiagnosisID(Long.parseLong(remID));
 	    diagnoses.deleteDiagnosis(beanSub);
 	}
 	
 	//check if a new diagnoses was added.
 	else if ("true".equals(request.getParameter("formIsFilled")) && "diagnosesForm".equals(request.getParameter("submittedFormName"))){
-		EditOPDiagnosesAction diagnoses =  new EditOPDiagnosesAction(prodDAO,oidString); 
+		EditORDiagnosesAction diagnoses =  new EditORDiagnosesAction(prodDAO,oidString); 
 		OrthopedicDiagnosisBean beanSub = new BeanBuilder<OrthopedicDiagnosisBean>().build(request.getParameterMap(), new OrthopedicDiagnosisBean());
 		//validator requires description but DiagnosesDAO does not. Set here to pass validation.
 		beanSub.setDescription("no description");
@@ -115,7 +115,7 @@
 			}
 			
 			if (addedSomething) {
-				response.sendRedirect("/iTrust/auth/hcp/OrthopedicSurgeryHome.jsp?editSurgery");
+				response.sendRedirect("/iTrust/auth/hcp/orthopedicSurgeryHome.jsp?editSurgery");
 			}
 		}
 		catch(FormValidationException e) {
@@ -191,7 +191,7 @@
 		<th>URL</th>
 	</tr>
 	<%
-	EditOPDiagnosesAction diagAction = new EditOPDiagnosesAction(prodDAO,oidString);
+	EditORDiagnosesAction diagAction = new EditORDiagnosesAction(prodDAO,oidString);
 	if (diagAction.getDiagnoses().size() == 0) { %>
 	<tr>
 		<td colspan="3" >No Diagnoses for this visit</td>
@@ -202,7 +202,7 @@
 			<td ><itrust:icd9cm code="<%= StringEscapeUtils.escapeHtml(d.getICDCode()) %>"/></td>
 			<td  style="white-space: nowrap;"><%= StringEscapeUtils.escapeHtml("" + (d.getDescription() )) %></td>
 			<td ><a
-            href="javascript:removeDiagID('<%= StringEscapeUtils.escapeHtml("" + (d.getOpDiagnosisID())) %>');">Remove</a></td>
+            href="javascript:removeDiagID('<%= StringEscapeUtils.escapeHtml("" + (d.getOrDiagnosisID())) %>');">Remove</a></td>
 		</tr>
 	   <%} 
   	   }  %>
@@ -227,7 +227,7 @@
 <p align="middle">
 <input type="submit" id="submitoutside" value="Submit" form="officeVisit"/>
 </p>
-<p><br/><a href="/iTrust/auth/hcp/OrthopedicSurgeryHome.jsp">Back to Home</a></p>
+<p><br/><a href="/iTrust/auth/hcp/orthopedicSurgeryHome.jsp">Back to Home</a></p>
 	
 <br/><br/>
 <%@include file="/footer.jsp" %>

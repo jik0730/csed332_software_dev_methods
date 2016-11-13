@@ -47,7 +47,7 @@
 	//now check this bean's status AND the HCP's specialty to see if should redirect to the edit page
 	ViewPersonnelAction personnelAction = new ViewPersonnelAction(prodDAO, loggedInMID);
 	PersonnelBean currentPersonnel = personnelAction.getPersonnel("" + loggedInMID);
-	if (currentPersonnel.getSpecialty().equalsIgnoreCase("orthopedic")) {
+	if (currentPersonnel.getSpecialty().equalsIgnoreCase("Orthopedic")) {
 		response.sendRedirect("/iTrust/auth/hcp/editOrthopedicSurgery.jsp?oid=" + oidString);
 	}
 %>
