@@ -41,7 +41,7 @@ public class AddEditViewOrthopedicSurgeryActionTest {
 		bean1.setVisitDate("01/22/2015");
 		bean1.setLastName("Bridges");
 		bean1.setFirstName("Lamar");
-		bean1.setSurgery("Cataract Surgery");
+		bean1.setSurgery("Total knee replacement");
 		bean1.setSurgeryNotes("Surgery successful.");
 		
 		//Create another valid bean
@@ -50,7 +50,7 @@ public class AddEditViewOrthopedicSurgeryActionTest {
 		bean2.setVisitDate("01/23/2015");
 		bean2.setLastName("Bridges");
 		bean2.setFirstName("Lamar");
-		bean2.setSurgery("Laser Surgery");
+		bean2.setSurgery("Total knee replacement");
 		bean2.setSurgeryNotes("Surgery was boring.");
 		
 		//Create another valid bean
@@ -59,7 +59,7 @@ public class AddEditViewOrthopedicSurgeryActionTest {
 		bean3.setVisitDate("01/24/2015");
 		bean3.setLastName("Tran");
 		bean3.setFirstName("Brooke");
-		bean3.setSurgery("Refractive Surgery");
+		bean3.setSurgery("ACL reconstruction");
 		bean3.setSurgeryNotes("Yet another surgery.");
 		
 		//Create another valid bean
