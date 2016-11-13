@@ -21,7 +21,7 @@ public class OrthopedicSurgeryRecordBeanTest {
 		bean1.setLastName("Bridges");
 		bean1.setFirstName("Lamar");
 		bean1.setVisitDate("01/22/2015");
-		bean1.setSurgery("Laser surgery");
+		bean1.setSurgery("Total knee replacement");
 		bean1.setSurgeryNotes("Went well.");
 		
 		assertEquals(bean1.getMid(), 401L, ERROR);
@@ -30,7 +30,7 @@ public class OrthopedicSurgeryRecordBeanTest {
 		assertEquals(bean1.getFirstName(), "Lamar");
 		assertEquals(bean1.getVisitDateString(), "01/22/2015");
 		assertEquals(bean1.getVisitDate(), new SimpleDateFormat("MM/dd/yyyy").parse("01/22/2015"));
-		assertEquals(bean1.getSurgery(), "Laser surgery");
+		assertEquals(bean1.getSurgery(), "Total knee replacement");
 		assertEquals(bean1.getSurgeryNotes(), "Went well.");
 	}
 	
@@ -42,7 +42,7 @@ public class OrthopedicSurgeryRecordBeanTest {
 		bean1.setLastName("Bridges");
 		bean1.setFirstName("Lamar");
 		bean1.setVisitDate("01/22/2015");
-		bean1.setSurgery("Laser surgery");
+		bean1.setSurgery("Total knee replacement");
 		bean1.setSurgeryNotes("Went well.");
 		
 		OrthopedicSurgeryRecordBean bean2 = new OrthopedicSurgeryRecordBean();
@@ -51,7 +51,7 @@ public class OrthopedicSurgeryRecordBeanTest {
 		bean2.setLastName("Bridges");
 		bean2.setFirstName("Lamar");
 		bean2.setVisitDate("01/22/2015");
-		bean2.setSurgery("Laser surgery");
+		bean2.setSurgery("Total knee replacement");
 		bean2.setSurgeryNotes("Went well.");
 		
 		
@@ -68,7 +68,7 @@ public class OrthopedicSurgeryRecordBeanTest {
 		bean1.setSurgery(null);
 		assertFalse(bean1.equals(bean2));
 		//assertFalse(bean1.hashCode() == (bean2.hashCode()));
-		bean1.setSurgery("Laser surgery");
+		bean1.setSurgery("Total knee replacement");
 
 		bean1.setSurgeryNotes(null);
 		assertFalse(bean1.equals(bean2));

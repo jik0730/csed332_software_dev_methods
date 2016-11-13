@@ -32,7 +32,7 @@ public class OrthopedicSurgeryRecordDAOTest {
 		bean.setLastName("Lamar");
 		bean.setFirstName("Bridges");
 		bean.setVisitDate("01/22/2015");
-		bean.setSurgery("Cataract surgery");
+		bean.setSurgery("Total knee replacement");
 		bean.setSurgeryNotes("Surgery completed with no issues.");
 	}
 	
