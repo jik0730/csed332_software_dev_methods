@@ -81,7 +81,7 @@ Weekly Meetings
 ---------------
 This is our weekly meeting schedule and can be rearranged in certain situation like exam week.
 
-> Every Wednesday, 10:30 P.M.
+> Every Sunday, 10:30 P.M.
 
 Meeting Logs
 ---------------
@@ -92,6 +92,7 @@ These are meeting logs summarizing our dicussions in every meeting.
 - [3rd Meeting](meeting_log/3rd_meeting.md)
 - [4th Meeting](meeting_log/4th_meeting.md)
 - [5th Meeting](meeting_log/5th_meeting.md)
+- [6th Meeting](meeting_log/6th_meeting.md)
 
 Demo Presentation
 ---------------
