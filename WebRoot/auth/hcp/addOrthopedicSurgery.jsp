@@ -125,9 +125,13 @@
 				<td><label for="surgery">Surgery: </label></td>
 				<td><select name="surgery" id ="surgery">
 					<option value="-- None Selected --">-- None Selected --</option>
-					<option value="Cataract surgery">Cataract surgery</option>
-					<option value="Laser surgery">Laser surgery</option>
-					<option value="Refractive surgery">Refractive surgery</option>
+					<option value="Total knee replacement">Total knee replacement</option>
+					<option value="Total joint replacement">Total joint replacement</option>
+					<option value="ACL reconstruction">ACL reconstruction</option>
+					<option value="Ankle replacement">Ankle replacement</option>
+					<option value="Spine surgery">Spine surgery</option>
+					<option value="Arthroscopic surgery">Arthroscopic surgery</option>
+					<option value="Rotator cuff repair">Rotator cuff repair</option>					
 				</select></td>
 			</tr>
 			<tr>
