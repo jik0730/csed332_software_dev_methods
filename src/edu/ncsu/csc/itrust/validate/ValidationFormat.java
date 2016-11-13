@@ -101,7 +101,10 @@ public enum ValidationFormat {
 	WEEKS_PREGNANT_OV("^([0-9]|[1-3][0-9]|4[0-2])-[0-6]{1}$", "The patient chosen is not a current obstetrics patient"),
 	MEALTYPE("^(?:Breakfast|Lunch|Snack|Dinner)$", "must be one of {Breakfast, Lunch, Snack, Dinner}"),
 	EXERCISETYPE("^(?:Cardio|Weight Training)$", "must be one of {Cardio, Weight Training}"),
-	SLEEPTYPE("^(?:Nightly|Nap)$", "must be one of {Nightly, Nap}")
+	SLEEPTYPE("^(?:Nightly|Nap)$", "must be one of {Nightly, Nap}"),
+	ORTHOPEDIC_DIAGNOSIS("^(?:Anterior cruciate ligament injury|Meniscus tear|Rheumatoid arthritis of hand"
+			+ "Chondromalacia|Congenital pes cavus|Whiplash injury)$", "must be one of {Anterior cruciate ligament injury, Meniscus tear, "
+			+ "Rheumatoid arthritis of hand, Chondromalacia, Congenital pes cavus, Whiplash injury}")
 	;
 
 	private Pattern regex;

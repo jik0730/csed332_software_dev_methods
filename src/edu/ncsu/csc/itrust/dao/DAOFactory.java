@@ -370,6 +370,14 @@ public class DAOFactory {
 	}
 	
 	/**
+	 * Gets the DOA for orthopedic office visits records.
+	 * @return this DAO factory's OrthopedicOVRecordDAO
+	 */
+	public OrthopedicOVRecordDAO getOrthopedicOVRecordDAO(){
+		return new OrthopedicOVRecordDAO(this);
+	}
+	
+	/**
 	 * Gets the DOA for ophthalmology scheduled office visit records.
 	 * @return this DAO factory's OphthalmologyOVRecordDAO
 	 */

@@ -500,6 +500,9 @@ public enum TransactionType {
 	/**EDIT_OPHTHALMOLOGY_SURGERY**/
 	EDIT_OPHTHALMOLOGY_SURGERY(8602, "Edit Ophthalmology Surgery", "Edit Ophthalmology Surgery", true),
 	/**PATIENT_VIEW_OPHTHALMOLOGY_SURGERY**/
+	
+	/**VIEW_ORTHOPEDIC_OV**/
+	VIEW_ORTHOPEDIC_OV(8801, "View Orthopedic Office Visit", "View Orthopedic Office Visit", true),
 	;
 	/**
 	 * This string is used in the SQL statement associated with pulling events for

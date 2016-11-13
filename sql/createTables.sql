@@ -808,9 +808,10 @@ CREATE TABLE IF NOT EXISTS department(
 /*Orthopedic office visit table*/
 CREATE TABLE IF NOT EXISTS orthopedic(
 	OrthopedicVisitID INT( 10 ) auto_increment primary key,
-	VisitID INT( 10 ) NOT NULL,
 	PatientID BIGINT NOT NULL,
 	HCPID BIGINT NOT NULL,
+	DateVisit DATE NOT NULL,
+	Injured VARCHAR(50) NOT NULL,
 	XRay LONGBLOB,
 	MRI LONGBLOB,
 	MRIReport VARCHAR(512),
