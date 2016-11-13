@@ -42,11 +42,8 @@
 	ViewPersonnelAction personnelAction = new ViewPersonnelAction(prodDAO, loggedInMID);
 	PersonnelBean currentPersonnel = personnelAction.getPersonnel("" + loggedInMID);
 	
-	/*
-	if (currentPersonnel.getSpecialty().equalsIgnoreCase("optometrist")) {
-		response.sendRedirect("/iTrust/auth/hcp/addOrthopedicOV.jsp");
-		//response.sendRedirect("/iTrust/auth/hcp/addOrthopedicSurgery.jsp");
-	} else if (!currentPersonnel.getSpecialty().equalsIgnoreCase("ophthalmologist")) {
+	
+	if (!currentPersonnel.getSpecialty().equalsIgnoreCase("orthopedic")) {
 		response.sendRedirect("/iTrust/auth/hcp-uap/editOfficeVisit.jsp");
 	}*/
 	

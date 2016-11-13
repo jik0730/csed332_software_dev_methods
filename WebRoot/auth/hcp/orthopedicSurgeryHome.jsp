@@ -67,7 +67,7 @@
 		ViewPersonnelAction personnelAction = new ViewPersonnelAction(prodDAO, loggedInMID);
 		PersonnelBean currentPersonnel = personnelAction.getPersonnel("" + loggedInMID);
 		if (currentPersonnel != null 
-				&& (currentPersonnel.getSpecialty().equalsIgnoreCase("ophthalmologist"))
+				&& (currentPersonnel.getSpecialty().equalsIgnoreCase("orthopedic"))
 				&& request.getParameter("view") == null) {
 			out.write("<form action=\"/iTrust/auth/hcp/addOrthopedicSurgery.jsp\" method=\"post\" id=\"addSurgeryButtonForm\">");
 				out.write("<input style=\"font-size: 150%; font-weight: bold;\" type=submit value=\"Add Surgical Orthopedic Office Visit\">");
