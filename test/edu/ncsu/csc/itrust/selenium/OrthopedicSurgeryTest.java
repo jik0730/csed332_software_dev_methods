@@ -22,7 +22,9 @@ public class OrthopedicSurgeryTest extends iTrustSeleniumTest{
 	protected void setUp() throws Exception{
 		super.setUp();
 		gen.clearAllTables();
-		
+		gen.hcp0();
+		gen.hcp11();
+		gen.hcp12();
 		gen.patient27();
 		gen.patient28();
 		gen.hcp922();
@@ -34,7 +36,6 @@ public class OrthopedicSurgeryTest extends iTrustSeleniumTest{
 	protected void tearDown() throws Exception {
 		gen.clearAllTables();
 	}
-	
 	/**
 	 * Selenium test for UC90 Acceptance Scenario 1.
 	 * @throws Exception
@@ -77,5 +78,100 @@ public class OrthopedicSurgeryTest extends iTrustSeleniumTest{
 		
 		//Verify that the newly created office visit is present in the Prior Office Visits list
 		assertTrue(driver.getPageSource().contains("10/14/2015"));
+	}
+	/**
+	 * Selenium test for UC90 Acceptance Scenario 4.
+	 * @throws Exception
+	 */
+	public void testEditOrthopedicSurgery() throws Exception{
+		testCreateOrthopedicSurgery();
+		
+		//Login as Lamar Bridges
+		HtmlUnitDriver driver = (HtmlUnitDriver)login("9220000000", "pw");
+		assertLogged(TransactionType.HOME_VIEW, 9220000000L, 0L, "");
+
+		//Click the Orthopedic Home link
+		driver.findElement(By.linkText("Surgical Orthopedic Home")).click();
+
+		//Select Freya Chandler as the patient
+		driver.findElement(By.name("UID_PATIENTID")).sendKeys("407");
+		driver.findElement(By.xpath("//input[@value='407']")).submit();
+		
+		WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
+		wait.until(ExpectedConditions.titleIs("iTrust - Surgical Orthopedic"));
+		
+		WebElement myElement = (new WebDriverWait(driver, 10))
+				  .until(ExpectedConditions.presenceOfElementLocated(By.linkText("10/14/2015")));
+		myElement.click();
+		
+		//Fill in the correct values and submit the form
+		driver.findElement(By.id("surgeryNotes")).clear();
+		driver.findElement(By.id("surgeryNotes")).sendKeys("Surgery completed with no issues.");
+		driver.findElement(By.id("submit")).click();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		//Verify that we are returned to the Orthopedic Homepage
+		wait.until(ExpectedConditions.titleIs("iTrust - Surgical Orthopedic"));
+		assertTrue(driver.getPageSource().contains("Surgical Orthopedic Office Visit successfully edited"));
+
+		//Verify that the action was logged
+		assertLogged(TransactionType.EDIT_ORTHOPEDIC_SURGERY, 9220000000L, 407L, "");
+
+		//Verify that the newly created office visit is present in the Prior Office Visits list
+		assertTrue(driver.getPageSource().contains("10/14/2015"));
+	}
+	
+	/**
+	 * Selenium test for UC90 Acceptance Scenario 4.
+	 * @throws Exception
+	 */
+	public void testViewOrthopedicSurgery() throws Exception{
+		testCreateOrthopedicSurgery();
+		
+		//Login as Lamar Bridges
+		HtmlUnitDriver driver = (HtmlUnitDriver)login("9220000000", "pw");
+		assertLogged(TransactionType.HOME_VIEW, 9220000000L, 0L, "");
+
+		//Click the Orthopedic Home link
+		driver.findElement(By.linkText("Surgical Orthopedic Home")).click();
+
+		//Select Freya Chandler as the patient
+		driver.findElement(By.name("UID_PATIENTID")).sendKeys("407");
+		driver.findElement(By.xpath("//input[@value='407']")).submit();
+		
+		WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
+		wait.until(ExpectedConditions.titleIs("iTrust - Surgical Orthopedic"));
+		
+		WebElement myElement = (new WebDriverWait(driver, 10))
+				  .until(ExpectedConditions.presenceOfElementLocated(By.linkText("10/14/2015")));
+		myElement.click();
+		
+		//Fill in the correct values and submit the form
+		Select select = new Select(driver.findElementByName("surgery"));
+		assertEquals(select.getFirstSelectedOption().getText().toString(), "Total knee replacement");
+		System.out.println(driver.findElement(By.id("surgeryNotes")).getAttribute("value"));
+		assertEquals(driver.findElement(By.id("surgeryNotes")).getAttribute("value"), "Surgery completed with no issues.");
+	}
+	/**
+	 * Selenium test for UC90 Acceptance Scenario 3.
+	 * @throws Exception
+	 */
+	public void testNotOrthopedicCreateOrthopedicSurgery() throws Exception{
+		//Set up the outcome of Scenario 1
+		
+		//Login as Brooke Tran
+		HtmlUnitDriver driver = (HtmlUnitDriver)login("9000000085", "pw");
+		assertLogged(TransactionType.HOME_VIEW, 9000000085L, 0L, "");
+		
+		//Click the Add Orthopedic Office Visit link
+		driver.findElement(By.linkText("Add Surgical Orthopedic Office Visit")).click();
+		
+		//Select Brody Franco as the patient
+		driver.findElement(By.name("UID_PATIENTID")).sendKeys("407");
+		driver.findElement(By.xpath("//input[@value='407']")).submit();
+		
+		//Verify that we got redirected to the regular oph office visit page
+		WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
+		wait.until(ExpectedConditions.titleIs("iTrust - Document Office Visit"));
 	}
 }
