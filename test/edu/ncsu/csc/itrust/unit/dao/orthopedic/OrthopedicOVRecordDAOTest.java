@@ -45,8 +45,6 @@ public class OrthopedicOVRecordDAOTest {
 		bean.setXray(TEST_XRAY);
 		bean.setMri(TEST_MRI);
 		bean.setMriReport("Wow, Fabulous.");
-		String[] diag = {"Chondromalacia", "meniscusTear"};
-		bean.setDiagnosis(Arrays.asList(diag));
 	}
 	
 	@Test
