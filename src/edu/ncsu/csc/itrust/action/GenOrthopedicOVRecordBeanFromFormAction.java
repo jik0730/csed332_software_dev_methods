@@ -4,6 +4,8 @@ import edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -48,11 +50,30 @@ public class GenOrthopedicOVRecordBeanFromFormAction {
 		for (FileItem f : items) {
 			switch (f.getFieldName()) {
 				case "Injured": bean.setInjured(f.getString());
-				//case "XRay": bean.setXray(f.getInputStream());
-				//TODO: Finish File Reading
+				break;
+				case "XRay": bean.setXray(fileItemToBytes(f));
+				break;
+				case "MRI": bean.setMri(fileItemToBytes(f));
+				break;
+				case "mirReport": bean.setMriReport(f.getString());
+				break;
 			}
 		}
 		return bean;
+	}
+	
+	/** Returns NULL if not available */
+	private byte[] fileItemToBytes(FileItem f) {
+		try {
+			InputStream in = f.getInputStream();
+			int size = (int)f.getSize();
+			int readPosition = 0;
+			byte[] raw = new byte[size];
+			while((readPosition += in.read(raw, readPosition, size)) != size);
+			return raw;
+		} catch (IOException e) {
+			return null;
+		}
 	}
 	
 }
