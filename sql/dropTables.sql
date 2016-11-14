@@ -102,3 +102,4 @@ DROP TABLE IF EXISTS orthopedic;
 DROP TABLE IF EXISTS orthopedicPhysicalTherapy;
 DROP TABLE IF EXISTS orthopedicSurgery;
 DROP TABLE IF EXISTS orderTable;
+DROP TABLE IF EXISTS ordiagnosis;

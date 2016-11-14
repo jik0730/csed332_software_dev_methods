@@ -849,3 +849,11 @@ CREATE TABLE IF NOT EXISTS orderTable(
 	PatientID BIGINT NOT NULL,
 	Completed BOOLEAN NOT NULL
 ) ENGINE = MyISAM;
+
+/*Orthopedic diagnosis table*/
+CREATE TABLE IF NOT EXISTS ordiagnosis(
+    ID INT(10) auto_increment primary key,
+	VisitID INT( 10 ) unsigned NOT NULL COMMENT 'ID of the Orthopedic Visit',
+	ICDCode DECIMAL( 5, 2 ) NOT NULL COMMENT 'Code for the Diagnosis',
+    URL VARCHAR(512) COMMENT 'URL for information'
+) ENGINE=MyISAM;

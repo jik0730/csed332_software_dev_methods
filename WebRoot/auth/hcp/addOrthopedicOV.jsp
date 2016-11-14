@@ -341,24 +341,22 @@
 		<br />
 		
 		<table class="fTable" align="center">
-	 <tr>
-        <th colspan="3" style="text-align: center;">Diagnosis</th>
-    </tr>
-    <!--tr>
-        <td colspan="3" align=center>
-            <select name="ICDCode" style="font-size:10" >
-            <option value="">-- None Selected --</option>
-            <%
-            EditOPDiagnosesAction diagAction = new EditOPDiagnosesAction(prodDAO,"0");
-            for(OrthopedicDiagnosis	Bean diag : diagAction.getDiagnosisCodes()) { %>
-            <option value="<%=diag.getICDCode()%>"><%= StringEscapeUtils.escapeHtml("" + (diag.getICDCode())) %>
-            - <%= StringEscapeUtils.escapeHtml("" + (diag.getDescription())) %></option>
-            <%}%>
-            </select>
-    </td-->
-    </tr>
-</table>
- 	<br />
+	 		<tr><th colspan="3" style="text-align: center;">Diagnosis</th></tr>
+    		<tr>
+		        <td colspan="3" align=center>
+		            <select name="ICDCode" style="font-size:10" >
+			            <option value="">-- None Selected --</option>
+			            <%
+			            EditORDiagnosesAction diagAction = new EditORDiagnosesAction(prodDAO,"0");
+			            for(OrthopedicDiagnosisBean diag : diagAction.getDiagnosisCodes()) { %>
+			            <option value="<%=diag.getICDCode()%>"><%= StringEscapeUtils.escapeHtml("" + (diag.getICDCode())) %>
+			            - <%= StringEscapeUtils.escapeHtml("" + (diag.getDescription())) %></option>
+			            <%}%>
+		            </select>
+		    	</td>
+    		</tr>
+		</table>
+ 		<br />
 		<input type="submit" id="submit" value="Submit" />
 	</form>
 </div>

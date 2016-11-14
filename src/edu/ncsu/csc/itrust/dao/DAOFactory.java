@@ -460,4 +460,12 @@ public class DAOFactory {
 	public OphthalmologyDiagnosisDAO getOPDiagnosisDAO() {
 		return new OphthalmologyDiagnosisDAO(this);
 	}
+	
+	/**
+	 * Creates a new DAO for Orthopedic Disease interactions
+	 * @return this DAO factory's Orthopedic Disease interactions
+	 */
+	public OrthopedicDiagnosisDAO getORDiagnosisDAO() {
+		return new OrthopedicDiagnosisDAO(this);
+	}
 }

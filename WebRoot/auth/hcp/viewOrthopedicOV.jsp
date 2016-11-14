@@ -47,7 +47,7 @@
 	//now check this bean's status AND the HCP's specialty to see if should redirect to the edit page
 	ViewPersonnelAction personnelAction = new ViewPersonnelAction(prodDAO, loggedInMID);
 	PersonnelBean currentPersonnel = personnelAction.getPersonnel("" + loggedInMID);
-	if (currentPersonnel.getSpecialty().equalsIgnoreCase("ophthalmologist") || currentPersonnel.getSpecialty().equalsIgnoreCase("optometrist")) {
+	if (currentPersonnel.getSpecialty().equalsIgnoreCase("Orthopedic")) {
 		response.sendRedirect("/iTrust/auth/hcp/editOrthopedicOV.jsp?oid=" + oidString);
 	}
 %>
@@ -63,96 +63,34 @@
 		<%
 		//show these if the the status is NOT complete
 			out.write("<tr>");
-				out.write("<td>Date of visit:</td>");
-				out.write("<td>" + bean.getVisitDateString() + "</td>");
-				out.write("<td></td>");
-			out.write("</tr>");
-			
-			out.write("<tr>");
-			out.write("<td>Visual Acuity Numerator OD:</td>");
-			out.write("<td>" + bean.getVaNumOD() + "</td>");
+			out.write("<td>Date of visit:</td>");
+			out.write("<td>" + bean.getVisitDateString() + "</td>");
 			out.write("<td></td>");
 			out.write("</tr>");
 			
 			out.write("<tr>");
-			out.write("<td>Visual Acuity Denumerator OD:</td>");
-			out.write("<td>" + bean.getVaDenOD() + "</td>");
+			out.write("<td>Injured Limb or joint:</td>");
+			out.write("<td>" + bean.getInjured() + "</td>");
+			out.write("<td></td>");
+			out.write("</tr>");
+			
+			// TODO: How to display XRay image? Since it is optional, we may need to use if-else.
+			out.write("<tr>");
+			out.write("<td>X-Ray image:</td>");
+			out.write("<td>" + bean.getXray() + "</td>");
+			out.write("<td></td>");
+			out.write("</tr>");
+			
+			// TODO: How to display XRay image? Since it is optional, we may need to use if-else.
+			out.write("<tr>");
+			out.write("<td>MRI image:</td>");
+			out.write("<td>" + bean.getMri() + "</td>");
 			out.write("<td></td>");
 			out.write("</tr>");
 			
 			out.write("<tr>");
-			out.write("<td>Visual Acuity Numerator OS:</td>");
-			out.write("<td>" + bean.getVaNumOS() + "</td>");
-			out.write("<td></td>");
-			out.write("</tr>");
-			
-			out.write("<tr>");
-			out.write("<td>Visual Acuity Denumerator OS:</td>");
-			out.write("<td>" + bean.getVaDenOS() + "</td>");
-			out.write("<td></td>");
-			out.write("</tr>");
-			
-			out.write("<tr>");
-			out.write("<td>Sphere(OD):</td>");
-			out.write("<td>" + bean.getSphereOD() + "</td>");
-			out.write("<td></td>");
-			out.write("</tr>");
-			
-			out.write("<tr>");
-			out.write("<td>Sphere(OS):</td>");
-			out.write("<td>" + bean.getSphereOS() + "</td>");
-			out.write("<td></td>");
-			out.write("</tr>");
-			
-			String cylODout = ""; //we only print the cylinder if we have one.
-			if(bean.getCylinderOD() != null){ //this is the default value, and means that there is no cylinder value
-				cylODout = Double.toString(bean.getCylinderOD());
-			}
-			out.write("<tr>");
-			out.write("<td>Cyldinder(OD):</td>");
-			out.write("<td>" + cylODout + "</td>");
-			out.write("<td></td>");
-			out.write("</tr>");
-			
-			String cylOSout = ""; //we only print the cylinder if we have one.
-			if(bean.getCylinderOS() != null){ //this is the default value, and means that there is no cylinder value
-				cylOSout = Double.toString(bean.getCylinderOS());
-			}
-			out.write("<tr>");
-			out.write("<td>Cyldinder(OS):</td>");
-			out.write("<td>" + cylOSout + "</td>");
-			out.write("<td></td>");
-			out.write("</tr>");
-				
-			String axisODout = ""; //only print the axis value if there is one
-			if(bean.getAxisOD() != null){ //default, meaning we don't have one
-				axisODout = Integer.toString(bean.getAxisOD());
-			}
-			out.write("<tr>");
-			out.write("<td>Axis(OD):</td>");
-			out.write("<td>" + axisODout + "</td>");
-			out.write("<td></td>");
-			out.write("</tr>");
-			
-			String axisOSout = ""; //only print the axis value if there is one
-			if(bean.getAxisOS() != null){ //0 is default, meaning we don't have one
-				axisOSout = Integer.toString(bean.getAxisOS());
-			}
-			out.write("<tr>");
-			out.write("<td>Axis(OS):</td>");
-			out.write("<td>" + axisOSout + "</td>");
-			out.write("<td></td>");
-			out.write("</tr>");
-			
-			out.write("<tr>");
-			out.write("<td>Add(OD):</td>");
-			out.write("<td>" + bean.getAddOD() + "</td>");
-			out.write("<td></td>");
-			out.write("</tr>");
-			
-			out.write("<tr>");
-			out.write("<td>Add(OS):</td>");
-			out.write("<td>" + bean.getAddOS() + "</td>");
+			out.write("<td>MRI Report:</td>");
+			out.write("<td>" + bean.getMriReport() + "</td>");
 			out.write("<td></td>");
 			out.write("</tr>");
 				
@@ -170,7 +108,7 @@
 		<th>URL</th>
 	</tr>
 	<%
-	EditOPDiagnosesAction diagAction = new EditOPDiagnosesAction(prodDAO,oidString);
+	EditORDiagnosesAction diagAction = new EditORDiagnosesAction(prodDAO,oidString);
 	if (diagAction.getDiagnoses().size() == 0) { %>
 	<tr>
 		<td colspan="3" >No Diagnoses for this visit</td>

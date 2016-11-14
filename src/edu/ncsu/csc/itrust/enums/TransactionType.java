@@ -503,6 +503,8 @@ public enum TransactionType {
 	
 	/**VIEW_ORTHOPEDIC_OV**/
 	VIEW_ORTHOPEDIC_OV(8801, "View Orthopedic Office Visit", "View Orthopedic Office Visit", true),
+	CREATE_ORTHOPEDIC_OV(8800, "Create Orthopedic Office Visit", "Create Orthopedic Office Visit", true),
+	EDIT_ORTHOPEDIC_OV(8802, "Edit Orthopedic Office Visit", "Edit Orthopedic Office Visit", true),
 	;
 	/**
 	 * This string is used in the SQL statement associated with pulling events for
