@@ -83,228 +83,39 @@
 	}
 	//don't run unless the form was actually submitted
 	else if ("true".equals(request.getParameter("formIsFilled"))) {
-		//prepare to add beans!
-				EditOrthopedicOVAction editAction = new EditOrthopedicOVAction(prodDAO, loggedInMID);
-				boolean addedSomething = false;
-				
-				//add the initial record
-				String date = request.getParameter("date");
-				String visAcNumOD = request.getParameter("vaNumOD");
-				String visAcDenumOD = request.getParameter("vaDenOD");
-				String visAcNumOS = request.getParameter("vaNumOS");
-				String visAcDenumOS = request.getParameter("vaDenOS");
-				String sphereOD = request.getParameter("sphereOD");
-				String sphereOS = request.getParameter("sphereOS");
-				String cylOD = request.getParameter("cylinderOD");
-				String cylOS = request.getParameter("cylinderOS");
-				String axisOD = request.getParameter("axisOD");
-				String axisOS = request.getParameter("axisOS");
-				String addOD = request.getParameter("addOD");
-				String addOS = request.getParameter("addOS");
-				
-				try {
-					clientSideErrors = "<p class=\"iTrustError\">This form has not been validated correctly. " +
-					"The following field are not properly filled in: [";
-					boolean hasCSErrors = false;
-					OrthopedicOVRecordBean ophBean = new OrthopedicOVRecordBean();
-						ophBean.setMid(Long.parseLong(pidString));
-						ophBean.setVisitDate(date);
-						//We reuse the first and last name that were already present
-						//as an edit shouldn't change who created the office visit.
-						ophBean.setLastName(bean.getLastName());
-						ophBean.setFirstName(bean.getFirstName());
-						//parse acuity numer OD
-						try {
-							int vaNum = Integer.parseInt(visAcNumOD);
-							if(vaNum <= 0){
-								throw new NumberFormatException();
-							}
-							ophBean.setVaNumOD(vaNum);
-						}
-						catch (NumberFormatException e) {
-							clientSideErrors += "Visual Acuity Numerator OD is required, and must be a positive integer.";
-							hasCSErrors = true;
-						}
-						//parse acuity numer OS
-						try {
-							int vaNum = Integer.parseInt(visAcNumOS);
-							if(vaNum <= 0){
-								throw new NumberFormatException();
-							}
-							ophBean.setVaNumOS(vaNum);
-						}
-						catch (NumberFormatException e) {
-							clientSideErrors += "Visual Acuity Numerator OS is required, and must be a positive integer.";
-							hasCSErrors = true;
-						}
-						//parse acuity denum OD
-						try {
-							int vaDen = Integer.parseInt(visAcDenumOD);
-							if(vaDen <= 0){
-								throw new NumberFormatException();
-							}
-							ophBean.setVaDenOD(vaDen);
-						}
-						catch (NumberFormatException e) {
-							if (hasCSErrors)
-								clientSideErrors += ", ";
-							clientSideErrors += "Visual Acuity Denumerator OD is required, and must be a positive integer.";
-							hasCSErrors = true;
-						}
-						//parse acuity denum OS
-						try {
-							int vaDen = Integer.parseInt(visAcDenumOS);
-							if(vaDen <= 0){
-								throw new NumberFormatException();
-							}
-							ophBean.setVaDenOS(vaDen);
-						}
-						catch (NumberFormatException e) {
-							if (hasCSErrors)
-								clientSideErrors += ", ";
-							clientSideErrors += "Visual Acuity Denumerator OS is required, and must be a positive integer.";
-							hasCSErrors = true;
-						}
-						//parse sphereOD
-						try {
-							double sphOD = Double.parseDouble(sphereOD);
-							if(sphOD > 10.00 || sphOD < -10.00 || sphOD % 0.25 != 0){
-								throw new NumberFormatException();
-							}
-							ophBean.setSphereOD(sphOD);
-						}
-						catch (NumberFormatException e) {
-							if (hasCSErrors)
-								clientSideErrors += ", ";
-							clientSideErrors += "SphereOD is required, must be between -10.00 and 10.00 inclusive, and must be rounded to the nearest quarter diopter";
-							hasCSErrors = true;
-						}
-						//parse sphereOS
-						try {
-							double sphOS = Double.parseDouble(sphereOS);
-							if(sphOS > 10.00 || sphOS < -10.00 || sphOS % 0.25 != 0){
-								throw new NumberFormatException();
-							}
-							ophBean.setSphereOS(sphOS);
-						}
-						catch (NumberFormatException e) {
-							if (hasCSErrors)
-								clientSideErrors += ", ";
-							clientSideErrors += "SphereOS is required, must be between -10.00 and 10.00 inclusive, and must be rounded to the nearest quarter diopter";
-							hasCSErrors = true;
-						}
-						//parse cylinderOD
-						try {
-							if(!cylOD.equals("")){
-								double cylinOD = Double.parseDouble(cylOD);
-								if(cylinOD > 10.00 || cylinOD < -10.00 || cylinOD % 0.25 != 0){
-									throw new NumberFormatException();
-								}
-								ophBean.setCylinderOD(cylinOD);
-							}
-						}
-						catch (NumberFormatException e) {
-							if (hasCSErrors)
-								clientSideErrors += ", ";
-							clientSideErrors += "CylinderOD must be between -10.00 and 10.00 inclusive, and must be rounded to the nearest quarter diopter";
-							hasCSErrors = true;
-						}
-						//parse cylinderOS
-						try {
-							if(!cylOS.equals("")){
-								double cylinOS = Double.parseDouble(cylOS);
-								if(cylinOS > 10.00 || cylinOS < -10.00 || cylinOS % 0.25 != 0){
-									throw new NumberFormatException();
-								}
-								ophBean.setCylinderOS(cylinOS);
-							}
-						}
-						catch (NumberFormatException e) {
-							if (hasCSErrors)
-								clientSideErrors += ", ";
-							clientSideErrors += "CylinderOS must be between -10.00 and 10.00 inclusive, and must be rounded to the nearest quarter diopter";
-							hasCSErrors = true;
-						}
-						//parse AxisOD
-						try {
-							if(!cylOD.equals("") && axisOD.equals("")){ //if we DO have a cylinder value, we need an axis, too.
-								throw new NumberFormatException();
-							}
-							if(!axisOD.equals("")){ //we don't have to have one, so only try if we do.
-								int axOD = Integer.parseInt(axisOD);
-								if(axOD > 180 || axOD < 1){
-									throw new NumberFormatException();
-								}
-									ophBean.setAxisOD(axOD);
-							}
-						}
-						catch (NumberFormatException e) {
-							if (hasCSErrors)
-								clientSideErrors += ", ";
-							clientSideErrors += "AxisOD is required if a CylinderOD is given, and must be between 1 and 180 inclusive";
-							hasCSErrors = true;
-						}
-						//parse AxisOS
-						try {
-							if(!cylOS.equals("") && axisOS.equals("")){ //if we DO have a cylinder value, we need an axis, too.
-								throw new NumberFormatException();
-							}
-							if(!axisOS.equals("")){ //we don't have to have one, so only try if we do.
-								int axOS = Integer.parseInt(axisOD);
-								if(axOS > 180 || axOS < 1){
-									throw new NumberFormatException();
-								}
-									ophBean.setAxisOS(axOS);
-							}
-						}
-						catch (NumberFormatException e) {
-							if (hasCSErrors)
-								clientSideErrors += ", ";
-							clientSideErrors += "AxisOS is required if a CylinderOS is given, and must be between 1 and 180 inclusive";
-							hasCSErrors = true;
-						}
-						//parse addOD
-						try {
-							double aOD = Double.parseDouble(addOD);
-							if(aOD > 3.00 || aOD < 0.75 || aOD % 0.25 != 0){
-								throw new NumberFormatException();
-							}
-							ophBean.setAddOD(aOD);
-						}
-						catch (NumberFormatException e) {
-							if (hasCSErrors)
-								clientSideErrors += ", ";
-							clientSideErrors += "AddOD is required, must be between 0.75 and 3.00 inclusive, and must be rounded to the nearest quarter diopter";
-							hasCSErrors = true;
-						}
-						//parse addOS
-						try {
-							double aOS = Double.parseDouble(addOS);
-							if(aOS > 3.00 || aOS < 0.75 || aOS % 0.25 != 0){
-								throw new NumberFormatException();
-							}
-							ophBean.setAddOS(aOS);
-						}
-						catch (NumberFormatException e) {
-							if (hasCSErrors)
-								clientSideErrors += ", ";
-							clientSideErrors += "AddOS is required, must be between 0.75 and 3.00 inclusive, and must be rounded to the nearest quarter diopter";
-							hasCSErrors = true;
-						}
-						
-			if (hasCSErrors) {
-				out.write(clientSideErrors + "]</p>");
-			} else{	
-			editAction.editOrthopedicOV(bean.getOid(), ophBean);
-			addedSomething = true;
-			}
-			
-			if (addedSomething) {
-				response.sendRedirect("/iTrust/auth/hcp/orthopedicHome.jsp?editOV");
-			}
+//prepare to add beans!
+		AddOrthopedicOVAction addAction = new AddOrthopedicOVAction(prodDAO, loggedInMID);
+		boolean addedSomething = false;
+		
+		// Create a factory for disk-based file items
+		GenOrthopedicOVRecordBeanFromFormAction genAction = new GenOrthopedicOVRecordBeanFromFormAction(prodDAO, loggedInMID);
+		ServletContext servletContext = this.getServletConfig().getServletContext();
+
+		String clientSideErrors = "<p class=\"iTrustError\">This form has not been validated correctly. "
+				+ "The following field are not properly filled in: [";
+		boolean hasCSErrors = false;
+		try {
+			OrthopedicOVRecordBean bean = genAction(request, servletContext);
+		} catch (IllegalFormatException e) {
+			clientSideErrors += "File Format Invalid: " + e.getMessage();
+			hasCSErrors = true;
 		}
-		catch(FormValidationException e) {
-			out.write("<p class=\"iTrustError\">" + e.getMessage() + "</p>");
+		try {
+			if ("".equals(bean.getInjured())) throw new Exception()
+		} catch (IllegalArgumentException e) {
+			clientSideErrors += "Injured is required field";
+			hasCSErrors = true;
+		}
+			
+		if (hasCSErrors) {
+			out.write(clientSideErrors + "]</p>");
+			clientSideErrors = "";
+		} else {
+			addAction.editOrthopedicOV(bean.getOid(), bean);
+			addedSomething = true;
+		}
+		if (addedSomething) {
+			response.sendRedirect("/iTrust/auth/hcp/orthopedicHome.jsp?addOV");
 		}
 	}
 %>
