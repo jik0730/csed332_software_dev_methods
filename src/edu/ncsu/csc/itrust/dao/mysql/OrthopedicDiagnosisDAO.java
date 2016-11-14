@@ -147,30 +147,28 @@ public class OrthopedicDiagnosisDAO {
 		}
 	}
 
-	// @@@@@@Below not implemented@@@@@@ //
-	
 	/**
 	 * Returns all non-Orthopedic ICD9CM codes sorted by code
 	 * 
 	 * @return java.util.List of DiagnosisBeans
 	 * @throws DBException
 	 */
-//	public List<OrthopedicDiagnosisBean> getOpICDCodes() throws DBException {
-//		Connection conn = null;
-//		PreparedStatement ps = null;
-//		OrthopedicDiagnosisBeanLoader diagnosisLoader = new OrthopedicDiagnosisBeanLoader();
-//		try {
-//			conn = factory.getConnection();
-//			ps = conn.prepareStatement("SELECT * FROM icdcodes where Orthopedic='yes' ORDER BY CODE");
-//			ResultSet rs = ps.executeQuery();
-//			List<OrthopedicDiagnosisBean> loadlist = diagnosisLoader.loadList(rs);
-//			rs.close();
-//			return loadlist;
-//		} catch (SQLException e) {
-//			
-//			throw new DBException(e);
-//		} finally {
-//			DBUtil.closeConnection(conn, ps);
-//		}
-//	}
+	public List<OrthopedicDiagnosisBean> getOpICDCodes() throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		OrthopedicDiagnosisBeanLoader diagnosisLoader = new OrthopedicDiagnosisBeanLoader();
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM icdcodes where Orthopedic='yes' ORDER BY CODE");
+			ResultSet rs = ps.executeQuery();
+			List<OrthopedicDiagnosisBean> loadlist = diagnosisLoader.loadList(rs);
+			rs.close();
+			return loadlist;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
 }

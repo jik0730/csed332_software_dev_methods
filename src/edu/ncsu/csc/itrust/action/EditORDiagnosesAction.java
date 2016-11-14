@@ -48,10 +48,8 @@ public class EditORDiagnosesAction {
 		
 	}
 	
-	// @@@@Below not implemented@@@@ //
-	
-//	public List<OrthopedicDiagnosisBean> getDiagnosisCodes() throws DBException {
-//		return diagnosesDAO.getOpICDCodes();
-//	}
+	public List<OrthopedicDiagnosisBean> getDiagnosisCodes() throws DBException {
+		return diagnosesDAO.getOpICDCodes();
+	}
 	
 }
