@@ -77,14 +77,14 @@
 			// TODO: How to display XRay image? Since it is optional, we may need to use if-else.
 			out.write("<tr>");
 			out.write("<td>X-Ray image:</td>");
-			out.write("<td>" + bean.getXray() + "</td>");
+			out.write("<td>" + "<img src=\"/imageData/Orthopedic/Xray/" + bean.getOid() + "\" />" + "</td>");
 			out.write("<td></td>");
 			out.write("</tr>");
 			
 			// TODO: How to display XRay image? Since it is optional, we may need to use if-else.
 			out.write("<tr>");
 			out.write("<td>MRI image:</td>");
-			out.write("<td>" + bean.getMri() + "</td>");
+			out.write("<td>" + "<img src=\"/imageData/Orthopedic/Mri/" + bean.getOid() + "\" />" + "</td>");
 			out.write("<td></td>");
 			out.write("</tr>");
 			
