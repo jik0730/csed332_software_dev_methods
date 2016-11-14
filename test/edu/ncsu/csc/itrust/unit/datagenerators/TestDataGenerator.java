@@ -873,6 +873,13 @@ public class TestDataGenerator {
 	public void cdcStatistics() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/cdcStatistics.sql");
 	}
+	
+	/**
+	 * Generate test data for UC88
+	 */
+	public void uc88() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/UC88.sql");
+	}
 
 	public void standardData() throws FileNotFoundException, IOException, SQLException {
 		cptCodes();
