@@ -35,10 +35,6 @@ public class OrthopedicOVRecordLoader implements BeanLoader<OrthopedicOVRecordBe
 		} else {
 			p.setMriReport(null);
 		}
-		String str = rs.getString("Diagnosis");
-		String[] stringArray = str.trim().split("\\s*,\\s*");
-		Arrays.sort(stringArray);
-		p.setDiagnosis(Arrays.asList(stringArray));
 	}
 
 	@Override
@@ -70,7 +66,6 @@ public class OrthopedicOVRecordLoader implements BeanLoader<OrthopedicOVRecordBe
 		} else {
 			ps.setNull(i++, Types.NULL);
 		}
-		ps.setString(i++, String.join(",", p.getDiagnosis()));
 		return null;
 	}
 

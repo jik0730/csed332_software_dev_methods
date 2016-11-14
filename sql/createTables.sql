@@ -816,7 +816,6 @@ CREATE TABLE IF NOT EXISTS orthopedic(
 	XRay LONGBLOB,
 	MRI LONGBLOB,
 	MRIReport VARCHAR(512),
-	Diagnosis VARCHAR(512) NOT NULL
 ) ENGINE = MyISAM;
 
 /*Physical Therapy office visit table*/

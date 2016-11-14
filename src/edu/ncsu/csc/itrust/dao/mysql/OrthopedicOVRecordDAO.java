@@ -32,7 +32,7 @@ public class OrthopedicOVRecordDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement(
-					"SELECT OrthopedicVisitID, PatientiD, HCPID, DateVisit, Injured, MRIReport, Diagnosis "
+					"SELECT OrthopedicVisitID, PatientiD, HCPID, DateVisit, Injured, MRIReport "
 					+ "FROM orthopedic WHERE PatientID=? ORDER BY DateVisit DESC"
 				);
 			ps.setLong(1, pid);
@@ -94,8 +94,8 @@ public class OrthopedicOVRecordDAO {
 			conn = factory.getConnection();
 			//first, insert the record
 			ps = conn.prepareStatement("INSERT INTO orthopedic(PatientID,"
-					+ "HCPID, DateVisit, Injured, XRay, MRI, MRIReport, Diagnosis)"
-					+ " VALUES(?,?,?,?,?,?,?,?)");
+					+ "HCPID, DateVisit, Injured, XRay, MRI, MRIReport)"
+					+ " VALUES(?,?,?,?,?,?,?)");
 			ps = orthopedicLoader.loadParameters(ps, p);
 			ps.executeUpdate();
 			ps.close();
@@ -126,10 +126,10 @@ public class OrthopedicOVRecordDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("UPDATE orthopedic SET PatientID=?, HCPID=?, DateVisit=?, Injured=?, "
-					+ "XRay=?, MRI=?, MRIReport=?, Diagnosis=?,"
+					+ "XRay=?, MRI=?, MRIReport=?"
 					+ "WHERE OrthopedicVisitID=?");
 			orthopedicLoader.loadParameters(ps, p);
-			ps.setLong(9, oid);
+			ps.setLong(8, oid);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {

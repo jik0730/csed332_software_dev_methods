@@ -22,14 +22,6 @@ public class OrthopedicOVValidator extends BeanValidator<OrthopedicOVRecordBean>
 				errorList.addIfNotNull("Date is a required field");
 			}
 			errorList.addIfNotNull(checkFormat("Visit Date:", bean.getVisitDateString(), ValidationFormat.DATE, true));
-			
-			if(bean.getDiagnosis() == null) {
-				errorList.addIfNotNull("Diagnosis is a required field");
-			}
-			for(String s : bean.getDiagnosis()) {
-				errorList.addIfNotNull(checkFormat("Diagnosis:", s, ValidationFormat.ORTHOPEDIC_DIAGNOSIS, false));
-			}
-
 		} else {
 			errorList.addIfNotNull("Bean is null.");
 		}

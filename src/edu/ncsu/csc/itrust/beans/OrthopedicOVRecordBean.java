@@ -12,7 +12,6 @@ public class OrthopedicOVRecordBean {
 	private long hid;
 	private String injured;
 	private String mriReport;
-	private List<String> diagnosis;
 	private String visitDate;
 	private byte[] xray;
 	private byte[] mri;
@@ -20,13 +19,11 @@ public class OrthopedicOVRecordBean {
 	public OrthopedicOVRecordBean() {}
 	
 	public OrthopedicOVRecordBean(int oid, int pid, int hid,
-			String xrayImageID, String mriImageID, String mriReport,
-			List<String> diagnosis) {
+			String xrayImageID, String mriImageID, String mriReport) {
 		this.oid = oid;
 		this.pid = pid;
 		this.hid = hid;
 		this.mriReport = mriReport;
-		this.diagnosis = diagnosis;
 	}
 	
 	public int getOid() {
@@ -52,12 +49,6 @@ public class OrthopedicOVRecordBean {
 	}
 	public void setMriReport(String mriReport) {
 		this.mriReport = mriReport;
-	}
-	public List<String> getDiagnosis() {
-		return diagnosis;
-	}
-	public void setDiagnosis(List<String> diagnosis) {
-		this.diagnosis = diagnosis;
 	}
 	public Date getVisitDate(){
 		if (visitDate == null)
@@ -121,11 +112,6 @@ public class OrthopedicOVRecordBean {
 			if (other.mriReport != null)
 				return false;
 		} else if (!mriReport.equals(other.mriReport))
-			return false;
-		if (diagnosis == null) {
-			if (other.diagnosis != null)
-				return false;
-		} else if (!diagnosis.equals(other.diagnosis))
 			return false;
 		if (visitDate == null) {
 			if (other.visitDate != null)
