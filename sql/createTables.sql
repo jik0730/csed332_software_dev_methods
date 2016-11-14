@@ -240,6 +240,7 @@ CREATE TABLE icdcodes (
   Description TEXT NOT NULL,
   Chronic enum('no','yes') NOT NULL default 'no',
   Ophthalmology enum('no','yes') NOT NULL default 'no',
+  Orthopedic enum('no','yes') NOT NULL default 'no',
   URL varchar(512) NOT NULL default '',
   PRIMARY KEY (Code)
 ) ENGINE=MyISAM;

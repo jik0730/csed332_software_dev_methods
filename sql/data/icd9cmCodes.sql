@@ -17,3 +17,10 @@ INSERT INTO icdcodes(Code, Description, Chronic, URL, Ophthalmology) VALUES
 ('35.30','Age-Related Macular Degeneration', 'yes','https://nei.nih.gov/health/maculardegen/armd_facts','yes'),
 ('35.001', 'Amblyopia', 'no','https://nei.nih.gov/health/amblyopia/amblyopia_guide','yes'),
 ('40.89', 'Glaucoma', 'no','https://nei.nih.gov/health/glaucoma/glaucoma_facts','yes') ON DUPLICATE KEY UPDATE Code = Code;
+INSERT INTO icdcodes(Code, Description, Chronic, Orthopedic) VALUES
+('83.5', 'Anterior cruciate ligament injury', 'no', 'yes'), 
+('83.20', 'Meniscus tear', 'no', 'yes'),
+('05.44', 'Rheumatoid arthritis of hand', 'no', 'yes'), 
+('94.2', 'Chondromalacia', 'no', 'yes'),
+('66.7', 'Congenital pes cavus', 'no', 'yes'),
+('13.4', 'Whiplash injury', 'no', 'yes') ON DUPLICATE KEY UPDATE Code = Code;
