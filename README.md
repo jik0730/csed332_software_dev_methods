@@ -99,7 +99,7 @@ Demo Presentation
 These are presention files presented at each demo.
 
 - [1st Demo](https://docs.google.com/presentation/d/1lwDME0utRWTX3jxj1UNgGDe14Cj3zOgUVykHWnVPuvo/edit?usp=drive_web)
-- [2st Demo](https://docs.google.com/presentation/d/1hsAIqwxLxVFi1PhYpDl763R2glGnbAEmvSEzdqHqMsw/edit#slide=id.g1950499abc_0_131)
+- [2st Demo](https://docs.google.com/presentation/d/1hsAIqwxLxVFi1PhYpDl763R2glGnbAEmvSEzdqHqMsw/edit?usp=sharing)
 
 PPT Sources
 ---------------
