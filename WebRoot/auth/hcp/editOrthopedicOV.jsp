@@ -3,16 +3,19 @@
 
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.IllegalFormatException"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewPersonnelAction"%> <!-- Used for specialty-checking -->
 <%@page import="edu.ncsu.csc.itrust.beans.PersonnelBean"%> <!-- Used for specialty-checking -->
 <%@page import="edu.ncsu.csc.itrust.action.EditOrthopedicOVAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewOrthopedicOVAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewPatientAction"%> 
+<%@page import="edu.ncsu.csc.itrust.action.AddOrthopedicOVAction"%> 
 <%@page import="edu.ncsu.csc.itrust.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.exception.ITrustException"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException" %>
-<%@page import="edu.ncsu.csc.itrust.action.EditOPDiagnosesAction"%> 
+<%@page import="edu.ncsu.csc.itrust.action.EditORDiagnosesAction"%> 
+<%@page import="edu.ncsu.csc.itrust.action.GenOrthopedicOVRecordBeanFromFormAction"%> 
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean"%>
 <%@page import="edu.ncsu.csc.itrust.validate.OrthopedicDiagnosisBeanValidator"%>
 <%@page import="edu.ncsu.csc.itrust.BeanBuilder"%>
@@ -84,24 +87,24 @@
 	//don't run unless the form was actually submitted
 	else if ("true".equals(request.getParameter("formIsFilled"))) {
 //prepare to add beans!
-		AddOrthopedicOVAction addAction = new AddOrthopedicOVAction(prodDAO, loggedInMID);
+		EditOrthopedicOVAction editAction = new EditOrthopedicOVAction(prodDAO, loggedInMID);
 		boolean addedSomething = false;
 		
 		// Create a factory for disk-based file items
 		GenOrthopedicOVRecordBeanFromFormAction genAction = new GenOrthopedicOVRecordBeanFromFormAction(prodDAO, loggedInMID);
 		ServletContext servletContext = this.getServletConfig().getServletContext();
 
-		String clientSideErrors = "<p class=\"iTrustError\">This form has not been validated correctly. "
+		clientSideErrors = "<p class=\"iTrustError\">This form has not been validated correctly. "
 				+ "The following field are not properly filled in: [";
 		boolean hasCSErrors = false;
 		try {
-			OrthopedicOVRecordBean bean = genAction(request, servletContext);
+			bean = genAction.genBean(request, servletContext);
 		} catch (IllegalFormatException e) {
 			clientSideErrors += "File Format Invalid: " + e.getMessage();
 			hasCSErrors = true;
 		}
 		try {
-			if ("".equals(bean.getInjured())) throw new Exception()
+			if ("".equals(bean.getInjured())) throw new Exception();
 		} catch (IllegalArgumentException e) {
 			clientSideErrors += "Injured is required field";
 			hasCSErrors = true;
@@ -111,7 +114,7 @@
 			out.write(clientSideErrors + "]</p>");
 			clientSideErrors = "";
 		} else {
-			addAction.editOrthopedicOV(bean.getOid(), bean);
+			editAction.editOrthopedicOV(bean.getOid(), bean);
 			addedSomething = true;
 		}
 		if (addedSomething) {
@@ -127,8 +130,7 @@
 </script>
 <div id="mainpage" align="center">
 
-	<form <% out.print("action=\"/iTrust/auth/hcp/editOrthopedicOV.jsp?oid=" + oidString + "\""); %> method="post" id="officeVisit" >
-		<input type="hidden" name="formIsFilled" value="true" />
+	<form <% out.print("action=\"/iTrust/auth/hcp/editOrthopedicOV.jsp?oid=" + oidString + "\""+"&formIsFilled=true"); %> method="post" id="officeVisit" enctype="multipart/form-data">
 		<table class="fTable" align="center">
 			<tr><th colspan="3">Edit Orthopedic Office Visit</th></tr>
 			<tr>
@@ -146,12 +148,14 @@
 			</tr>
 			<tr>
 				<td><label for="XRay">X-Ray image: </label></td>
-				<td><input type="file" name="XRay" id="XRay" <%-- out.write("value=\"" + bean.getXRay() + "\""); --%> /> </td>
+				<td><input type="file" name="XRay" id="XRay" <%-- out.write("value=\"" + bean.getXRay() + "\""); --%> /> 
+				<img src="/iTrust/ImageDataServlet?table=orthopedic&col=XRay&pri=OrthopedicVisitID&key=<%=oidString%>" /></td>
 				<td></td>
 			</tr>
 			<tr>
 				<td><label for="MRI">MRI image: </label></td>
-				<td><input type="file" name="MRI" id="MRI" <%-- out.write("value=\"" + bean.getMri() + "\""); --%> /> </td>
+				<td><input type="file" name="MRI" id="MRI" <%-- out.write("value=\"" + bean.getMri() + "\""); --%> /> 
+				<img src="/iTrust/ImageDataServlet?table=orthopedic&col=MRI&pri=OrthopedicVisitID&key=<%=oidString%>" /></td>
 				<td></td>
 			</tr>
 			<tr>

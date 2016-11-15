@@ -10,7 +10,7 @@
 <%@page import="edu.ncsu.csc.itrust.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.exception.ITrustException"%>
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean"%>
-<%@page import="edu.ncsu.csc.itrust.action.EditOPDiagnosesAction"%>
+<%@page import="edu.ncsu.csc.itrust.action.EditORDiagnosesAction"%>
 
 <%@include file="/global.jsp"%>
 
@@ -77,14 +77,14 @@
 			// TODO: How to display XRay image? Since it is optional, we may need to use if-else.
 			out.write("<tr>");
 			out.write("<td>X-Ray image:</td>");
-			out.write("<td>" + "<img src=\"/imageData/Orthopedic/Xray/" + bean.getOid() + "\" />" + "</td>");
+			out.write("<td>" + "<img src=\"/iTrust/ImageDataServlet?table=orthopedic&col=XRay&pri=OrthopedicVisitID&key=" + bean.getOid() + "\" />" + "</td>");
 			out.write("<td></td>");
 			out.write("</tr>");
 			
 			// TODO: How to display XRay image? Since it is optional, we may need to use if-else.
 			out.write("<tr>");
 			out.write("<td>MRI image:</td>");
-			out.write("<td>" + "<img src=\"/imageData/Orthopedic/Mri/" + bean.getOid() + "\" />" + "</td>");
+			out.write("<td>" + "<img src=\"/iTrust/ImageDataServlet?table=orthopedic&col=MRI&pri=OrthopedicVisitID&key=" + bean.getOid() + "\" />" + "</td>");
 			out.write("<td></td>");
 			out.write("</tr>");
 			

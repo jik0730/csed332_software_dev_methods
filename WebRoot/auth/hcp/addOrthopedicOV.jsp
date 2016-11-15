@@ -4,6 +4,7 @@
 
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.IllegalFormatException"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewPatientAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean"%>
@@ -14,7 +15,9 @@
 <%@page import="edu.ncsu.csc.itrust.action.EditPHRAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException" %>
-<%@page import="edu.ncsu.csc.itrust.action.EditOPDiagnosesAction"%> 
+<%@page import="edu.ncsu.csc.itrust.action.EditORDiagnosesAction"%> 
+<%@page import="edu.ncsu.csc.itrust.action.GenOrthopedicOVRecordBeanFromFormAction"%> 
+<%@page import="edu.ncsu.csc.itrust.action.GenOrthopedicDiagnosesBeanFromFormAction"%> 
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean"%>
 <%@page import="edu.ncsu.csc.itrust.validate.OrthopedicDiagnosisBeanValidator"%>
 <%@page import="edu.ncsu.csc.itrust.BeanBuilder"%>
@@ -35,6 +38,7 @@
 	//get the current patient (Might be null!)
 	ViewPatientAction patientAction = new ViewPatientAction(prodDAO, loggedInMID, pidString);
 	PatientBean chosenPatient = patientAction.getPatient(pidString);
+	ServletContext servletContext = this.getServletConfig().getServletContext();
 
 
 	
@@ -54,20 +58,22 @@
 		
 		// Create a factory for disk-based file items
 		GenOrthopedicOVRecordBeanFromFormAction genAction = new GenOrthopedicOVRecordBeanFromFormAction(prodDAO, loggedInMID);
-		ServletContext servletContext = this.getServletConfig().getServletContext();
 
 		String clientSideErrors = "<p class=\"iTrustError\">This form has not been validated correctly. "
 				+ "The following field are not properly filled in: [";
 		boolean hasCSErrors = false;
+		OrthopedicOVRecordBean bean = null;
 		try {
-			OrthopedicOVRecordBean bean = genAction(request, servletContext);
-		} catch (IllegalFormatException e) {
+			bean = genAction.genBean(request, servletContext);
+		} catch (Exception e) {
+			e.printStackTrace();
 			clientSideErrors += "File Format Invalid: " + e.getMessage();
 			hasCSErrors = true;
 		}
+		bean.setPid(Long.valueOf(pidString));
 		try {
-			if ("".equals(bean.getInjured())) throw new Exception()
-		} catch (IllegalArgumentException e) {
+			if ("".equals(bean.getInjured())) throw new Exception();
+		} catch (Exception e) {
 			clientSideErrors += "Injured is required field";
 			hasCSErrors = true;
 		}
@@ -77,17 +83,19 @@
 			clientSideErrors = "";
 		} else {
 			addAction.addOrthopedicOV(bean);
-			if(!request.getParameter("ICDCode").equals("")){
+			GenOrthopedicDiagnosesBeanFromFormAction diaBeanGenAction = new GenOrthopedicDiagnosesBeanFromFormAction(prodDAO, loggedInMID);
+			OrthopedicDiagnosisBean beanSub = diaBeanGenAction.genBean(request, servletContext);
+			if(beanSub.getICDCode() != null){
 				EditORDiagnosesAction diagnoses =  new EditORDiagnosesAction(prodDAO,""+bean.getOid()); 
-				OrthopedicDiagnosisBean beanSub = new BeanBuilder<OrthopedicDiagnosisBean>().build(request.getParameterMap(), new OrthopedicDiagnosisBean());
 				//validator requires description but DiagnosesDAO does not. Set here to pass validation.
 				beanSub.setDescription("no description");
 				try {
 					OrthopedicDiagnosisBeanValidator validator = new OrthopedicDiagnosisBeanValidator();
 					validator.validate(beanSub);
-					beanSub.setVisitID(ophBean.getOid());
+					beanSub.setVisitID(bean.getOid());
 					diagnoses.addDiagnosis(beanSub);
 					} catch (FormValidationException e) {
+						e.printStackTrace();
 						response.sendRedirect("/iTrust/auth/hcp/orthopedicHome.jsp");
 					throw new ITrustException("Invalid data entered into Orthopedic office visit creator."); 
 				}
@@ -101,9 +109,7 @@
 %>
 
 <div id="mainpage" align="center">
-
-	<form action="/iTrust/auth/hcp/addOrthopedicOV.jsp" method="post" id="officeVisit" >
-		<input type="hidden" name="formIsFilled" value="true" />
+	<form action="/iTrust/auth/hcp/addOrthopedicOV.jsp?formIsFilled=true" method="post" id="officeVisit" enctype="multipart/form-data">
 		<table class="fTable" align="center">
 			<tr><th colspan="3">Add Orthopedic Office Visit</th></tr>
 			<tr>

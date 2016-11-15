@@ -66,7 +66,7 @@ public class OrthopedicOVRecordLoader implements BeanLoader<OrthopedicOVRecordBe
 		} else {
 			ps.setNull(i++, Types.NULL);
 		}
-		return null;
+		return ps;
 	}
 
 }

@@ -1,11 +1,6 @@
 package edu.ncsu.csc.itrust.action;
 
-import edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean;
-import edu.ncsu.csc.itrust.dao.DAOFactory;
-
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -16,17 +11,20 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-public class GenOrthopedicOVRecordBeanFromFormAction {
+import edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean;
+import edu.ncsu.csc.itrust.dao.DAOFactory;
+
+public class GenOrthopedicDiagnosesBeanFromFormAction {
 	
 	private DAOFactory factory;
 	private long loggedInMID;
 	
-	public GenOrthopedicOVRecordBeanFromFormAction(DAOFactory factory, long loggedInMID) {
+	public GenOrthopedicDiagnosesBeanFromFormAction(DAOFactory factory, long loggedInMID) {
 		this.factory = factory;
 		this.loggedInMID = loggedInMID;
 	}
 	
-	public OrthopedicOVRecordBean genBean(HttpServletRequest request, ServletContext servletContext) {
+	public OrthopedicDiagnosisBean genBean(HttpServletRequest request, ServletContext servletContext) {
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 
 		// Configure a repository (to ensure a secure temp location is used)
@@ -45,28 +43,14 @@ public class GenOrthopedicOVRecordBeanFromFormAction {
 			return null;
 		}
 		
-		OrthopedicOVRecordBean bean = new OrthopedicOVRecordBean();
+		OrthopedicDiagnosisBean bean = new OrthopedicDiagnosisBean();
 		
 		for (FileItem f : items) {
 			switch (f.getFieldName()) {
-				case "date": bean.setVisitDate(f.getString());
-				break;
-				case "Injured": bean.setInjured(f.getString());
-				break;
-				case "XRay": bean.setXray(fileItemToBytes(f));
-				break;
-				case "MRI": bean.setMri(fileItemToBytes(f));
-				break;
-				case "mirReport": bean.setMriReport(f.getString());
+				case "ICDCode": bean.setICDCode(f.getString());;
 				break;
 			}
 		}
 		return bean;
 	}
-	
-	/** Returns NULL if not available */
-	private byte[] fileItemToBytes(FileItem f) {
-		return f.get();
-	}
-	
 }

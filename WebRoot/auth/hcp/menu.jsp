@@ -142,6 +142,25 @@
 </div>
 
 <div class="panel panel-default">
+	<div class="panel-heading"  anim-type="collapse" anim-target="#oph-menu">
+		<h2 class="panel-title">Orthopedic</h2>
+	</div>
+	<div class="panel-body" id="oph-menu">
+		<ul class="nav nav-sidebar">
+			<li><a href="/iTrust/auth/hcp/orthopedicHome.jsp">Orthopedic Home</a></li>
+			<li><a href="/iTrust/auth/hcp/viewOrthopedicScheduleRequests.jsp">View Orthopedic Office Visit Requests</a></li>
+			<li><a href="/iTrust/auth/hcp/viewOrthopedicScheduleOV.jsp">View Scheduled Orthopedic Office Visits</a></li>
+			<li><a href="/iTrust/auth/hcp/orthopedicHome.jsp?view">View Orthopedic Records</a></li>
+			<li><a href="/iTrust/auth/hcp/addOrthopedicOV.jsp">Add Orthopedic Office Visit</a></li>
+			<li><a href="/iTrust/auth/hcp/orthopedicSurgeryHome.jsp">Surgical Orthopedic Home</a></li>
+			<li><a href="/iTrust/auth/hcp/orthopedicSurgeryHome.jsp?view">View Surgical Orthopedic Records</a></li>
+			<li><a href="/iTrust/auth/hcp/addOrthopedicSurgery.jsp">Add Surgical Orthopedic Office Visit</a></li>
+		</ul>
+	</div>
+</div>
+
+
+<div class="panel panel-default">
 	<div class="panel-heading"  anim-type="collapse" anim-target="#other-menu">
 		<h2 class="panel-title">Other</h2>
 	</div>

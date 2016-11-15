@@ -101,7 +101,7 @@ public class OrthopedicOVRecordDAO {
 			ps.close();
 			
 			//then, set the OID of the original bean to the one the database generates
-			ps = conn.prepareStatement("SELECT * FROM orthopedic ORDER BY oid DESC limit 1");
+			ps = conn.prepareStatement("SELECT * FROM orthopedic ORDER BY OrthopedicVisitID DESC limit 1");
 			ResultSet rs = ps.executeQuery();
 			rs.first();
 			p.setOid(rs.getInt("OrthopedicVisitID"));
