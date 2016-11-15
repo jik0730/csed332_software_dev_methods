@@ -158,6 +158,19 @@
 </div>
 
 <div class="panel panel-default">
+	<div class="panel-heading"  anim-type="collapse" anim-target="#pt-menu">
+		<h2 class="panel-title">PhysicalTherapy</h2>
+	</div>
+	<div class="panel-body" id="oph-menu">
+		<ul class="nav nav-sidebar">
+			<li><a href="/iTrust/auth/hcp/physicalTherapyHome.jsp">PhysicalTherapy Home</a></li>
+			<li><a href="/iTrust/auth/hcp/physicalTherapyHome.jsp?view">View PhysicalTherapy Records</a></li>
+			<li><a href="/iTrust/auth/hcp/addPhysicalTherapyOV.jsp">Add PhysicalTherapy Office Visit</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="panel panel-default">
 	<div class="panel-heading"  anim-type="collapse" anim-target="#ort-menu">
 		<h2 class="panel-title">Orthopedic</h2>
 	</div>

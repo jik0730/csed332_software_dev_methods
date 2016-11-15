@@ -379,6 +379,10 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ophthalmologyScenario4.sql");
 	}
 
+	public void physicalTherapyScenario1() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/physicalTherapyScenario1.sql");
+	}
+	
 	public void officeVisit1() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/ov1.sql");
 	}

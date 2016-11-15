@@ -24,7 +24,7 @@ null,
 'NY',
 '10453',
 '999-888-7777',
-'Physical Therapy',
+'physicaltherapist',
 'taylor@iTrust.org'
 )ON DUPLICATE KEY UPDATE MID = MID;
 
