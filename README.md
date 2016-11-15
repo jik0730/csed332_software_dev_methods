@@ -16,11 +16,11 @@ The green team consists of these brilliant members.
 |__Name__|__Experiences__|__Iteration 1__|__Iteration 2__|__Iteration 3__|__Iteration 4__|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |[정인교](@jik0730)|Java, Intellij|1st Presenter|Team Leader | | |
-|[김희곤](@sinjint)|Java, Unity| | | | |
-|[조성원](@kardy04)|Android, Eclipse, Unity, Django| | QA Leader | | |
+|[김희곤](@sinjint)|Java, Unity| | |Team Leader| |
+|[조성원](@kardy04)|Android, Eclipse, Unity, Django| | QA Leader |Planning Leader| |
 |[김도혁](@dohyeokkim)|PHP, Web Hacking| QA Leader | Planning Leader | | |
-|[정유철](@ycjung)|Java, JavaScript, Web| Team Leader | | | |
-|[홍기재](@todok1020)|Java, JavaScript, ExtJs, Intellij| Planning Leader | | | |
+|[정유철](@ycjung)|Java, JavaScript, Web| Team Leader | |QA Leader| |
+|[홍기재](@todok1020)|Java, JavaScript, ExtJs, Intellij| Planning Leader | |2nd Presenter| |
 
 Timeline & Progress Report
 ---------------
@@ -99,6 +99,7 @@ Demo Presentation
 These are presention files presented at each demo.
 
 - [1st Demo](https://docs.google.com/presentation/d/1lwDME0utRWTX3jxj1UNgGDe14Cj3zOgUVykHWnVPuvo/edit?usp=drive_web)
+- [2st Demo](https://docs.google.com/presentation/d/1hsAIqwxLxVFi1PhYpDl763R2glGnbAEmvSEzdqHqMsw/edit#slide=id.g1950499abc_0_131)
 
 PPT Sources
 ---------------
