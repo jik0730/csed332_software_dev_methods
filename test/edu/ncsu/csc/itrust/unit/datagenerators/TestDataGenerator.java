@@ -987,7 +987,6 @@ public class TestDataGenerator {
 		// Add for UC92
 		hcp921();
 		hcp922();
-		uc92();
 		
 		departmentInit();
 	}
