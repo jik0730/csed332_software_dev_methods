@@ -60,4 +60,41 @@ public class PhysicalTherapyVisitDAO {
 		}
 		return loadlist;
 	}
+	
+	public List<PhysicalTherapyVisitBean> getPhysicalTherapyVisitsFor(long mid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		List<PhysicalTherapyVisitBean> loadlist = new ArrayList<PhysicalTherapyVisitBean>();
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM orthopedicPhysicalTherapy where PatientID=?");
+			ps.setLong(1, mid);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()){
+				PhysicalTherapyVisitBean result = new PhysicalTherapyVisitBean();
+				
+				long visitID = rs.getLong("VisitID");
+				long patientID = rs.getLong("PatientID");
+				long hcpID = rs.getLong("HCPID");
+				String wellnessSurvey = rs.getString("Wellness");
+				long wellnessSurveyScore = rs.getLong("WellnessScore");
+				String exercise = rs.getString("Exercise");
+				
+				result.setVisitID(visitID);
+				result.setPatientID(patientID);
+				result.setHcpID(hcpID);
+				result.setWellnessSurvey(wellnessSurvey);
+				result.setWellnessSurveyScore(wellnessSurveyScore);
+				result.setExercise(exercise);
+				
+				loadlist.add(result);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+		return loadlist;
+	}
 }
