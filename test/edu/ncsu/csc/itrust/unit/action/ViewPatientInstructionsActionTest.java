@@ -7,7 +7,7 @@ import edu.ncsu.csc.itrust.unit.testutils.TestDAOFactory;
 import junit.framework.TestCase;
 
 public class ViewPatientInstructionsActionTest extends TestCase {
-	
+
 	private DAOFactory factory = TestDAOFactory.getTestInstance();
 	private TestDataGenerator gen = new TestDataGenerator();
 	private ViewPatientInstructionsAction action;
@@ -22,7 +22,7 @@ public class ViewPatientInstructionsActionTest extends TestCase {
 	public void testGetOfficeVisitsWithInstructions() throws Exception {
 		action = new ViewPatientInstructionsAction(factory, "5");
 		assertEquals(0, action.getOfficeVisitsWithInstructions().size());
-		
+
 		gen.uc44_acceptance_scenario_2();
 		gen.hcp4();
 		action = new ViewPatientInstructionsAction(factory, "1");
@@ -32,7 +32,7 @@ public class ViewPatientInstructionsActionTest extends TestCase {
 	public void testGetInstructionsForOfficeVisit() throws Exception {
 		action = new ViewPatientInstructionsAction(factory, "2");
 		assertEquals(0, action.getInstructionsForOfficeVisit(952).size());
-		
+
 		gen.uc44_acceptance_scenario_2();
 		gen.hcp4();
 		action = new ViewPatientInstructionsAction(factory, "1");
@@ -43,11 +43,11 @@ public class ViewPatientInstructionsActionTest extends TestCase {
 	public void testGetHCPNameLookup() throws Exception {
 		action = new ViewPatientInstructionsAction(factory, "20");
 		assertEquals(0, action.getHCPNameLookup().size());
-		
+
 		gen.uc44_acceptance_scenario_2();
 		gen.hcp4();
 		action = new ViewPatientInstructionsAction(factory, "1");
-		assertEquals(3, action.getHCPNameLookup().size());
+		assertEquals(4, action.getHCPNameLookup().size()); //New Doctor Taylor Doctor HCPKEYTEST
 		assertEquals("Kelly Doctor", action.getHCPNameLookup().get(9000000000L));
 		assertEquals("Antonio Medico", action.getHCPNameLookup().get(9000000004L));
 	}

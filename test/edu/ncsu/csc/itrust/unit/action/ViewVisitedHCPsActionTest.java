@@ -47,8 +47,8 @@ public class ViewVisitedHCPsActionTest extends TestCase {
 		// Get all visited HCPs without any filtering.
 		List<HCPVisitBean> beans = action2.getVisitedHCPs();
 
-		assertEquals("Gandalf Stormcrow", beans.get(0).getHCPName());
-		assertEquals("Kelly Doctor", beans.get(1).getHCPName());
+		assertEquals("Momsen doctor", beans.get(0).getHCPName());
+		assertEquals("Gandalf Stormcrow", beans.get(1).getHCPName());
 	}
 
 	public void testCheckDeclared() throws Exception {
