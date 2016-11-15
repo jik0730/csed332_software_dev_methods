@@ -19,11 +19,13 @@ public class OrthopedicOVRecordBean {
 	public OrthopedicOVRecordBean() {}
 	
 	public OrthopedicOVRecordBean(int oid, int pid, int hid,
-			String xrayImageID, String mriImageID, String mriReport) {
+			String xrayImageID, String mriImageID, String mriReport, String injured, String visitDate) {
 		this.oid = oid;
 		this.pid = pid;
 		this.hid = hid;
 		this.mriReport = mriReport;
+		this.injured = injured;
+		this.visitDate = visitDate;
 	}
 	
 	public int getOid() {
