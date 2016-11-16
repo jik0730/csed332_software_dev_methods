@@ -44,8 +44,10 @@ public class GenOrthopedicDiagnosesBeanFromFormAction {
 		}
 		
 		OrthopedicDiagnosisBean bean = new OrthopedicDiagnosisBean();
+		System.out.println(""+items.size());
 		
 		for (FileItem f : items) {
+			System.out.println(f.getFieldName());
 			switch (f.getFieldName()) {
 				case "ICDCode": bean.setICDCode(f.getString());;
 				break;

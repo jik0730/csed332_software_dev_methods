@@ -85,6 +85,7 @@
 			addAction.addOrthopedicOV(bean);
 			GenOrthopedicDiagnosesBeanFromFormAction diaBeanGenAction = new GenOrthopedicDiagnosesBeanFromFormAction(prodDAO, loggedInMID);
 			OrthopedicDiagnosisBean beanSub = diaBeanGenAction.genBean(request, servletContext);
+			System.out.println(beanSub.getICDCode());
 			if(beanSub.getICDCode() != null){
 				EditORDiagnosesAction diagnoses =  new EditORDiagnosesAction(prodDAO,""+bean.getOid()); 
 				//validator requires description but DiagnosesDAO does not. Set here to pass validation.

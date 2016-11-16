@@ -142,10 +142,10 @@
 </div>
 
 <div class="panel panel-default">
-	<div class="panel-heading"  anim-type="collapse" anim-target="#oph-menu">
+	<div class="panel-heading"  anim-type="collapse" anim-target="#ort-menu">
 		<h2 class="panel-title">Orthopedic</h2>
 	</div>
-	<div class="panel-body" id="oph-menu">
+	<div class="panel-body" id="ort-menu">
 		<ul class="nav nav-sidebar">
 			<li><a href="/iTrust/auth/hcp/orthopedicHome.jsp">Orthopedic Home</a></li>
 			<li><a href="/iTrust/auth/hcp/viewOrthopedicScheduleRequests.jsp">View Orthopedic Office Visit Requests</a></li>
