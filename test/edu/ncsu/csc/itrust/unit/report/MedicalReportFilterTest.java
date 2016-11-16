@@ -22,6 +22,7 @@ public class MedicalReportFilterTest extends TestCase {
 	protected void setUp() throws Exception {
 		gen.clearAllTables();
 		gen.standardData();
+		gen.uc92();
 		allPatients = pDAO.getAllPatients();
 	}
 

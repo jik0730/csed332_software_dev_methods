@@ -47,7 +47,7 @@ public class ViewPatientInstructionsActionTest extends TestCase {
 		gen.uc44_acceptance_scenario_2();
 		gen.hcp4();
 		action = new ViewPatientInstructionsAction(factory, "1");
-		assertEquals(4, action.getHCPNameLookup().size()); //New Doctor Taylor Doctor HCPKEYTEST
+		assertEquals(3, action.getHCPNameLookup().size()); //New Doctor Taylor Doctor HCPKEYTEST
 		assertEquals("Kelly Doctor", action.getHCPNameLookup().get(9000000000L));
 		assertEquals("Antonio Medico", action.getHCPNameLookup().get(9000000004L));
 	}

@@ -22,6 +22,8 @@ public class UC92SeleniumTest  extends iTrustSeleniumTest{
 		gen.standardData();
 		gen.hcp9();
 		gen.uc92();
+		gen.hcp921();
+		gen.hcp922();
 		gen.apptRequestConflicts();
 	}
 	

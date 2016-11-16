@@ -30,6 +30,8 @@ public class UC92AppointmentRequestTest{
 		gen.clearAllTables();
 		gen.standardData();
 		gen.uc92();
+		gen.hcp921();
+		gen.hcp922();
 		gen.apptRequestConflicts();
 		action = new AddApptRequestAction(TestDAOFactory.getTestInstance());
 	}
