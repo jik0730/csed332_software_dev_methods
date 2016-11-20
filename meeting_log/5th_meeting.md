@@ -5,7 +5,8 @@ Minutes of Meetings
 - Venue: Cafe Monet
 - Members Present (with roles): 정인교 (Team Leader), 김도혁 (Planning Leader), 조성원 (Quality Assurance), 김희곤, 홍기재, 정유철
 - Agenda: DB scheme, Merge, Pair change, Task Planning, Use case
-  
+- Time : Sunday 10:30 ~ 11:30  
+- 
 - Meeting notes:
 
 ### Merge
