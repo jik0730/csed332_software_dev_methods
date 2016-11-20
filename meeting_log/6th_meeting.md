@@ -5,7 +5,8 @@ Minutes of Meetings
 - Venue: GSR 524
 - Members Present (with roles): 정인교 (Team Leader), 김도혁 (Planning Leader), 조성원 (Quality Assurance), 김희곤, 홍기재, 정유철
 - Agenda: Demo schedule setting, Weekly meeting schedule, Merge problem, Updated use case, Things needed to be shared for implementation, Tasks planning
-  
+- Time : Sunday 10:30 ~ 11:30  
+ 
 - Meeting notes:
 
 ### Demo schedule setting
