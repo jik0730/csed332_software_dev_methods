@@ -22,6 +22,16 @@ The green team consists of these brilliant members.
 |[정유철](@ycjung)|Java, JavaScript, Web| Team Leader | |QA Leader| |
 |[홍기재](@todok1020)|Java, JavaScript, ExtJs, Intellij| Planning Leader | |2nd Presenter| |
 
+Pair Programming
+-----------
+We assigned pairs in each iteration.
+
+|__Pairs__|__Iteration 1__|__Iteration 2__|__Iteration 3__|__Iteration 4__|
+|:---:|:---:|:---:|:---:|:---:|
+|Pair 1|정인교, 홍기재|김희곤, 홍기재|조성원, 정유철| |
+|Pair 2|김희곤, 조성원|김도혁, 조성원|정인교, 김희곤| |
+|Pair 3|정유철, 김도혁|정유철, 정인교|홍기재, 김도혁| |
+
 Timeline & Progress Report
 ---------------
 
