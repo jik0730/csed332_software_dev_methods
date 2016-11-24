@@ -112,7 +112,7 @@ public class OrthopedicDiagnosisDAO {
 			ps = conn.prepareStatement(statement);
 			ps.setLong(1, bean.getVisitID());
 			ps.setString(2, bean.getICDCode());
-			ps.setLong(3, bean.getOpDiagnosisID());
+			ps.setLong(3, bean.getOrDiagnosisID());
 			ps.executeUpdate();
 			ps.close();
 			return DBUtil.getLastInsert(conn);
@@ -153,7 +153,7 @@ public class OrthopedicDiagnosisDAO {
 	 * @return java.util.List of DiagnosisBeans
 	 * @throws DBException
 	 */
-	public List<OrthopedicDiagnosisBean> getOpICDCodes() throws DBException {
+	public List<OrthopedicDiagnosisBean> getOrICDCodes() throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		OrthopedicDiagnosisBeanLoader diagnosisLoader = new OrthopedicDiagnosisBeanLoader();
@@ -172,3 +172,4 @@ public class OrthopedicDiagnosisDAO {
 		}
 	}
 }
+

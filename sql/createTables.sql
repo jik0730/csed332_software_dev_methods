@@ -799,6 +799,13 @@ CREATE TABLE IF NOT EXISTS opdiagnosis(
     URL VARCHAR(512) COMMENT 'URL for information'
 ) ENGINE=MyISAM;
 
+CREATE TABLE IF NOT EXISTS ordiagnosis(
+    ID INT(10) auto_increment primary key,
+	VisitID INT( 10 ) unsigned NOT NULL COMMENT 'ID of the Orthopedic Visit',
+	ICDCode DECIMAL( 5, 2 ) NOT NULL COMMENT 'Code for the Diagnosis',
+    URL VARCHAR(512) COMMENT 'URL for information'
+) ENGINE=MyISAM;
+
 /*department table to match speciality of HCP and department detail table*/
 CREATE TABLE IF NOT EXISTS department(
 	DepartmentID INT(10) auto_increment primary key,
@@ -832,12 +839,14 @@ CREATE TABLE IF NOT EXISTS orthopedicPhysicalTherapy(
 /*Orthopedic surgery office visit table*/
 
 CREATE TABLE IF NOT EXISTS orthopedicSurgery(
-	SurgeryVisitID INT( 10 ) auto_increment primary key,
-	VisitID INT( 10 ) NOT NULL,
-	PatientID BIGINT NOT NULL,
-	HCPID BIGINT NOT NULL,
-	SurgeryType VARCHAR(50) NOT NULL,
-	SurgeryNote VARCHAR(512)
+	MID BIGINT unsigned NOT NULL default '0',
+	OID BIGINT unsigned auto_increment,
+	dateVisit DATE,
+	docLastName varchar(20),
+	docFirstName varchar(20),
+	surgery varchar(400),
+	surgeryNotes varchar(512),
+	PRIMARY KEY (OID)
 ) ENGINE = MyISAM;
 
 /*Order table to certifcate order of HCP to another HCP*/

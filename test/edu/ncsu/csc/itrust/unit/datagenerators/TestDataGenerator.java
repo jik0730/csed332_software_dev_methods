@@ -241,6 +241,17 @@ public class TestDataGenerator {
 	public void hcp12() throws FileNotFoundException, SQLException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/hcp12.sql");
 	}
+	
+	/**
+	 * Adds HCP Lamar Bridges with Specialty Orthopedic.
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public void hcp13() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/hcp13.sql");
+	}
 
 	public void healthData() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/healthdata.sql");
@@ -986,6 +997,9 @@ public class TestDataGenerator {
 		// Added for UC 86
 		hcp12();
 
+		// Added for UC90
+		//hcp13();
+		
 		patient27();
 		patient28();
 		patient29();

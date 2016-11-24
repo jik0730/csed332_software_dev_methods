@@ -15,14 +15,14 @@ import edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean;
  */
 
 public class OrthopedicDiagnosisBeanLoader implements BeanLoader<OrthopedicDiagnosisBean> {
-	private boolean loadOPDiagnosisID = false;
+	private boolean loadORDiagnosisID = false;
 
 	public OrthopedicDiagnosisBeanLoader() {
-		loadOPDiagnosisID = false;
+		loadORDiagnosisID = false;
 	}
 
-	public OrthopedicDiagnosisBeanLoader(boolean loadOPDiagnosisID) {
-		this.loadOPDiagnosisID = loadOPDiagnosisID;
+	public OrthopedicDiagnosisBeanLoader(boolean loadORDiagnosisID) {
+		this.loadORDiagnosisID = loadORDiagnosisID;
 	}
 
 	public List<OrthopedicDiagnosisBean> loadList(ResultSet rs) throws SQLException {
@@ -36,8 +36,8 @@ public class OrthopedicDiagnosisBeanLoader implements BeanLoader<OrthopedicDiagn
 	public OrthopedicDiagnosisBean loadSingle(ResultSet rs) throws SQLException {
 
 		OrthopedicDiagnosisBean diag = new OrthopedicDiagnosisBean(rs.getString("Code"), rs.getString("Description"), rs.getString("Chronic"), rs.getString("URL"));
-		if (loadOPDiagnosisID) {
-			diag.setOpDiagnosisID(rs.getInt("ID"));
+		if (loadORDiagnosisID) {
+			diag.setOrDiagnosisID(rs.getInt("ID"));
 			diag.setVisitID(rs.getLong("VisitID"));
 		}
 		return diag;

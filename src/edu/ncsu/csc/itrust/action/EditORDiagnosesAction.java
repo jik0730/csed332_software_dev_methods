@@ -44,12 +44,12 @@ public class EditORDiagnosesAction {
 	}
 	
 	public void deleteDiagnosis(OrthopedicDiagnosisBean bean) throws ITrustException {
-		diagnosesDAO.remove(bean.getOpDiagnosisID());
+		diagnosesDAO.remove(bean.getOrDiagnosisID());
 		
 	}
 	
 	public List<OrthopedicDiagnosisBean> getDiagnosisCodes() throws DBException {
-		return diagnosesDAO.getOpICDCodes();
+		return diagnosesDAO.getOrICDCodes();
 	}
 	
 }

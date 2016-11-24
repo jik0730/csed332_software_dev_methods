@@ -45,6 +45,30 @@ public class ICDCodesDAO {
 	}
 
 	/**
+	 * Returns all non-Ophthalmology non-Orthopedic ICD9CM codes sorted by code
+	 * 
+	 * @return java.util.List of DiagnosisBeans
+	 * @throws DBException
+	 */
+	public List<DiagnosisBean> getAllNonCodes() throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM icdcodes where Ophthalmology='no' and Orthopedic='no' ORDER BY CODE");
+			ResultSet rs = ps.executeQuery();
+			List<DiagnosisBean> loadlist = diagnosisLoader.loadList(rs);
+			rs.close();
+			return loadlist;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
 	 * Returns all non-Ophthalmology ICD9CM codes sorted by code
 	 * 
 	 * @return java.util.List of DiagnosisBeans
@@ -68,7 +92,31 @@ public class ICDCodesDAO {
 		}
 	}
 	
-
+	/**
+	 * Returns all non-Orthopedic ICD9CM codes sorted by code
+	 * 
+	 * @return java.util.List of DiagnosisBeans
+	 * @throws DBException
+	 */
+	public List<DiagnosisBean> getAllNonOrthopedicCodes() throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM icdcodes where Orthopedic='no' ORDER BY CODE");
+			ResultSet rs = ps.executeQuery();
+			List<DiagnosisBean> loadlist = diagnosisLoader.loadList(rs);
+			rs.close();
+			return loadlist;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	
 	
 	/**
 	 * Returns all ICD9CM codes sorted by code
@@ -137,11 +185,12 @@ public class ICDCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO icdcodes (Code, Description, Chronic, Ophthalmology) " + "VALUES (?,?,?,?)");
+			ps = conn.prepareStatement("INSERT INTO icdcodes (Code, Description, Chronic, Ophthalmology, Orthopedic) " + "VALUES (?,?,?,?,?)");
 			ps.setString(1, diag.getICDCode());
 			ps.setString(2, diag.getDescription());
 			ps.setString(3, diag.getClassification());
 			ps.setString(4, diag.getOphthalmology());
+			ps.setString(5, diag.getOrthopedic());
 			return (1 == ps.executeUpdate());
 		} catch (SQLException e) {
 			
@@ -166,12 +215,13 @@ public class ICDCodesDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE icdcodes SET Description = ?, Chronic = ?, URL = ?, Ophthalmology = ? WHERE Code = ?");
+			ps = conn.prepareStatement("UPDATE icdcodes SET Description = ?, Chronic = ?, URL = ?, Ophthalmology = ?, Orthopedic = ? WHERE Code = ?");
 			ps.setString(1, diag.getDescription());
 			ps.setString(2, diag.getClassification());
 			ps.setString(3, diag.getURL());
 			ps.setString(4, diag.getOphthalmology());
-			ps.setString(5, diag.getICDCode());
+			ps.setString(5, diag.getOrthopedic());
+			ps.setString(6, diag.getICDCode());
 			rows = ps.executeUpdate();
 		} catch (SQLException e) {
 			

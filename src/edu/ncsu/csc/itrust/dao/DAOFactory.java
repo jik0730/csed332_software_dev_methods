@@ -392,6 +392,14 @@ public class DAOFactory {
 	public OphthalmologySurgeryRecordDAO getOphthalmologySurgeryRecordDAO(){
 		return new OphthalmologySurgeryRecordDAO(this);
 	}
+
+	/** 
+	 * Gets the DOA for Orthopedic surgery records.
+	 * @return this DAO factory's OphthalmologyOVRecordDAO
+	 */
+	public OrthopedicSurgeryRecordDAO getOrthopedicSurgeryRecordDAO(){
+		return new OrthopedicSurgeryRecordDAO(this);
+	}	
 	
 	/**
 	 * Gets the DAO for obstetrics records.

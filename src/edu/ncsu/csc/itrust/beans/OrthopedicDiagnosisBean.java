@@ -99,7 +99,7 @@ public class OrthopedicDiagnosisBean {
 	 * 
 	 * @return opDiagnosisID
 	 */
-	public long getOpDiagnosisID() {
+	public long getOrDiagnosisID() {
 		return ovDiagnosisID;
 	}
 
@@ -107,7 +107,7 @@ public class OrthopedicDiagnosisBean {
 	 * setOpDiagnosisID
 	 * @param opDiagnosisID
 	 */
-	public void setOpDiagnosisID(long ovDiagnosisID) {
+	public void setOrDiagnosisID(long ovDiagnosisID) {
 		this.ovDiagnosisID = ovDiagnosisID;
 	}
 
