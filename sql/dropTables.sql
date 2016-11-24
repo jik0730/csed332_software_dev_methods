@@ -100,6 +100,7 @@ DROP TABLE IF EXISTS opdiagnosis;
 DROP TABLE IF EXISTS department;
 DROP TABLE IF EXISTS orthopedic;
 DROP TABLE IF EXISTS orthopedicPhysicalTherapy;
+DROP TABLE IF EXISTS physicalTherapy;
 DROP TABLE IF EXISTS orthopedicSurgery;
 DROP TABLE IF EXISTS orderTable;
 DROP TABLE IF EXISTS ordiagnosis;

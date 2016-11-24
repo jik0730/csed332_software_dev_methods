@@ -102,6 +102,35 @@ public class PhysicalTherapyOVRecordBean {
 	public void setExercise(String exercise) {
 		this.exercise = exercise.split(",");
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PhysicalTherapyOVRecordBean other = (PhysicalTherapyOVRecordBean) obj;
+		
+		if (this.mid != other.mid)
+			return false;
+		if (this.oid != other.oid)
+			return false;
+		if (!this.visitDate.equals(other.visitDate))
+			return false;
+		if (!this.docLastName.equals(other.docLastName))
+			return false;
+		if (!this.docFirstName.equals(other.docFirstName))
+			return false;
+		if (!Arrays.equals(this.wellnessSurveyResults, other.wellnessSurveyResults))
+			return false;
+		if (this.wellnessSurveyScore != other.wellnessSurveyScore)
+			return false;
+		if (!Arrays.equals(this.exercise, other.exercise))
+			return false;
+		return true;
+	}
 }
 
 

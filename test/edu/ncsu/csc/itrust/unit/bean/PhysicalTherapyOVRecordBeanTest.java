@@ -20,7 +20,7 @@ public class PhysicalTherapyOVRecordBeanTest {
 		bean1.setOid(2L);
 		bean1.setFirstName("Kelly");
 		bean1.setLastName("Doctor");
-		bean1.setVisitDate("2015-12-12");
+		bean1.setVisitDate("01/22/2015");
 		String survey = "100,0,0,0,0,0,0,0,0,0";
 		bean1.setWellnessSurveyResults(survey);
 		bean1.setWellnessSurveyScore(10L);
@@ -40,7 +40,7 @@ public class PhysicalTherapyOVRecordBeanTest {
 		for(int i=0; i<10; i++){
 			assertEquals(exercises[i], splitted[i]);
 		}
-		assertEquals(bean1.getWellnessSurveyResults(), "false,true,false,false,true,false,false,true,false,true");
+		assertEquals(bean1.getWellnessSurveyResults(), survey);
 		
 		splitted = survey.split(",");
 		String[] surveys = bean1.getWellnessSurveyResultsInArray();

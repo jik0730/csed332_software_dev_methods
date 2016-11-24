@@ -42,12 +42,13 @@ public class PhysicalTherapyOfficeVisitTest extends iTrustSeleniumTest {
 		driver.findElement(By.id("date")).clear();
 		driver.findElement(By.id("date")).sendKeys("10/14/2015");
 		for(int i=0; i<10; i++){
-			driver.findElement(By.id("wellnessSurvey"+String.valueOf(i))).sendKeys("25");
+			driver.findElement(By.name("wellnessSurveyResult"+String.valueOf(i))).sendKeys("25");
 		}
 		for(int i=0; i<10; i++){
-			driver.findElement(By.id("exercise"+String.valueOf(i))).sendKeys("false");
+			driver.findElement(By.name("exercise"+String.valueOf(i))).sendKeys("false");
 		}
 		
+		driver.findElement(By.id("submit")).submit();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 		//Verify that we are returned to the PhisycalTherapy Homepage
@@ -88,13 +89,13 @@ public class PhysicalTherapyOfficeVisitTest extends iTrustSeleniumTest {
 		assertEquals("iTrust - PhysicalTherapy", title);
 		
 		//Click the proper office visit link
-		driver.findElement(By.linkText("10/14/2015")).click();
+		driver.findElement(By.linkText("10/15/2015")).click();
 		
 		//Verify that the action was logged
 		assertLogged(TransactionType.VIEW_PHYSICALTHERAPY_OV, 9000000000L, 407L, "");
 		
 		//Verify that the Office Visit is shown
-		assertTrue(driver.getPageSource().contains("10/14/2015"));
+		assertTrue(driver.getPageSource().contains("10/15/2015"));
 	}
 	
 	public void testEditPhisycalTherapyOfficeVisit() throws Exception{
@@ -106,27 +107,27 @@ public class PhysicalTherapyOfficeVisitTest extends iTrustSeleniumTest {
 		assertLogged(TransactionType.HOME_VIEW, 9220000000L, 0L, "");
 
 		//Click the PhisycalTherapy Home link
-		driver.findElement(By.linkText("PhisycalTherapy Home")).click();
+		driver.findElement(By.linkText("PhysicalTherapy Home")).click();
 
 		//Select Freya Chandler as the patient
 		driver.findElement(By.name("UID_PATIENTID")).sendKeys("407");
 		driver.findElement(By.xpath("//input[@value='407']")).submit();
 		String title = driver.getTitle();
-		assertEquals("iTrust - PhisycalTherapy", title);
+		assertEquals("iTrust - PhysicalTherapy", title);
 		
 		//Click the proper office visit link
 		driver.findElement(By.linkText("10/15/2015")).click();
 		
 		//Fill in the correct values and submit the form
-		driver.findElement(By.id("wellnessSurvey0")).clear();
-		driver.findElement(By.id("wellnessSurvey0")).sendKeys("100");
+		driver.findElement(By.name("wellnessSurveyResult0")).clear();
+		driver.findElement(By.name("wellnessSurveyResult0")).sendKeys("100");
 		driver.findElement(By.id("submit")).click();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 		//Verify that we are returned to the PhisycalTherapy Homepage
 		title = driver.getTitle();
-		assertEquals("iTrust - PhisycalTherapy", title);
-		assertTrue(driver.getPageSource().contains("PhisycalTherapy Office Visit successfully edited"));
+		assertEquals("iTrust - PhysicalTherapy", title);
+		assertTrue(driver.getPageSource().contains("PhysicalTherapy Office Visit successfully edited"));
 
 		//Verify that the action was logged
 		assertLogged(TransactionType.EDIT_PHYSICALTHERAPY_OV, 9220000000L, 407L, "");

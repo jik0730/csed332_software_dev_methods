@@ -84,7 +84,7 @@ public class PhysicalTherapyOVRecordDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM physicalTherapy WHERE MID=?");
+			ps = conn.prepareStatement("SELECT * FROM physicalTherapy WHERE MID=? ORDER BY dateVisit DESC");
 			ps.setLong(1, mid);
 			ResultSet rs = ps.executeQuery();
 

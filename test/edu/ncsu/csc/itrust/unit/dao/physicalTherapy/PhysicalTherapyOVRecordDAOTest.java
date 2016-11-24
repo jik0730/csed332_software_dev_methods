@@ -33,7 +33,7 @@ public class PhysicalTherapyOVRecordDAOTest {
 		bean.setOid(2L);
 		bean.setFirstName("Kelly");
 		bean.setLastName("Doctor");
-		bean.setVisitDate("2015-12-12");
+		bean.setVisitDate("12/12/2015");
 		String survey = "100,0,0,0,0,0,0,0,0,0";
 		bean.setWellnessSurveyResults(survey);
 		bean.setWellnessSurveyScore(10L);

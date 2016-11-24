@@ -31,14 +31,14 @@ public class ViewPhysicalTherapyOVAction {
 	
 	public PhysicalTherapyOVRecordBean getPhysicalTherapyOVForHCP(long oid) throws ITrustException{
 		PhysicalTherapyOVRecordBean record = physicalTherapyOVDAO.getPhysicalTherapyOVRecord(oid);
-    	loggingAction.logEvent(TransactionType.parse(8301), loggedInMID, 
+    	loggingAction.logEvent(TransactionType.parse(8901), loggedInMID, 
 				record.getMid(), "PhysicalTherapy Office Visit " +  oid + " viewed by " + loggedInMID);
     	return record;
 	}
 	
 	public PhysicalTherapyOVRecordBean getPhysicalTherapyOVForPatient(long oid) throws ITrustException{
 		PhysicalTherapyOVRecordBean record = physicalTherapyOVDAO.getPhysicalTherapyOVRecord(oid);
-    	loggingAction.logEvent(TransactionType.parse(8400), loggedInMID, 
+    	loggingAction.logEvent(TransactionType.parse(8901), loggedInMID, 
 				record.getMid(), "PhysicalTherapy Office Visit " +  oid + " viewed by " + loggedInMID);
     	return record;
 	}

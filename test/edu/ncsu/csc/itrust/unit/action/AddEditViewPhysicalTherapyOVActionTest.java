@@ -42,7 +42,7 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		bean1.setOid(1L);
 		bean1.setFirstName("Kelly");
 		bean1.setLastName("Doctor");
-		bean1.setVisitDate("2015-12-12");
+		bean1.setVisitDate("12/12/2015");
 		String survey = "100,0,0,0,0,0,0,0,0,0";
 		bean1.setWellnessSurveyResults(survey);
 		bean1.setWellnessSurveyScore(10L);
@@ -56,7 +56,7 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		bean2.setOid(2L);
 		bean2.setFirstName("Kelly");
 		bean2.setLastName("Doctor");
-		bean2.setVisitDate("2015-12-13");
+		bean2.setVisitDate("12/13/2015");
 		survey = "100,0,0,0,0,0,0,0,0,0";
 		bean2.setWellnessSurveyResults(survey);
 		bean2.setWellnessSurveyScore(10L);
@@ -70,7 +70,7 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		bean3.setOid(3L);
 		bean3.setFirstName("Kelly");
 		bean3.setLastName("Doctor");
-		bean3.setVisitDate("2015-12-14");
+		bean3.setVisitDate("12/14/2015");
 		survey = "100,0,0,0,0,0,0,0,0,0";
 		bean3.setWellnessSurveyResults(survey);
 		bean3.setWellnessSurveyScore(10L);
@@ -84,7 +84,7 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		bean4.setOid(4L);
 		bean4.setFirstName("Kelly");
 		bean4.setLastName("Doctor");
-		bean4.setVisitDate("2015-12-15");
+		bean4.setVisitDate("12/15/2015");
 		survey = "100,0,0,0,0,0,0,0,0,0";
 		bean4.setWellnessSurveyResults(survey);
 		bean4.setWellnessSurveyScore(10L);
@@ -96,7 +96,7 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		bean5.setOid(5L);
 		bean5.setFirstName("Kelly");
 		bean5.setLastName("Doctor");
-		bean5.setVisitDate("2015-12-16");
+		bean5.setVisitDate("12/16/2015");
 		survey = "100,0,0,0,0,0,0,0,0,0";
 		bean5.setWellnessSurveyResults(survey);
 		bean5.setWellnessSurveyScore(10L);
