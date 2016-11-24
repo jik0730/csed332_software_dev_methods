@@ -33,7 +33,7 @@ public class ViewDiagnosisStatisticsActionTest extends TestCase {
 	
 	public void testGetDiagnosisCodes() throws Exception {
 		List<DiagnosisBean> db = action.getDiagnosisCodes();
-		assertEquals(19, db.size());
+		assertEquals(25, db.size());
 	}
 	
 	public void testGetDiagnosisStatisticsValid() throws Exception {

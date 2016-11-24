@@ -67,12 +67,12 @@ public class EditDiagnosesActionTest extends TestCase {
 	public void testGetDiagnosisCodes() throws Exception {
 		action = new EditDiagnosesAction(factory, 9000000000L, "2", "955");
 		List<DiagnosisBean> list = action.getDiagnosisCodes();
-		assertEquals(19, list.size());
+		assertEquals(25, list.size());
 		
 		// It can also be retrieved for an undefined office visit
 		action = new EditDiagnosesAction(factory, 9000000000L, "1");
 		list = action.getDiagnosisCodes();
-		assertEquals(19, list.size());
+		assertEquals(25, list.size());
 	}
 
 }

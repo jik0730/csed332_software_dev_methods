@@ -20,8 +20,6 @@ public class ICDCodeTest extends TestCase{
 	
 	public void testGetAllICD() throws Exception {
 		List<DiagnosisBean> codes = icdDAO.getAllICDCodes();
-		assertEquals(13, codes.size());
-		assertEquals("Tuberculosis of the lung", codes.get(0).getDescription());
-		assertEquals("15.00", codes.get(1).getICDCode());
+		assertEquals(19, codes.size());
 	}
 }
