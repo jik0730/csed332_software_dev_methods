@@ -66,6 +66,7 @@ public class ParseOrthopedicFormAction {
 				break;
 				case "ICDCode": diagnosisBean.setICDCode(f.getString());;
 				break;
+				case "ovID": recordBean.setOid(Integer.valueOf(f.getString()));
 			}
 		}
 	}

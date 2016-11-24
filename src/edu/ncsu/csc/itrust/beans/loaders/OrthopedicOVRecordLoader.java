@@ -28,6 +28,8 @@ public class OrthopedicOVRecordLoader implements BeanLoader<OrthopedicOVRecordBe
 		p.setOid(rs.getInt("OrthopedicVisitID"));
 		p.setPid(rs.getLong("PatientID"));
 		p.setHid(rs.getLong("HCPID"));
+		p.setMri(rs.getBytes("MRI"));
+		p.setXray(rs.getBytes("XRay"));
 		p.setVisitDate(new SimpleDateFormat("MM/dd/yyyy").format(new Date(rs.getDate("DateVisit").getTime())));
 		p.setInjured(rs.getString("Injured"));
 		if(rs.getObject("MRIReport") != null) {

@@ -15,7 +15,7 @@
 <%@page import="edu.ncsu.csc.itrust.exception.ITrustException"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException" %>
 <%@page import="edu.ncsu.csc.itrust.action.EditORDiagnosesAction"%> 
-<%@page import="edu.ncsu.csc.itrust.action.GenOrthopedicOVRecordBeanFromFormAction"%> 
+<%@page import="edu.ncsu.csc.itrust.action.ParseOrthopedicFormAction"%> 
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean"%>
 <%@page import="edu.ncsu.csc.itrust.validate.OrthopedicDiagnosisBeanValidator"%>
 <%@page import="edu.ncsu.csc.itrust.BeanBuilder"%>
@@ -43,6 +43,8 @@
 	if (oidString != null && !oidString.equals("")) {
 		long oid = Long.parseLong(request.getParameter("oid"));
 		bean = viewAction.getOrthopedicOVForHCP(oid);
+		System.out.println("WOWOWOOWOWOOWO" + bean.getXray().length);
+		System.out.println("POWPOWPOWPOWPOW" + bean.getMri().length);
 		
 		//then grab the associated PatientBean
 		ViewPatientAction viewPatient = new ViewPatientAction(prodDAO, loggedInMID, pidString);
@@ -91,20 +93,29 @@
 		boolean addedSomething = false;
 		
 		// Create a factory for disk-based file items
-		GenOrthopedicOVRecordBeanFromFormAction genAction = new GenOrthopedicOVRecordBeanFromFormAction(prodDAO, loggedInMID);
+		ParseOrthopedicFormAction parseAction = new ParseOrthopedicFormAction(prodDAO, loggedInMID);
+		OrthopedicOVRecordBean newBean = null;
 		ServletContext servletContext = this.getServletConfig().getServletContext();
+		parseAction.parse(request, servletContext);
 
 		clientSideErrors = "<p class=\"iTrustError\">This form has not been validated correctly. "
 				+ "The following field are not properly filled in: [";
 		boolean hasCSErrors = false;
 		try {
-			bean = genAction.genBean(request, servletContext);
+			newBean = parseAction.getRecordBean();
+			if(newBean.getMri().length == 0)
+				newBean.setMri(bean.getMri());
+			if(newBean.getXray().length == 0)
+				newBean.setXray(bean.getXray());
+			newBean.setOid(Integer.valueOf(oidString));
+			newBean.setHid(bean.getHid());
+			newBean.setPid(bean.getPid());
 		} catch (IllegalFormatException e) {
 			clientSideErrors += "File Format Invalid: " + e.getMessage();
 			hasCSErrors = true;
 		}
 		try {
-			if ("".equals(bean.getInjured())) throw new Exception();
+			if ("".equals(newBean.getInjured())) throw new Exception();
 		} catch (IllegalArgumentException e) {
 			clientSideErrors += "Injured is required field";
 			hasCSErrors = true;
@@ -114,7 +125,7 @@
 			out.write(clientSideErrors + "]</p>");
 			clientSideErrors = "";
 		} else {
-			editAction.editOrthopedicOV(bean.getOid(), bean);
+			editAction.editOrthopedicOV(newBean.getOid(), newBean);
 			addedSomething = true;
 		}
 		if (addedSomething) {
@@ -130,7 +141,7 @@
 </script>
 <div id="mainpage" align="center">
 
-	<form <% out.print("action=\"/iTrust/auth/hcp/editOrthopedicOV.jsp?oid=" + oidString + "\""+"&formIsFilled=true"); %> method="post" id="officeVisit" enctype="multipart/form-data">
+	<form <% out.print("action=\"/iTrust/auth/hcp/editOrthopedicOV.jsp?formIsFilled=true&oid=" + oidString + "\""); %> method="post" id="officeVisit" enctype="multipart/form-data">
 		<table class="fTable" align="center">
 			<tr><th colspan="3">Edit Orthopedic Office Visit</th></tr>
 			<tr>
@@ -172,14 +183,13 @@
 	</form>
 </div>
 
-<form <% out.print("action=\"/iTrust/auth/hcp/editOrthopedicOV.jsp?oid=" + oidString + "\""); %> method="post" id="removeDiagnosisForm" >
-<input type="hidden" name="formIsFilled" value="true" />
+<form <% out.print("action=\"/iTrust/auth/hcp/editOrthopedicOV.jsp?formIsFilled=true&oid=" + oidString + "\""); %> method="post" id="removeDiagnosisForm" >
 <input type="hidden" name="submittedFormName" value="removediagnosesForm" />
 <input type="hidden" id="removeDiagID" name="removeDiagID" value="" />
 <input type="hidden" name="ovID" value="<%= StringEscapeUtils.escapeHtml("" + oidString) %>" />
 </form>
 
-<form <% out.print("action=\"/iTrust/auth/hcp/editOrthopedicOV.jsp?oid=" + oidString + "\""); %> method="post" id="diagnosesForm" >
+<form <% out.print("action=\"/iTrust/auth/hcp/editOrthopedicOV.jsp?formIsFilled=true&oid=" + oidString + "\""); %> method="post" id="diagnosesForm" >
 		<input type="hidden" name="formIsFilled" value="true" />
 		<input type="hidden" name="submittedFormName" value="diagnosesForm" />
 		<table class="fTable" align="center" >

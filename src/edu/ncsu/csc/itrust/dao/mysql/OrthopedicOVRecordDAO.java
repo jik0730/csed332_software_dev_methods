@@ -32,7 +32,7 @@ public class OrthopedicOVRecordDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement(
-					"SELECT OrthopedicVisitID, PatientiD, HCPID, DateVisit, Injured, MRIReport "
+					"SELECT OrthopedicVisitID, PatientiD, HCPID, DateVisit, Injured, XRay, MRI, MRIReport "
 					+ "FROM orthopedic WHERE PatientID=? ORDER BY DateVisit DESC"
 				);
 			ps.setLong(1, pid);
