@@ -68,7 +68,7 @@ public class OrthopedicOVRecordBeanTest {
 		
 		assertEquals(bean1, bean2);
 		assertEquals(bean1.toString(), bean2.toString());
-		//assertEquals(bean1.hashCode(), bean2.hashCode());
+		assertEquals(bean1.hashCode(), bean2.hashCode());
 		
 		
 		bean1.setVisitDate(null);

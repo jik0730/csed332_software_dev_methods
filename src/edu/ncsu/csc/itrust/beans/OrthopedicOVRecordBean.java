@@ -115,6 +115,11 @@ public class OrthopedicOVRecordBean {
 				return false;
 		} else if (!mriReport.equals(other.mriReport))
 			return false;
+		if (injured == null) {
+			if (other.injured != null)
+				return false;
+		} else if (!injured.equals(other.injured))
+			return false;
 		if (visitDate == null) {
 			if (other.visitDate != null)
 				return false;
@@ -132,4 +137,28 @@ public class OrthopedicOVRecordBean {
 			return false;
 		return true;
 	}
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 37;
+		int result = 1;
+		result = prime * result + ((injured == null) ? 0 : injured.hashCode());
+		result = prime * result + ((mriReport == null) ? 0 : mriReport.hashCode());
+		result = prime * result + ((visitDate == null) ? 0 : visitDate.hashCode());
+		result = prime * result + ((xray == null) ? 0 : Arrays.hashCode(xray));
+		result = prime * result + ((mri == null) ? 0 : Arrays.hashCode(mri));
+		result = prime * result + (int) (pid ^ (pid >>> 32));
+		result = prime * result + (int) (oid ^ (oid >>> 16));
+		result = prime * result + (int) (hid ^ (hid >>> 32));
+
+		return result;
+	}
+	
+	public String toString() {
+		return "OrthopedicScheduleOVRecordBean [patientmid=" + pid
+				+ ", doctormid=" + hid + ", oid=" + oid + ", date="
+				+ visitDate + ", mriReport=" + mriReport + ", xraySize=" + xray.length + ", mriSize=" + mri.length +"]";
+	}
+	
 }

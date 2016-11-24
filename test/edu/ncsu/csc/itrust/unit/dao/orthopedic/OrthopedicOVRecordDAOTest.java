@@ -44,6 +44,7 @@ public class OrthopedicOVRecordDAOTest {
 		bean.setVisitDate(new SimpleDateFormat("MM/dd/yyyy").format(new Date()));
 		bean.setXray(TEST_XRAY);
 		bean.setMri(TEST_MRI);
+		bean.setInjured("test");
 		bean.setMriReport("Wow, Fabulous.");
 	}
 	
