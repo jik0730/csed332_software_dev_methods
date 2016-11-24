@@ -1,5 +1,6 @@
 package edu.ncsu.csc.itrust.action;
 
+import edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean;
 import edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 
@@ -16,17 +17,22 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-public class GenOrthopedicOVRecordBeanFromFormAction {
+public class ParseOrthopedicFormAction {
 	
 	private DAOFactory factory;
 	private long loggedInMID;
 	
-	public GenOrthopedicOVRecordBeanFromFormAction(DAOFactory factory, long loggedInMID) {
+	private OrthopedicOVRecordBean recordBean;
+	private OrthopedicDiagnosisBean diagnosisBean;
+	
+	public ParseOrthopedicFormAction(DAOFactory factory, long loggedInMID) {
 		this.factory = factory;
 		this.loggedInMID = loggedInMID;
+		this.recordBean = new OrthopedicOVRecordBean();
+		this.diagnosisBean = new OrthopedicDiagnosisBean();
 	}
 	
-	public OrthopedicOVRecordBean genBean(HttpServletRequest request, ServletContext servletContext) {
+	public void parse(HttpServletRequest request, ServletContext servletContext) {
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 
 		// Configure a repository (to ensure a secure temp location is used)
@@ -42,26 +48,34 @@ public class GenOrthopedicOVRecordBeanFromFormAction {
 			items = upload.parseRequest(request);
 		} catch(FileUploadException e) {
 			e.printStackTrace();
-			return null;
+			return;
 		}
 		
-		OrthopedicOVRecordBean bean = new OrthopedicOVRecordBean();
 		
 		for (FileItem f : items) {
 			switch (f.getFieldName()) {
-				case "date": bean.setVisitDate(f.getString());
+				case "date": recordBean.setVisitDate(f.getString());
 				break;
-				case "Injured": bean.setInjured(f.getString());
+				case "Injured": recordBean.setInjured(f.getString());
 				break;
-				case "XRay": bean.setXray(fileItemToBytes(f));
+				case "XRay": recordBean.setXray(fileItemToBytes(f));
 				break;
-				case "MRI": bean.setMri(fileItemToBytes(f));
+				case "MRI": recordBean.setMri(fileItemToBytes(f));
 				break;
-				case "mirReport": bean.setMriReport(f.getString());
+				case "mriReport": recordBean.setMriReport(f.getString());
+				break;
+				case "ICDCode": diagnosisBean.setICDCode(f.getString());;
 				break;
 			}
 		}
-		return bean;
+	}
+	
+	public OrthopedicDiagnosisBean getDiagnosisBean() {
+		return diagnosisBean;
+	}
+	
+	public OrthopedicOVRecordBean getRecordBean() {
+		return recordBean;
 	}
 	
 	/** Returns NULL if not available */

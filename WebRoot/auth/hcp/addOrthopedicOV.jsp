@@ -16,8 +16,7 @@
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException" %>
 <%@page import="edu.ncsu.csc.itrust.action.EditORDiagnosesAction"%> 
-<%@page import="edu.ncsu.csc.itrust.action.GenOrthopedicOVRecordBeanFromFormAction"%> 
-<%@page import="edu.ncsu.csc.itrust.action.GenOrthopedicDiagnosesBeanFromFormAction"%> 
+<%@page import="edu.ncsu.csc.itrust.action.ParseOrthopedicFormAction"%> 
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean"%>
 <%@page import="edu.ncsu.csc.itrust.validate.OrthopedicDiagnosisBeanValidator"%>
 <%@page import="edu.ncsu.csc.itrust.BeanBuilder"%>
@@ -57,14 +56,15 @@
 		boolean addedSomething = false;
 		
 		// Create a factory for disk-based file items
-		GenOrthopedicOVRecordBeanFromFormAction genAction = new GenOrthopedicOVRecordBeanFromFormAction(prodDAO, loggedInMID);
+		ParseOrthopedicFormAction parseAction = new ParseOrthopedicFormAction(prodDAO, loggedInMID);
+		parseAction.parse(request, servletContext);
 
 		String clientSideErrors = "<p class=\"iTrustError\">This form has not been validated correctly. "
 				+ "The following field are not properly filled in: [";
 		boolean hasCSErrors = false;
 		OrthopedicOVRecordBean bean = null;
 		try {
-			bean = genAction.genBean(request, servletContext);
+			bean = parseAction.getRecordBean();
 		} catch (Exception e) {
 			e.printStackTrace();
 			clientSideErrors += "File Format Invalid: " + e.getMessage();
@@ -83,9 +83,7 @@
 			clientSideErrors = "";
 		} else {
 			addAction.addOrthopedicOV(bean);
-			GenOrthopedicDiagnosesBeanFromFormAction diaBeanGenAction = new GenOrthopedicDiagnosesBeanFromFormAction(prodDAO, loggedInMID);
-			OrthopedicDiagnosisBean beanSub = diaBeanGenAction.genBean(request, servletContext);
-			System.out.println(beanSub.getICDCode());
+			OrthopedicDiagnosisBean beanSub = parseAction.getDiagnosisBean();
 			if(beanSub.getICDCode() != null){
 				EditORDiagnosesAction diagnoses =  new EditORDiagnosesAction(prodDAO,""+bean.getOid()); 
 				//validator requires description but DiagnosesDAO does not. Set here to pass validation.
