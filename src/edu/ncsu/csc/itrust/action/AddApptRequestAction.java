@@ -51,7 +51,7 @@ public class AddApptRequestAction {
 				return "You should change appointment type for this HCP.";
 			}
 			
-			if(!speciality.equals("Physical Therapy") && !speciality.equals("Orthopedic")){
+			if(!speciality.equals("physicaltherapist") && !speciality.equals("Orthopedic")){
 				return "You should change appointment type for this HCP.";
 			}
 		}
