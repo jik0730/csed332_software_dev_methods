@@ -55,6 +55,12 @@ if (ward == null) {
 	// TODO: ...
 }
 
+//Get a wardroom that the loggedin patient stays.
+WardRoomBean wardRoom = wardDAO.getWardRoomByPid(personnelMID);
+if (ward == null) {
+	// TODO: ...
+}
+
 // Get the submitted parameters to search by
 String searchPrice = request.getParameter("searchbyroomPrice");
 String searchSize = request.getParameter("searchbyroomSize");
@@ -71,23 +77,68 @@ if (searchRooms != null) {
 	if (searchPrice.equals("All Price") && searchSize.equals("All Size")) {
 		listOfRooms = wardDAO.getAllWardRoomsBySpecialty(personnelMID);
 	} else if (searchPrice.equals("All Price")){
-		// TODO: To be implemented after corresponding DAO implemented.
+		int size;
+		if (searchSize.equals("1s")) {
+			size = 1;
+		} else if (searchSize.equals("2s")) {
+			size = 2;
+		} else if (searchSize.equals("3s")) {
+			size = 4;
+		} else {
+			size = 8;
+		}
+		listOfRooms = wardDAO.getAllWardRoomsBySpecialtyBySize(personnelMID, size);
 	} else if (searchSize.equals("All Size")) {
-		// TODO: To be implemented after corresponding DAO implemented.
+		int l_price, u_price;
+		if (searchPrice.equals("1p")) {
+			l_price = 0;
+			u_price = 25;
+		} else if (searchPrice.equals("2p")) {
+			l_price = 25;
+			u_price = 50;
+		} else if (searchPrice.equals("3p")) {
+			l_price = 50;
+			u_price = 100;
+		} else {
+			l_price = 100;
+			u_price = Integer.MAX_VALUE;
+		}
+		listOfRooms = wardDAO.getAllWardRoomsBySpecialtyByPrice(personnelMID, l_price, u_price);
 	} else {
-		// TODO: To be implemented after corresponding DAO implemented.
+		int size, l_price, u_price;
+		if (searchPrice.equals("1p")) {
+			l_price = 0;
+			u_price = 25;
+		} else if (searchPrice.equals("2p")) {
+			l_price = 25;
+			u_price = 50;
+		} else if (searchPrice.equals("3p")) {
+			l_price = 50;
+			u_price = 100;
+		} else {
+			l_price = 100;
+			u_price = Integer.MAX_VALUE;
+		}
+		if (searchSize.equals("1s")) {
+			size = 1;
+		} else if (searchSize.equals("2s")) {
+			size = 2;
+		} else if (searchSize.equals("3s")) {
+			size = 4;
+		} else {
+			size = 8;
+		}
+		listOfRooms = wardDAO.getAllWardRoomsBySpecialtyBySizeByPrice(personnelMID, size, l_price, u_price);
 	}
 	
 } else {
-	// TODO: Recommended affordable rooms
-	// TODO: At present, this will make the list of all wardrooms for purpose of testing.
-	listOfRooms = wardDAO.getAllWardRoomsBySpecialty(personnelMID);
+	listOfRooms = wardDAO.getAllWardRoomsBySystemRecommanded(personnelMID, wardRoom.getPrice());
 }
 
 
 
 %>
-	<form id="mainForm" method="post" action="manageWards.jsp" align="center">
+	<form id="mainForm" method="post" action="roomChangeRequest.jsp" align="center">
 	<table class="fTable" align="center">
 		<tr>
 			<th colspan="2">Search for a Room 
@@ -104,8 +155,8 @@ if (searchRooms != null) {
 					<option value="All Price">All Price</option>
 					<option value="1p">$0 ~ 25</option>
 					<option value="2p">$25 ~ 50</option>
-					<option value="4p">$50 ~ 100</option>
-					<option value="8p">Over $100</option>
+					<option value="3p">$50 ~ 100</option>
+					<option value="4p">Over $100</option>
 				</select>
 			</td>
 			
@@ -114,8 +165,8 @@ if (searchRooms != null) {
 					<option value = "All Size">All Size</option>
 					<option value="1s">1 Person</option>
 					<option value="2s">2 People</option>
-					<option value="4s">4 People</option>
-					<option value="8s">8 People</option>
+					<option value="3s">4 People</option>
+					<option value="4s">8 People</option>
 				</select>
 			</td>
 
@@ -156,7 +207,7 @@ if(searchPrice != null || searchSize != null){
 	<hr>
 	<table class="fTable" align="center">
 		<tr>
-			<th colspan="7">Recommended Affordable Rooms</th>
+			<th colspan="7">Results</th>
 		</tr>
 		<tr class="subHeader">
 			<td>Room Name</td>
@@ -172,11 +223,12 @@ if(searchPrice != null || searchSize != null){
 			<td><%=room.getRoomName() %></td>
 			<td><%=wardDAO.getWard("" + room.getInWard()).getWardID()%></td>
 			<td><%=room.getStatus()%></td>
-			<td><%// TODO: get price %></td>
-			<td><%// TODO: get size %></td>
+			<td><%=room.getPrice()%></td>
+			<td><%=room.getSize()%></td>
 			<td><%// TODO: occupied ex. 2/4 %></td>
 			<td align="center">
-				<form id="mainForm" method="post" action=""<%//="manageWards.jsp?"+ parameterName +"=" + valueSearchedBy + "&"+searchedBy+"=true"%>>
+			<!-- Need to actually request room change. -->
+				<form id="mainForm" method="post" action="roomChangeRequest.jsp">
 				<input type="submit" value="Request" name="requestRoomChange" />
 				</form>
 			</td>
@@ -212,11 +264,12 @@ if(searchPrice != null || searchSize != null){
 			<td><%=room.getRoomName() %></td>
 			<td><%=wardDAO.getWard("" + room.getInWard()).getWardID()%></td>
 			<td><%=room.getStatus()%></td>
-			<td><%// TODO: get price %></td>
-			<td><%// TODO: get size %></td>
+			<td><%=room.getPrice()%></td>
+			<td><%=room.getSize()%></td>
 			<td><%// TODO: occupied ex. 2/4 %></td>
 			<td align="center">
-				<form id="mainForm" method="post" action=""<%//="manageWards.jsp?"+ parameterName +"=" + valueSearchedBy + "&"+searchedBy+"=true"%>>
+			<!-- Need to actually request room change. -->
+				<form id="mainForm" method="post" action="roomChangeRequest.jsp">
 				<input type="submit" value="Request" name="requestRoomChange" />
 				</form>
 			</td>

@@ -677,7 +677,7 @@ public class WardDAO {
 	}
 	
 	/**
-	 * Returns a specialty of the ward where a patient is in.
+	 * Returns a ward where a patient is in.
 	 * 
 	 * @param pid which is patient's id.
 	 * @return String Specialty
@@ -696,6 +696,39 @@ public class WardDAO {
 					rs.close();
 					ps.close();
 					return getWard(Long.toString(wrb.getInWard()));
+				} else{
+					rs.close();
+					ps.close();
+					return null;
+				}
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Returns a wardroom where a patient is in.
+	 * 
+	 * @param pid which is patient's id.
+	 * @return String Specialty
+	 * @throws DBException
+	 */
+	public WardRoomBean getWardRoomByPid(long pid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM wardrooms where occupiedby = ?");
+			ps.setLong(1, pid);
+			ResultSet rs = ps.executeQuery();
+				if(rs.next()){
+					WardRoomBean wrb = wardRoomLoader.loadSingle(rs);
+					rs.close();
+					ps.close();
+					return wrb;
 				} else{
 					rs.close();
 					ps.close();
@@ -747,17 +780,18 @@ public class WardDAO {
 	 * @return A java.util.List of all WardRoomBeans in a ward.
 	 * @throws DBException
 	 */
-	public List<WardRoomBean> getAllWardRoomsBySpecialtyByPrice(long pid, int price) throws DBException {
-		// TODO: To be implemented.
-//		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
-//		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
-//		for (WardRoomBean w : srooms) {
-//			if () {
-//				
-//			}
-//		}
-//		return rooms;
-		return null;
+	public List<WardRoomBean> getAllWardRoomsBySpecialtyByPrice(long pid, int l_price, int u_price) throws DBException {
+		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
+		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		for (WardRoomBean w : srooms) {
+			if (l_price < w.getPrice() && w.getPrice() <= u_price) {
+				rooms.add(w);
+			}
+		}
+		if (rooms.isEmpty()) {
+			rooms = null;
+		}
+		return rooms;
 	}
 	
 	/**
@@ -768,8 +802,38 @@ public class WardDAO {
 	 * @throws DBException
 	 */
 	public List<WardRoomBean> getAllWardRoomsBySpecialtyBySize(long pid, int size) throws DBException {
-		// TODO: To be implemented.
-		return null;
+		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
+		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		for (WardRoomBean w : srooms) {
+			if (w.getSize() == size) {
+				rooms.add(w);
+			}
+		}
+		if (rooms.isEmpty()) {
+			rooms = null;
+		}
+		return rooms;
+	}
+	
+	/**
+	 * Returns a list of all wardrooms under the room size and price
+	 * 
+	 * @param pid, room size, price
+	 * @return A java.util.List of all WardRoomBeans in a ward.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getAllWardRoomsBySpecialtyBySizeByPrice(long pid, int size, int l_price, int u_price) throws DBException {
+		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
+		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		for (WardRoomBean w : srooms) {
+			if (w.getSize() == size && l_price < w.getPrice() && w.getPrice() <= u_price) {
+				rooms.add(w);
+			}
+		}
+		if (rooms.isEmpty()) {
+			rooms = null;
+		}
+		return rooms;
 	}
 	
 	/**
@@ -781,7 +845,45 @@ public class WardDAO {
 	 * @throws DBException
 	 */
 	public List<WardRoomBean> getAllWardRoomsBySystemRecommanded(long pid, int price) throws DBException {
-		// TODO: To be implemented.
-		return null;
+		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
+		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		for (WardRoomBean w : srooms) {
+			if (price - 15 < w.getPrice() && w.getPrice() <= price + 15) {
+				rooms.add(w);
+			}
+		}
+		if (rooms.isEmpty()) {
+			rooms = null;
+		}
+		return rooms;
+	}
+	
+	/**
+	 * Returns a number of patients in one ward room
+	 * 
+	 * @param 
+	 * @return A number of patients in one ward room
+	 * @throws DBException
+	 */
+	public int getNumberOfPatientsInWardRoom() throws DBException {
+		// TODO: To be implemented for counting occupied.
+//		Connection conn = null;
+//		PreparedStatement ps = null;
+//		try {
+//			conn = factory.getConnection();
+//			ps = conn.prepareStatement("SELECT * FROM WARDROOMS WHERE InWard = ? ORDER BY RoomName");
+//			ps.setLong(1, id);
+//			ResultSet rs = ps.executeQuery();
+//			List<WardRoomBean> loadlist = wardRoomLoader.loadList(rs);
+//			rs.close();
+//			ps.close();
+//			return loadlist;
+//		} catch (SQLException e) {
+//			
+//			throw new DBException(e);
+//		} finally {
+//			DBUtil.closeConnection(conn, ps);
+//		}
+		return 0;
 	}
 }

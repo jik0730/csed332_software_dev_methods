@@ -17,6 +17,8 @@ public class WardRoomBean {
 	String status = "Clean";
 	Boolean state = Boolean.valueOf(true);
 	Long waiting = null;
+	int price = 50;
+	int size = 4;
 	
 	public WardRoomBean(long roomID, long occupiedBy, long inWard, String roomName, String status, Boolean state, long waiting){
 		this.roomID = roomID;
@@ -27,8 +29,25 @@ public class WardRoomBean {
 		this.state = state;
 		this.waiting = waiting;
 	}
+	
 
+	public WardRoomBean(long roomID, long occupiedBy, long inWard, String roomName, String status){
+		this.roomID = roomID;
+		this.occupiedBy = occupiedBy;
+		this.inWard = inWard;
+		this.roomName = roomName;
+		this.status = status;
+	}
 
+	public WardRoomBean(long roomID, long occupiedBy, long inWard, String roomName, String status, int price, int size){
+		this.roomID = roomID;
+		this.occupiedBy = occupiedBy;
+		this.inWard = inWard;
+		this.roomName = roomName;
+		this.status = status;
+		this.price = price;
+		this.size = size;
+	}
 
 
 	/**
@@ -103,6 +122,22 @@ public class WardRoomBean {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 	@Override
