@@ -826,13 +826,14 @@ CREATE TABLE IF NOT EXISTS orthopedic(
 ) ENGINE = MyISAM;
 
 /*Physical Therapy office visit table*/
-CREATE TABLE IF NOT EXISTS orthopedicPhysicalTherapy(
-	PhysicalTherapyVisitID INT( 10 ) auto_increment primary key,
-	VisitID INT( 10 ) NOT NULL,
-	PatientID BIGINT NOT NULL,
-	HCPID BIGINT NOT NULL,
-	Wellness VARCHAR(512) NOT NULL,
-	WellnessScore INT(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS physicalTherapy(
+	MID BIGINT unsigned NOT NULL default '0',
+	OID BIGINT unsigned auto_increment primary key,
+	dateVisit DATE,
+ 	docLastName varchar(20),
+ 	docFirstName varchar(20),
+	WellnessSurveyResults VARCHAR(512) NOT NULL,
+	WellnessSurveyScore INT(3) NOT NULL,
 	Exercise VARCHAR(512)
 ) ENGINE = MyISAM;
 

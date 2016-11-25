@@ -476,4 +476,8 @@ public class DAOFactory {
 	public OrthopedicDiagnosisDAO getORDiagnosisDAO() {
 		return new OrthopedicDiagnosisDAO(this);
 	}
+
+	public PhysicalTherapyOVRecordDAO getPhysicalTherapyOVRecordDAO(){
+		return new PhysicalTherapyOVRecordDAO(this);
+	}
 }
