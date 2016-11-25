@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.beans.HospitalBean;
@@ -673,5 +674,114 @@ public class WardDAO {
 		} finally {
 			DBUtil.closeConnection(conn, ps);
 		}
+	}
+	
+	/**
+	 * Returns a specialty of the ward where a patient is in.
+	 * 
+	 * @param pid which is patient's id.
+	 * @return String Specialty
+	 * @throws DBException
+	 */
+	public WardBean getWardByPid(long pid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM wardrooms where occupiedby = ?");
+			ps.setLong(1, pid);
+			ResultSet rs = ps.executeQuery();
+				if(rs.next()){
+					WardRoomBean wrb = wardRoomLoader.loadSingle(rs);
+					rs.close();
+					ps.close();
+					return getWard(Long.toString(wrb.getInWard()));
+				} else{
+					rs.close();
+					ps.close();
+					return null;
+				}
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Returns a list of all wardrooms by patient's specialty.
+	 * If the wardroom the patient stays doesn't have a specialty, return all wardrooms.
+	 * 
+	 * @param pid which is patient's id.
+	 * @return A java.util.List of all WardRoomBeans corresponding some restrictions.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getAllWardRoomsBySpecialty(long pid) throws DBException {
+		HospitalBean hb = getHospitalByPatientID(pid);
+		List<WardBean> lwb = getAllWardsByHospitalID(hb.getHospitalID());
+		WardBean ward = getWardByPid(pid);
+		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		
+		if (ward == null) {
+			for (WardBean w : lwb) {
+				List <WardRoomBean> ww = getAllWardRoomsByWardID(w.getWardID());
+				rooms.addAll(ww);
+			}
+			return rooms;
+		}
+		
+		for (WardBean w : lwb) {
+			if (w.getRequiredSpecialty().equals(ward.getRequiredSpecialty())) {
+				List <WardRoomBean> ww = getAllWardRoomsByWardID(w.getWardID());
+				rooms.addAll(ww);
+			}
+		}
+		return rooms;
+	}
+	
+	/**
+	 * Returns a list of all wardrooms under the price range.
+	 * 
+	 * @param id The id of the ward to get all rooms for
+	 * @return A java.util.List of all WardRoomBeans in a ward.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getAllWardRoomsBySpecialtyByPrice(long pid, int price) throws DBException {
+		// TODO: To be implemented.
+//		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
+//		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+//		for (WardRoomBean w : srooms) {
+//			if () {
+//				
+//			}
+//		}
+//		return rooms;
+		return null;
+	}
+	
+	/**
+	 * Returns a list of all wardrooms under the room size.
+	 * 
+	 * @param pid, room size
+	 * @return A java.util.List of all WardRoomBeans in a ward.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getAllWardRoomsBySpecialtyBySize(long pid, int size) throws DBException {
+		// TODO: To be implemented.
+		return null;
+	}
+	
+	/**
+	 * Returns a list of all wardrooms that system recommends, 
+	 * which means the system recommends for a patient with affordable ward rooms.
+	 * 
+	 * @param pid, price
+	 * @return A java.util.List of all WardRoomBeans in a ward.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getAllWardRoomsBySystemRecommanded(long pid, int price) throws DBException {
+		// TODO: To be implemented.
+		return null;
 	}
 }
