@@ -120,6 +120,7 @@
 		    <li><a href="/iTrust/auth/patient/expertNameSearch.jsp">Expert&apos;s Reviews</a>
 			<li><a href="/iTrust/auth/surveyResults.jsp">Satisfaction Survey Results</a>
 			<li><a href="/iTrust/auth/patient/showEmailHistory.jsp">Show Email History</a>
+			<li><a href="/iTrust/auth/patient/WardChangeRequest.jsp">Ward Change Request</a>
 		</ul>
 	</div>
 </div>

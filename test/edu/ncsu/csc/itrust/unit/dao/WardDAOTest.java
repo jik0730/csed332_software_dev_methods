@@ -167,7 +167,7 @@ public class WardDAOTest extends TestCase{
 	 * testAddWardRoom
 	 */
 	public void testAddWardRoom(){
-		WardRoomBean wb = new WardRoomBean(0, 0, 0, "name1", "status");
+		WardRoomBean wb = new WardRoomBean(0, 0, 0, "name1", "status",true, 0);
 		
 		try {
 			assertTrue(wd1.addWardRoom(wb));
@@ -192,7 +192,7 @@ public class WardDAOTest extends TestCase{
 	 * testUpdateWardRoom
 	 */
 	public void testUpdateWardRoom(){
-		WardRoomBean wb = new WardRoomBean(0, 0, 0, "name1", "status");
+		WardRoomBean wb = new WardRoomBean(0, 0, 0, "name1", "status",true, 0);
 		try {
 			assertEquals(0, wd1.updateWardRoom(wb));
 		} catch (DBException e) {
@@ -324,7 +324,7 @@ public class WardDAOTest extends TestCase{
 	 */
 	public void testUpdateWardRoomOccupant(){
 		
-		WardRoomBean wrb = new WardRoomBean(0, 0, 0, "name", "status");
+		WardRoomBean wrb = new WardRoomBean(0, 0, 0, "name", "status",true, 0);
 		
 		try {
 			assertEquals(0, wd1.updateWardRoomOccupant(wrb));
@@ -370,7 +370,7 @@ public class WardDAOTest extends TestCase{
 	 * testGetWardRoom
 	 */
 	public void testGetWardRoom(){
-		WardRoomBean wrb = new WardRoomBean(0, 0, 0, "name", "status");
+		WardRoomBean wrb = new WardRoomBean(0, 0, 0, "name", "status",true, 0);
 	
 		try {
 			wrb = wd1.getWardRoom("0");

@@ -15,15 +15,56 @@ public class WardRoomBean {
 	long inWard = 0;
 	String roomName = "";
 	String status = "Clean";
-
-	public WardRoomBean(long roomID, long occupiedBy, long inWard, String roomName, String status){
+	Boolean state = Boolean.valueOf(true);
+	Long waiting = null;
+	
+	public WardRoomBean(long roomID, long occupiedBy, long inWard, String roomName, String status, Boolean state, long waiting){
 		this.roomID = roomID;
 		this.occupiedBy = occupiedBy;
 		this.inWard = inWard;
 		this.roomName = roomName;
 		this.status = status;
+		this.state = state;
+		this.waiting = waiting;
 	}
 
+
+
+
+	/**
+	 * isAccepted
+	 * @return status
+	 */
+	public boolean getState() {
+		return this.state;
+	}
+
+	/**
+	 * setPending
+	 * @param pending pending
+	 */
+	public void setPending(boolean pending) {
+			this.state = Boolean.valueOf(false);
+	}
+
+	/**
+	 * If setPending(false) has not been called before using this method, this method will have no effect.
+	 * 
+	 * @param accepted accepted
+	 */
+	public void setAccepted(boolean accepted) {
+			this.state = Boolean.valueOf(accepted);
+	}
+	
+	public Long getWaiting() {
+		return waiting;
+	}
+
+	public void setWaiting(Long waiting) {
+		this.waiting = waiting;
+	}
+	
+	
 	public long getRoomID() {
 		return roomID;
 	}

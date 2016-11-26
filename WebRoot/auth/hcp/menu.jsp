@@ -184,6 +184,7 @@
 		<ul class="nav nav-sidebar">
 		    <li><a href="/iTrust/auth/staff/linkToResources.jsp">Edit Diagnoses URLs</a>
 		    <li><a href="/iTrust/auth/hcp/manageWards.jsp">Manage Wards</a>
+		    <li><a href="/iTrust/auth/hcp/viewWardRequests.jsp">View Ward Change Requests</a>
 		    <li><a href="/iTrust/auth/staff/editPersonnel.jsp">UAPs</a>
 			<li><a href="/iTrust/auth/surveyResults.jsp">Satisfaction Survey Results</a>
 			<li><a href="/iTrust/auth/hcp/viewPrescriptionRenewalNeeds.jsp">Potential Prescription-Renewals</a>

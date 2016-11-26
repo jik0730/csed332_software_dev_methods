@@ -408,6 +408,83 @@ public class WardDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+
+	public int updateWardRoomWaiting(WardRoomBean wardRoom) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("UPDATE wardRooms SET Waiting=? " + "WHERE RoomID = ?");
+			if(wardRoom.getWaiting() == null){
+				ps.setNull(1, java.sql.Types.BIGINT);
+			} else {
+				ps.setLong(1, wardRoom.getWaiting());
+			}
+			ps.setLong(2, wardRoom.getRoomID());
+			int result = ps.executeUpdate();
+			ps.close();
+			return result;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	
+	public int updateWardRoomState(WardRoomBean wardRoom) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("UPDATE wardRooms SET State=? " + "WHERE RoomID = ?");
+			ps.setBoolean(1, wardRoom.getState());
+			ps.setLong(2, wardRoom.getRoomID());
+			int result = ps.executeUpdate();
+			ps.close();
+			return result;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+
+	
+
+	/**
+	 * Returns a list of all wards with the status specified that the hcp has access to
+	 * 
+	 * @param status  The Status to search on
+	 * @param hcpID The id of the HCP to get wards for
+	 * @return A java.util.List of WardRoomBeans that the specified hcp has access too.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getWardRoomsByState(Boolean State, Long hcpID) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM wardrooms wr inner join hcpassignedtoward hw where wr.state = ? and wr.inward = hw.ward and hw.hcp = ?");
+			ps.setBoolean(1, State);
+			ps.setLong(2, hcpID);
+			ResultSet rs = ps.executeQuery();
+			List<WardRoomBean> loadlist = wardRoomLoader.loadList(rs);
+			rs.close();
+			ps.close();
+			return loadlist;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}	
+	
+	
+	
 	
 
 	/**

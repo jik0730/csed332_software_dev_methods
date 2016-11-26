@@ -608,9 +608,12 @@ CREATE TABLE WardRooms(
 	InWard BIGINT unsigned NOT NULL,
 	RoomName varchar(128),
 	Status varchar(128),
+	State				BOOLEAN NOT NULL,
+	Waiting          BIGINT UNSIGNED default NULL,
 	FOREIGN KEY (InWard) REFERENCES wards (WardID),
 	FOREIGN KEY (OccupiedBy) REFERENCES patients (MID)
 ) ENGINE=MyISAM;
+
 
 CREATE TABLE HCPAssignedToWard(
 	HCP BIGINT unsigned,
