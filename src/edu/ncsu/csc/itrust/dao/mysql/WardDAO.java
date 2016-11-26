@@ -861,29 +861,31 @@ public class WardDAO {
 	/**
 	 * Returns a number of patients in one ward room
 	 * 
-	 * @param 
+	 * @param wardroom id
 	 * @return A number of patients in one ward room
 	 * @throws DBException
 	 */
-	public int getNumberOfPatientsInWardRoom() throws DBException {
+	public int getNumberOfPatientsInWardRoom(long roomID) throws DBException {
 		// TODO: To be implemented for counting occupied.
-//		Connection conn = null;
-//		PreparedStatement ps = null;
-//		try {
-//			conn = factory.getConnection();
-//			ps = conn.prepareStatement("SELECT * FROM WARDROOMS WHERE InWard = ? ORDER BY RoomName");
-//			ps.setLong(1, id);
-//			ResultSet rs = ps.executeQuery();
-//			List<WardRoomBean> loadlist = wardRoomLoader.loadList(rs);
-//			rs.close();
-//			ps.close();
-//			return loadlist;
-//		} catch (SQLException e) {
-//			
-//			throw new DBException(e);
-//		} finally {
-//			DBUtil.closeConnection(conn, ps);
-//		}
-		return 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM WARDROOMSSHARED WHERE InWardRoom = ?");
+			ps.setLong(1, roomID);
+			ResultSet rs = ps.executeQuery();
+			int rowcount = 0;
+			if (rs.next()) {
+				rowcount++;
+			}
+			rs.close();
+			ps.close();
+			return rowcount;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
 	}
 }

@@ -225,7 +225,7 @@ if(searchPrice != null || searchSize != null){
 			<td><%=room.getStatus()%></td>
 			<td><%=room.getPrice()%></td>
 			<td><%=room.getSize()%></td>
-			<td><%// TODO: occupied ex. 2/4 %></td>
+			<td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td>
 			<td align="center">
 			<!-- Need to actually request room change. -->
 				<form id="mainForm" method="post" action="roomChangeRequest.jsp">
@@ -266,7 +266,7 @@ if(searchPrice != null || searchSize != null){
 			<td><%=room.getStatus()%></td>
 			<td><%=room.getPrice()%></td>
 			<td><%=room.getSize()%></td>
-			<td><%// TODO: occupied ex. 2/4 %></td>
+			<td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td>
 			<td align="center">
 			<!-- Need to actually request room change. -->
 				<form id="mainForm" method="post" action="roomChangeRequest.jsp">
