@@ -42,24 +42,33 @@ long personnelMID = loggedInMID.longValue();
 
 WardDAO wardDAO = new WardDAO(prodDAO);
 PatientDAO patientDAO = new PatientDAO(prodDAO);
+boolean is_hospital = true;
+boolean is_ward = true;
+boolean is_wardRoom = true;
 
 // Get a hospital that the loggedin patient assigned.
 HospitalBean hospital = wardDAO.getHospitalByPatientID(personnelMID);
 if (hospital == null) {
 	// TODO: A patient cannot request a room change.
+	is_hospital = false;
 }
+//System.out.println("hospital??" + hospital.getHospitalCity());
 
 // Get a ward that the loggedin patient stays.
 WardBean ward = wardDAO.getWardByPid(personnelMID);
 if (ward == null) {
-	// TODO: ...
+	// TODO: A patient cannot request a room change.
+	is_ward = false;
 }
+//System.out.println("hospital??" + is_ward);
 
 //Get a wardroom that the loggedin patient stays.
 WardRoomBean wardRoom = wardDAO.getWardRoomByPid(personnelMID);
-if (ward == null) {
-	// TODO: ...
+if (wardRoom == null) {
+	// TODO: A pateient cannot request a room change.
+	is_wardRoom = false;
 }
+//System.out.println("hospital??" + is_wardRoom);
 
 // Get the submitted parameters to search by
 String searchPrice = request.getParameter("searchbyroomPrice");
@@ -73,7 +82,6 @@ List<WardRoomBean> listOfRooms = null;
 
 // If search request was sent, find wardrooms with restrictions.
 if (searchRooms != null) {
-	// TODO: Search rooms conditioned by price or size.
 	if (searchPrice.equals("All Price") && searchSize.equals("All Size")) {
 		listOfRooms = wardDAO.getAllWardRoomsBySpecialty(personnelMID);
 	} else if (searchPrice.equals("All Price")){
@@ -132,7 +140,11 @@ if (searchRooms != null) {
 	}
 	
 } else {
-	listOfRooms = wardDAO.getAllWardRoomsBySystemRecommanded(personnelMID, wardRoom.getPrice());
+	if (is_wardRoom) {
+		listOfRooms = wardDAO.getAllWardRoomsBySystemRecommanded(personnelMID, wardRoom.getPrice());
+	} else {
+		listOfRooms = wardDAO.getAllWardRoomsBySystemRecommanded(personnelMID, 50);
+	}
 }
 
 
@@ -142,8 +154,18 @@ if (searchRooms != null) {
 	<table class="fTable" align="center">
 		<tr>
 			<th colspan="2">Search for a Room 
-			(Hospital: <%=hospital.getHospitalID()%>, 
-			Specialty: <%=ward.getRequiredSpecialty()%>)</th>
+			(Hospital: 
+			<%if(is_hospital) { %>
+				<%=hospital.getHospitalID()%>
+			<%} else { %>
+				None, 
+			<%}%>
+			Specialty: 
+			<%if(is_ward) { %>
+				<%=ward.getRequiredSpecialty()%>
+			<%} else { %>
+				None
+			<%}%>)</th>
 		</tr>
 		<tr class="subHeader">
 			<td>Price Range</td>
@@ -207,11 +229,12 @@ if(searchPrice != null || searchSize != null){
 	<hr>
 	<table class="fTable" align="center">
 		<tr>
-			<th colspan="7">Results</th>
+			<th colspan="8">Results</th>
 		</tr>
 		<tr class="subHeader">
 			<td>Room Name</td>
 			<td>Ward</td>
+			<td>Specialty</td>
 			<td>Status</td>
 			<td>Price</td>
 			<td>Size</td>
@@ -222,15 +245,18 @@ if(searchPrice != null || searchSize != null){
 		<tr>
 			<td><%=room.getRoomName() %></td>
 			<td><%=wardDAO.getWard("" + room.getInWard()).getWardID()%></td>
+			<td><%=wardDAO.getSpecialtyOfWard(String.valueOf(room.getInWard())) %></td>
 			<td><%=room.getStatus()%></td>
 			<td><%=room.getPrice()%></td>
 			<td><%=room.getSize()%></td>
 			<td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td>
 			<td align="center">
 			<!-- Need to actually request room change. -->
+			<%if(is_hospital && is_ward && is_wardRoom) { %>
 				<form id="mainForm" method="post" action="roomChangeRequest.jsp">
 				<input type="submit" value="Request" name="requestRoomChange" />
 				</form>
+			<%}%>
 			</td>
 		</tr>
 		<%}%>
@@ -248,11 +274,12 @@ if(searchPrice != null || searchSize != null){
 	<hr>
 	<table class="fTable" align="center">
 		<tr>
-			<th colspan="7">Recommended Affordable Rooms</th>
+			<th colspan="8">Recommended Affordable Rooms</th>
 		</tr>
 		<tr class="subHeader">
 			<td>Room Name</td>
 			<td>Ward</td>
+			<td>Specialty</td>
 			<td>Status</td>
 			<td>Price</td>
 			<td>Size</td>
@@ -263,15 +290,18 @@ if(searchPrice != null || searchSize != null){
 		<tr>
 			<td><%=room.getRoomName() %></td>
 			<td><%=wardDAO.getWard("" + room.getInWard()).getWardID()%></td>
+			<td><%=wardDAO.getSpecialtyOfWard(String.valueOf(room.getInWard())) %></td>
 			<td><%=room.getStatus()%></td>
 			<td><%=room.getPrice()%></td>
 			<td><%=room.getSize()%></td>
 			<td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td>
 			<td align="center">
 			<!-- Need to actually request room change. -->
+			<%if(is_hospital && is_ward && is_wardRoom) { %>
 				<form id="mainForm" method="post" action="roomChangeRequest.jsp">
 				<input type="submit" value="Request" name="requestRoomChange" />
 				</form>
+			<%}%>
 			</td>
 		</tr>
 		<%}%>

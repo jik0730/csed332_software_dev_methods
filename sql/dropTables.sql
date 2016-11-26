@@ -66,6 +66,7 @@ DROP TABLE IF EXISTS appointmentrequests;
 
 DROP TABLE IF EXISTS Wards;
 DROP TABLE IF EXISTS WardRooms;
+DROP TABLE IF EXISTS WardRoomsShared;
 DROP TABLE IF EXISTS HCPAssignedToWard;
 DROP TABLE IF EXISTS WardRoomCheckout;
 

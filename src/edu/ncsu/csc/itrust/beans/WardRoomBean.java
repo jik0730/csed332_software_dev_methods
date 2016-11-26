@@ -20,7 +20,8 @@ public class WardRoomBean {
 	int price = 50;
 	int size = 4;
 	
-	public WardRoomBean(long roomID, long occupiedBy, long inWard, String roomName, String status, Boolean state, long waiting){
+	public WardRoomBean(long roomID, long occupiedBy, long inWard, String roomName, String status, 
+			Boolean state, long waiting, int price, int size){
 		this.roomID = roomID;
 		this.occupiedBy = occupiedBy;
 		this.inWard = inWard;
@@ -28,23 +29,6 @@ public class WardRoomBean {
 		this.status = status;
 		this.state = state;
 		this.waiting = waiting;
-	}
-	
-
-	public WardRoomBean(long roomID, long occupiedBy, long inWard, String roomName, String status){
-		this.roomID = roomID;
-		this.occupiedBy = occupiedBy;
-		this.inWard = inWard;
-		this.roomName = roomName;
-		this.status = status;
-	}
-
-	public WardRoomBean(long roomID, long occupiedBy, long inWard, String roomName, String status, int price, int size){
-		this.roomID = roomID;
-		this.occupiedBy = occupiedBy;
-		this.inWard = inWard;
-		this.roomName = roomName;
-		this.status = status;
 		this.price = price;
 		this.size = size;
 	}

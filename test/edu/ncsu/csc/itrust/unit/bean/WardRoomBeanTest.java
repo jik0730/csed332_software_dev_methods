@@ -16,9 +16,9 @@ public class WardRoomBeanTest extends TestCase {
 	 * setUp
 	 */
 	public void setUp(){
-		wrb1 = new WardRoomBean(0L, 0L, 0L, "", "",true, 0L);
-		wrb2 = new WardRoomBean(0L, 0L, 0L, "", "",true, 0L);
-		wrb3 = new WardRoomBean(0L, 0L, 0L, "", "",true, 0L);
+		wrb1 = new WardRoomBean(0L, 0L, 0L, "", "",true, 0L, 50, 4);
+		wrb2 = new WardRoomBean(0L, 0L, 0L, "", "",true, 0L, 50, 4);
+		wrb3 = new WardRoomBean(0L, 0L, 0L, "", "",true, 0L, 50, 4);
 	}
 	
 	/**

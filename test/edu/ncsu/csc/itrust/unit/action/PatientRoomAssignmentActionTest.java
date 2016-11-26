@@ -30,7 +30,7 @@ public class PatientRoomAssignmentActionTest extends TestCase {
 	 * @throws Exception
 	 */
 	public void testassignPatient() throws Exception {
-		WardRoomBean rm = new WardRoomBean(1, 1, 1, "test", "clean",true, 0);
+		WardRoomBean rm = new WardRoomBean(1, 1, 1, "test", "clean",true, 0, 50, 4);
 		wardDAO.removeWardRoom(rm.getRoomID());
 		action = new PatientRoomAssignmentAction(factory);
 		action.assignPatientToRoom(rm, 1);
@@ -40,7 +40,7 @@ public class PatientRoomAssignmentActionTest extends TestCase {
 		action.assignPatientToRoom(rm, patient);
 	}
 	public void testremovePatient() throws Exception {
-		WardRoomBean rm = new WardRoomBean(1, 1, 1, "test", "clean",true, 0);
+		WardRoomBean rm = new WardRoomBean(1, 1, 1, "test", "clean",true, 0, 50, 4);
 		wardDAO.addWardRoom(rm);
 		action = new PatientRoomAssignmentAction(factory);
 		action.assignPatientToRoom(rm, 1);

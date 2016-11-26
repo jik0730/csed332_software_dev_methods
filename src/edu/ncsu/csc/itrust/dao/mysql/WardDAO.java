@@ -655,7 +655,7 @@ public class WardDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM hospitals h inner join wards ward inner join wardrooms room where room.OccupiedBy = ? and room.inward = ward.wardid and ward.inhospital = h.hospitalid");
+			ps = conn.prepareStatement("SELECT * FROM hospitals h inner join wards ward inner join wardroomsshared room where room.OccupiedBy = ? and room.inward = ward.wardid and ward.inhospital = h.hospitalid");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()){
@@ -688,7 +688,7 @@ public class WardDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM wardrooms where occupiedby = ?");
+			ps = conn.prepareStatement("SELECT * FROM wardrooms r inner join wardroomsshared s where r.roomid = s.InWardRoom and s.occupiedby = ?");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 				if(rs.next()){
@@ -721,7 +721,7 @@ public class WardDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM wardrooms where occupiedby = ?");
+			ps = conn.prepareStatement("SELECT * FROM wardrooms r inner join wardroomsshared s where r.roomid = s.InWardRoom and s.occupiedby = ?");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 				if(rs.next()){
@@ -743,6 +743,32 @@ public class WardDAO {
 	}
 	
 	/**
+	 * Returns a list of all wards 
+	 * 
+	 * @param none
+	 * @return A java.util.List of WardBeans.
+	 * @throws DBException
+	 */
+	public List<WardBean> getAllWards() throws DBException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM WARDS ORDER BY RequiredSpecialty");
+			ResultSet rs = ps.executeQuery();
+			List<WardBean> loadlist = wardLoader.loadList(rs);
+			rs.close();
+			ps.close();
+			return loadlist;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
 	 * Returns a list of all wardrooms by patient's specialty.
 	 * If the wardroom the patient stays doesn't have a specialty, return all wardrooms.
 	 * 
@@ -752,11 +778,13 @@ public class WardDAO {
 	 */
 	public List<WardRoomBean> getAllWardRoomsBySpecialty(long pid) throws DBException {
 		HospitalBean hb = getHospitalByPatientID(pid);
-		List<WardBean> lwb = getAllWardsByHospitalID(hb.getHospitalID());
 		WardBean ward = getWardByPid(pid);
+		WardRoomBean cur = getWardRoomByPid(pid);
 		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		List<WardBean> lwb = null;
 		
-		if (ward == null) {
+		if (hb == null) {
+			lwb = getAllWards();
 			for (WardBean w : lwb) {
 				List <WardRoomBean> ww = getAllWardRoomsByWardID(w.getWardID());
 				rooms.addAll(ww);
@@ -764,13 +792,32 @@ public class WardDAO {
 			return rooms;
 		}
 		
-		for (WardBean w : lwb) {
-			if (w.getRequiredSpecialty().equals(ward.getRequiredSpecialty())) {
+		lwb = getAllWardsByHospitalID(hb.getHospitalID());
+		if (ward.getRequiredSpecialty() == null || ward.getRequiredSpecialty().equals("")) {
+			for (WardBean w : lwb) {
 				List <WardRoomBean> ww = getAllWardRoomsByWardID(w.getWardID());
 				rooms.addAll(ww);
 			}
+		} else {
+			for (WardBean w : lwb) {
+				if (w.getRequiredSpecialty().equals(ward.getRequiredSpecialty())) {
+					List <WardRoomBean> ww = getAllWardRoomsByWardID(w.getWardID());
+					rooms.addAll(ww);
+				}
+			}
 		}
-		return rooms;
+
+		List <WardRoomBean> toReturn = new ArrayList<WardRoomBean>();
+		for (WardRoomBean w : rooms) {
+			if (!cur.equals(w)) {
+				toReturn.add(w);
+			}
+		}
+		if (toReturn.isEmpty()) {
+			toReturn = null;
+		}
+
+		return toReturn;
 	}
 	
 	/**
@@ -783,6 +830,7 @@ public class WardDAO {
 	public List<WardRoomBean> getAllWardRoomsBySpecialtyByPrice(long pid, int l_price, int u_price) throws DBException {
 		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
 		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		
 		for (WardRoomBean w : srooms) {
 			if (l_price < w.getPrice() && w.getPrice() <= u_price) {
 				rooms.add(w);
@@ -804,6 +852,7 @@ public class WardDAO {
 	public List<WardRoomBean> getAllWardRoomsBySpecialtyBySize(long pid, int size) throws DBException {
 		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
 		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		
 		for (WardRoomBean w : srooms) {
 			if (w.getSize() == size) {
 				rooms.add(w);
@@ -825,6 +874,7 @@ public class WardDAO {
 	public List<WardRoomBean> getAllWardRoomsBySpecialtyBySizeByPrice(long pid, int size, int l_price, int u_price) throws DBException {
 		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
 		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		
 		for (WardRoomBean w : srooms) {
 			if (w.getSize() == size && l_price < w.getPrice() && w.getPrice() <= u_price) {
 				rooms.add(w);
@@ -847,6 +897,7 @@ public class WardDAO {
 	public List<WardRoomBean> getAllWardRoomsBySystemRecommanded(long pid, int price) throws DBException {
 		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
 		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		
 		for (WardRoomBean w : srooms) {
 			if (price - 15 < w.getPrice() && w.getPrice() <= price + 15) {
 				rooms.add(w);
@@ -866,7 +917,6 @@ public class WardDAO {
 	 * @throws DBException
 	 */
 	public int getNumberOfPatientsInWardRoom(long roomID) throws DBException {
-		// TODO: To be implemented for counting occupied.
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -887,5 +937,17 @@ public class WardDAO {
 		} finally {
 			DBUtil.closeConnection(conn, ps);
 		}
+	}
+	
+	/**
+	 * Returns specialty of the ward specified by wardid.
+	 * 
+	 * @param ward id
+	 * @return the specialty
+	 * @throws DBException
+	 */
+	public String getSpecialtyOfWard(String wardID) throws DBException {
+		WardBean w = getWard(wardID);
+		return w.getRequiredSpecialty();
 	}
 }
