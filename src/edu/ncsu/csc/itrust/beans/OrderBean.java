@@ -71,4 +71,48 @@ public class OrderBean {
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderBean other = (OrderBean) obj;
+		if(this.orderID == other.orderID &&
+			this.visitID == other.visitID &&
+			this.orderHCPID == other.orderHCPID &&
+			this.orderedHCPID == other.orderedHCPID &&
+			this.patientID == other.patientID &&
+			this.completed == other.completed)
+			return true;
+		else
+			return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 269;
+		int result = 1;
+		result = prime * result + (int) (orderID ^ (orderID >>> 16));
+		result = prime * result + (int) (visitID ^ (visitID >>> 16));
+		result = prime * result + (int) (orderHCPID ^ (orderHCPID >>> 32));
+		result = prime * result + (int) (orderedHCPID ^ (orderedHCPID >>> 32));
+		result = prime * result + (int) (patientID ^ (patientID >>> 32));
+		if(completed)
+			result = prime * result + 10;
+		else
+			result = prime * result + 20;
+		return result;
+	}
+	
+	@Override
+	public String toString() {
+		return "OrderBean [orderID=" + orderID + ", visitID=" + visitID
+				+ ", orderHCPID=" + orderHCPID + ", orderedHCPID=" + orderedHCPID
+				+ ", patientID=" + patientID + ", completed=" + completed;
+	}
+	
 }
