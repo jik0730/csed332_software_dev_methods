@@ -184,6 +184,28 @@ public class WardDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+
+	
+	public List<WardRoomBean> getAllWardRoomsByWaiting(long waiting) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM WARDROOMS WHERE Waiting = ? ORDER BY RoomName");
+			ps.setLong(1, waiting);
+			ResultSet rs = ps.executeQuery();
+			List<WardRoomBean> loadlist = wardRoomLoader.loadList(rs);
+			rs.close();
+			ps.close();
+			return loadlist;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
 	
 	/**
 	 * Adds a WardRoom
@@ -549,6 +571,33 @@ public class WardDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	
+	public WardRoomBean getWardRoomByWaiting(long waitingID) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM wardrooms where Waiting = ?");
+			ps.setLong(1, waitingID);
+			ResultSet rs = ps.executeQuery();
+				if(rs.next()){
+					WardRoomBean loaded = wardRoomLoader.loadSingle(rs);
+					rs.close();
+					ps.close();
+					return loaded;
+				} else{
+					rs.close();
+					ps.close();
+					return null;
+				}
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}	
 	
 	/**
 	 * Returns a Ward specified by the id
@@ -938,6 +987,9 @@ public class WardDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+
+	
+	
 	
 	/**
 	 * Returns specialty of the ward specified by wardid.

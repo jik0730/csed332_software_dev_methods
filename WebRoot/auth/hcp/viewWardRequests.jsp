@@ -138,8 +138,8 @@
 <hr>
 <table class="fTable" align="center">
 	<tr>
-		<th colspan="5">Results</th>
-		<th colspan="3">Options</th>
+		<th colspan="9">Results</th>
+		<th colspan="2">Options</th>
 	</tr>
 	<tr class="subHeader">
 		<td>Room Name</td>
@@ -148,6 +148,9 @@
 		<td>Ward</td>
 		<td>Status</td>
 		<td>Hospital</td>
+		<td>Price</td>
+		<td>Size</td>
+		<td>Occupied</td>
 		<td>Accept</td>
 		<td>Reject</td>
 	</tr>
@@ -171,6 +174,9 @@
 		<td><%=wardDAO.getWard("" + room.getInWard()).getRequiredSpecialty()%></td>
 		<td><%=room.getStatus()%></td>
 		<td><%=wardDAO.getHospitalByWard(room.getRoomID() + "").getHospitalName()%></td>
+		<td><%=room.getPrice()%></td>
+		<td><%=room.getSize()%></td>
+		<td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td>
 		<td>
 			<form id="mainForm" method="post"
 				action=<%="http://localhost:8080/iTrust/auth/hcp/viewWardRequests.jsp?patientIDSearch="

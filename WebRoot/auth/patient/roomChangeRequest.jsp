@@ -24,8 +24,7 @@
 	String patientID = (String) session.getAttribute("pid");
     session.removeAttribute("pid");
     String forwardPatientSearch = request.getParameter("forwardPatientSearch");
-	
-	
+    String forwardPatientSearch2 = request.getParameter("forwardPatientSearch2");
 %>
 
 <%@include file="/global.jsp" %>
@@ -46,6 +45,7 @@ boolean is_hospital = true;
 boolean is_ward = true;
 boolean is_wardRoom = true;
 
+String rqhospital = null;
 // Get a hospital that the loggedin patient assigned.
 HospitalBean hospital = wardDAO.getHospitalByPatientID(personnelMID);
 if (hospital == null) {
@@ -77,9 +77,30 @@ String searchSize = request.getParameter("searchbyroomSize");
 // this is the name of Search Button
 String searchRooms = request.getParameter("searchRooms");
 
+
+
+PatientRoomAssignmentAction praa = new PatientRoomAssignmentAction(prodDAO);
+
+if (forwardPatientSearch != null) {
+	WardRoomBean wardRoom2 = wardDAO.getWardRoom(forwardPatientSearch);
+	WardRoomBean wardRoom3 = wardDAO.getWardRoomByWaiting(personnelMID);
+	if (wardRoom3 != null) praa.removeWaitingFromRoom(wardRoom3);
+	if (wardRoom2 != null) praa.requestPatientToRoom(wardRoom2, personnelMID);
+	loggingAction.logEvent(TransactionType.PATIENT_ASSIGNED_TO_ROOM, loggedInMID, 0, "");
+	//hospital = "";
+}
+
+
+if (forwardPatientSearch2 != null) {
+	WardRoomBean wardRoom4 = wardDAO.getWardRoom(forwardPatientSearch2);
+	praa.removeWaitingFromRoom(wardRoom4);
+}
+
+
+
 // List of wardrooms which will be used in the table of results or recommandation.
 List<WardRoomBean> listOfRooms = null;
-
+WardRoomBean listOfAlreday = wardDAO.getWardRoomByPid(personnelMID);
 // If search request was sent, find wardrooms with restrictions.
 if (searchRooms != null) {
 	if (searchPrice.equals("All Price") && searchSize.equals("All Size")) {
@@ -149,6 +170,11 @@ if (searchRooms != null) {
 
 
 
+
+
+
+
+
 %>
 	<form id="mainForm" method="post" action="roomChangeRequest.jsp" align="center">
 	<table class="fTable" align="center">
@@ -204,32 +230,66 @@ if (searchRooms != null) {
 	<br>
 	
 	
+	
+<%
+	if(listOfAlreday != null){
+	%>
+	<hr>
+	<table class="fTable" align="center">
+		<tr>
+			<th colspan="8">Already Assigned Rooms</th>
+		</tr>
+		<tr class="subHeader">
+			<td>Room Name</td>
+			<td>Ward</td>
+			<td>Specialty</td>
+			<td>Status</td>
+			<td>Price</td>
+			<td>Size</td>
+			<td>Occupied</td>
+		</tr>
+		<tr>
+			<td><%=listOfAlreday.getRoomName() %></td>
+			<td><%=wardDAO.getWard("" + listOfAlreday.getInWard()).getWardID()%></td>
+			<td><%=wardDAO.getSpecialtyOfWard(String.valueOf(listOfAlreday.getInWard())) %></td>
+			<td><%=listOfAlreday.getStatus()%></td>
+			<td><%=listOfAlreday.getPrice()%></td>
+			<td><%=listOfAlreday.getSize()%></td>
+			<td><%=wardDAO.getNumberOfPatientsInWardRoom(listOfAlreday.getRoomID())%> / <%=listOfAlreday.getSize()%></td>
+		</tr>
+	</table>
+	
+	<% } else {
+		%>
+		<br>
+		<div align=center>No Already Assigned Rooms</div>
+		<%
+	}
+%>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 <%
 // Display results
 if(searchPrice != null || searchSize != null){
 	if(listOfRooms != null && !listOfRooms.isEmpty()){
 
-		/* // check if these rooms are full and if it is then log it
-		boolean vacant = false;
-		for(WardRoomBean room: listOfRooms){
-			if(room.getOccupiedBy() == null){
-				vacant = true;
-			}
-		}
-		
-		if(!vacant){
-		//log if those rooms were full
-		loggingAction.logEvent(TransactionType.ROOMS_FULL, loggedInMID, 0, "");
-			
-			
-		}  */
 		
 	%>
 	<hr>
 	<table class="fTable" align="center">
 		<tr>
-			<th colspan="8">Results</th>
+			<th colspan="9">Results</th>
 		</tr>
 		<tr class="subHeader">
 			<td>Room Name</td>
@@ -240,6 +300,7 @@ if(searchPrice != null || searchSize != null){
 			<td>Size</td>
 			<td>Occupied</td>
 			<td>Request</td>
+			<td>Cancel</td>
 		</tr>
 		<%for(WardRoomBean room: listOfRooms){ %>
 		<tr>
@@ -253,14 +314,25 @@ if(searchPrice != null || searchSize != null){
 			<td align="center">
 			<!-- Need to actually request room change. -->
 			<%if(is_hospital && is_ward && is_wardRoom) { %>
-				<form id="mainForm" method="post" action="roomChangeRequest.jsp">
-				<input type="submit" value="Request" name="requestRoomChange" />
+				<form id="mainForm" method="post" action=<%="http://localhost:8080/iTrust/auth/patient/roomChangeRequest.jsp?forwardPatientSearch="+room.getRoomID()%>">
+				<input type="submit" value="Request" name="requestRoomChange"
+				<%if (room.getState() != true) {%> disabled <%}%> />
+				</form>
+			<%}%>
+			</td>
+			<td align="center">
+			<!-- Need to actually cancel room change. -->
+			<%if(is_hospital && is_ward && is_wardRoom) { %>
+				<form id="mainForm" method="post" action=<%="http://localhost:8080/iTrust/auth/patient/roomChangeRequest.jsp?forwardPatientSearch2="+room.getRoomID()%>">
+				<input type="submit" value="Cancel" name="requestCancel"
+				<%if (room.getWaiting() != personnelMID) {%> disabled <%}%> />
 				</form>
 			<%}%>
 			</td>
 		</tr>
 		<%}%>
 	</table>
+	
 	
 	<% } else {
 		%>
@@ -274,7 +346,7 @@ if(searchPrice != null || searchSize != null){
 	<hr>
 	<table class="fTable" align="center">
 		<tr>
-			<th colspan="8">Recommended Affordable Rooms</th>
+			<th colspan="9">Recommended Affordable Rooms</th>
 		</tr>
 		<tr class="subHeader">
 			<td>Room Name</td>
@@ -285,6 +357,7 @@ if(searchPrice != null || searchSize != null){
 			<td>Size</td>
 			<td>Occupied</td>
 			<td>Request</td>
+			<td>Cancel</td>
 		</tr>
 		<%for(WardRoomBean room: listOfRooms){ %>
 		<tr>
@@ -298,8 +371,18 @@ if(searchPrice != null || searchSize != null){
 			<td align="center">
 			<!-- Need to actually request room change. -->
 			<%if(is_hospital && is_ward && is_wardRoom) { %>
-				<form id="mainForm" method="post" action="roomChangeRequest.jsp">
-				<input type="submit" value="Request" name="requestRoomChange" />
+				<form id="mainForm" method="post" action=<%="http://localhost:8080/iTrust/auth/patient/roomChangeRequest.jsp?forwardPatientSearch=" + room.getRoomID()%>">
+				<input type="submit" value="Request" name="requestRoomChange"
+				<%if (room.getState() != true) {%> disabled <%}%> />
+				</form>
+			<%}%>
+			</td>
+			<td align="center">
+			<!-- Need to actually cancel room change. -->
+			<%if(is_hospital && is_ward && is_wardRoom) { %>
+				<form id="mainForm" method="post" action=<%="http://localhost:8080/iTrust/auth/patient/roomChangeRequest.jsp?forwardPatientSearch2=" + room.getRoomID()%>">
+				<input type="submit" value="Cancel" name="requestCancel"
+				<%if (room.getWaiting() != personnelMID) {%> disabled <%}%> />
 				</form>
 			<%}%>
 			</td>
