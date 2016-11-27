@@ -1,18 +1,21 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import edu.ncsu.csc.itrust.beans.OphthalmologyOVRecordBean;
 import edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean;
+import edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean;
+import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
-import edu.ncsu.csc.itrust.dao.mysql.OphthalmologyOVRecordDAO;
+import edu.ncsu.csc.itrust.dao.mysql.OrthopedicOVRecordDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OrthopedicOVRecordDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.enums.TransactionType;
+import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
 
 public class ViewOrthopedicOVAction {
-	/**ophthalmologyOVDAO is the DAO that retrieves the orthopedic office
+	/**orthopedicOVDAO is the DAO that retrieves the orthopedic office
 	 *  visit records from the database*/
 	private OrthopedicOVRecordDAO orthopedicOVDAO;
 	/**loggedInMID is the User that is logged in.*/
@@ -50,5 +53,31 @@ public class ViewOrthopedicOVAction {
     	loggingAction.logEvent(TransactionType.parse(8801), loggedInMID, 
 				record.getPid(), "Orthopedic Office Visit " +  oid + " viewed by " + loggedInMID);
     	return record;
+	}
+	
+	public OrthopedicOVRecordBean getOrthopedicOVForPatient(long oid) throws ITrustException{
+		OrthopedicOVRecordBean record = orthopedicOVDAO.getOrthopedicOVRecord(oid);
+    	loggingAction.logEvent(TransactionType.parse(9100), loggedInMID, 
+				record.getPid(), "Orthopedic Office Visit " +  oid + " viewed by " + loggedInMID);
+    	return record;
+	}
+	
+	public OrthopedicOVRecordBean getOrthopedicOVForDependent(long oid) throws ITrustException{
+		OrthopedicOVRecordBean record = orthopedicOVDAO.getOrthopedicOVRecord(oid);
+    	loggingAction.logEvent(TransactionType.parse(9101), loggedInMID, 
+				record.getPid(), "Orthopedic Office Visit " +  oid + " viewed by " + loggedInMID);
+    	return record;
+	}
+	
+	public List<PatientBean> getDependents(long mid) {
+		List<PatientBean> dependents = new ArrayList<PatientBean>();
+		try {
+			dependents = patDAO.getDependents(mid);
+		} catch (DBException e) {
+			//If a DBException occurs print a stack trace and return an empty list
+			e.printStackTrace();
+		}
+		
+		return dependents;
 	}
 }
