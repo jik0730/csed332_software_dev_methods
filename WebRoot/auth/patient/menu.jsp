@@ -112,6 +112,36 @@
 </div>
 
 <div class="panel panel-default">
+	<div class="panel-heading"  anim-type="collapse" anim-target="#ort-menu">
+		<h2 class="panel-title">Orthopedic</h2>
+	</div>
+	<div class="panel-body" id="ort-menu">
+		<ul class="nav nav-sidebar">
+			<li><a href="/iTrust/auth/patient/orthopedicHome.jsp">Orthopedic Home</a></li>
+			<li><a href="/iTrust/auth/patient/addOrthopedicOVRequest.jsp">Add Orthopedic Office Visit Request</a></li>
+			<li><a href="/iTrust/auth/patient/viewOrthopedicScheduleOV.jsp">View Scheduled Orthopedic Office Visits</a></li>
+			<li><a href="/iTrust/auth/patient/orthopedicHome.jsp?view">View Orthopedic Records</a></li>
+			<li><a href="/iTrust/auth/patient/orthopedicHome.jsp?viewDependent">View Dependent's Orthopedic Records</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading"  anim-type="collapse" anim-target="#phy-menu">
+		<h2 class="panel-title">PhysicalTherapy</h2>
+	</div>
+	<div class="panel-body" id="phy-menu">
+		<ul class="nav nav-sidebar">
+			<li><a href="/iTrust/auth/patient/physicalTherapyHome.jsp">PhysicalTherapy Home</a></li>
+			<li><a href="/iTrust/auth/patient/addPhysicalTherapyOVRequest.jsp">Add PhysicalTherapy Office Visit Request</a></li>
+			<li><a href="/iTrust/auth/patient/viewPhysicalTherapyScheduleOV.jsp">View Scheduled PhysicalTherapy Office Visits</a></li>
+			<li><a href="/iTrust/auth/patient/physicalTherapyHome.jsp?view">View PhysicalTherapy Records</a></li>
+			<li><a href="/iTrust/auth/patient/physicalTherapyHome.jsp?viewDependent">View Dependent's PhysicalTherapy Records</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="panel panel-default">
 	<div class="panel-heading" anim-type="collapse" anim-target="#other-menu">
 		<h2 class="panel-title">Other</h2>
 	</div>

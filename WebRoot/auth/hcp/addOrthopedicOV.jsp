@@ -74,6 +74,7 @@
 			hasCSErrors = true;
 		}
 		bean.setPid(Long.valueOf(pidString));
+		bean.setHid(loggedInMID);
 		try {
 			if ("".equals(bean.getInjured())) throw new Exception();
 		} catch (Exception e) {
