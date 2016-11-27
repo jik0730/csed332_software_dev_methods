@@ -33,7 +33,7 @@ public class OrderDAOTest {
 	}
 	
 	@Test
-	public void testAdd() throws Exception {
+	public void testAddAndGetByOrderedHCPID() throws Exception {
 		OrderBean bean = new OrderBean();
 		bean.setVisitID(456456456);
 		bean.setOrderHCPID(9220000000L);
@@ -44,20 +44,36 @@ public class OrderDAOTest {
 		
 		List<OrderBean> orders = dao.getOrderByOrderedHCPID(9220000000L);
 		assertEquals(1, orders.size());
+		bean.setOrderID(orders.get(0).getOrderID());
+		assertEquals(bean, orders.get(0));
 	}
 
 	@Test
-	public void testGetOrderByVisitID() {
+	public void testGetOrderByVisitID() throws Exception {
+		OrderBean bean = new OrderBean();
+		bean.setVisitID(456456456);
+		bean.setOrderHCPID(9220000000L);
+		bean.setOrderedHCPID(9220000000L);
+		bean.setPatientID(1L);
+		bean.setCompleted(false);
+		dao.add(bean);
 		
+		List<OrderBean> orders = dao.getOrderByVisitID(456456456);
+		boolean preparedBeanExists = false;
+		for(OrderBean b: orders) {
+			if(b.getOrderedHCPID() == 9220000000L) preparedBeanExists = true;
+		}
+
+		assertEquals(2, orders.size());
+		assertTrue(preparedBeanExists);
 	}
 
 	@Test
-	public void testGetOrderByOrderedHCPID() {
+	public void testGetUncompletedOrderForPair() throws Exception {
+		List<OrderBean> orders = dao.getUncompletedOrderForPair(9210000000L, 1L);
 		
-	}
-
-	@Test
-	public void testGetUncompletedOrderForPair() {
-		
+		assertEquals(1, orders.size());
+		assertEquals(9210000000L, orders.get(0).getOrderedHCPID());
+		assertEquals(1L, orders.get(0).getPatientID());
 	}
 }

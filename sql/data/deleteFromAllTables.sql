@@ -78,6 +78,11 @@ DELETE FROM exerciseEntry;
 DELETE FROM labels;
 DELETE FROM designatedNutritionist;
 
+DELETE FROM orderTable;
+ALTER TABLE orderTable AUTO_INCREMENT = 0;
+
+DELETE FROM orthopedic;
+ALTER TABLE orthopedic AUTO_INCREMENT = 0;
 DELETE FROM ophthalmology;
 ALTER TABLE ophthalmology AUTO_INCREMENT = 0;
 DELETE FROM opdiagnosis;

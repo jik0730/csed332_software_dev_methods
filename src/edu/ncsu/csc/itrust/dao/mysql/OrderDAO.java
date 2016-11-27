@@ -30,7 +30,7 @@ public class OrderDAO {
 		PreparedStatement ps = null;
 		try{
 			conn = factory.getConnection();
-			String statement = "Insert INTO orderTable (VisitID, OrderHCPID,"
+			String statement = "INSERT INTO orderTable (VisitID, OrderHCPID,"
 					+ " OrderedHCPID, PatientID, Completed) VALUES (?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(statement);
 			orderLoader.loadParameters(ps, bean);
