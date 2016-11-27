@@ -1206,6 +1206,17 @@ public class TestDataGenerator {
 	public void departmentInit() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/departmentInit.sql");
 	}
+
+	/**
+	 * Inserts data for testing order
+	 * 
+	 * @throws SQLException
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	public void orderTest() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/orderTest.sql");
+	}
 	
 	/**
 	 * Do we have zipcodes?
