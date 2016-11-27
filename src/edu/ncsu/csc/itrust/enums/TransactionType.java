@@ -504,18 +504,22 @@ public enum TransactionType {
 	VIEW_ORTHOPEDIC_OV(8801, "View Orthopedic Office Visit", "View Orthopedic Office Visit", true),
 	CREATE_ORTHOPEDIC_OV(8800, "Create Orthopedic Office Visit", "Create Orthopedic Office Visit", true),
 	EDIT_ORTHOPEDIC_OV(8802, "Edit Orthopedic Office Visit", "Edit Orthopedic Office Visit", true),
+	/**VIEW_ORTHOPEDIC_PT_OV**/
+	VIEW_PATIENT_ORTHOPEDIC_PT_OV(9100, "View Patient Orthopedic/PT Office Visit", "View Patient Orthopedic/PT Office Visit", true),
+	/**VIEW_DEPENDENT_ORTHOPEDIC_PT_OV**/
+	VIEW_DEPENDENT_ORTHOPEDIC_PT_OV(9101, "View Dependent Orthopedic/PT Office Visit", "View Dependent Orthopedic/PT Office Visit", true),
 	/**CREATE_OPHTHALMOLOGY_SURGERY**/
-	CREATE_ORTHOPEDIC_SURGERY(9000, "Create Ophthalmology Surgery", "Ophthalmology Surgery", true),
+	CREATE_ORTHOPEDIC_SURGERY(9000, "Create Orthopedic Surgery", "Ophthalmology Surgery", true),
 	/**VIEW_OPHTHALMOLOGY_SURGERY**/
-	VIEW_ORTHOPEDIC_SURGERY(9001, "View Ophthalmology Surgery", "View Ophthalmology Surgery", true),
+	VIEW_ORTHOPEDIC_SURGERY(9001, "View Orthopedic Surgery", "View Ophthalmology Surgery", true),
 	/**EDIT_OPHTHALMOLOGY_SURGERY**/
-	EDIT_ORTHOPEDIC_SURGERY(9002, "Edit Ophthalmology Surgery", "Edit Ophthalmology Surgery", true),
+	EDIT_ORTHOPEDIC_SURGERY(9002, "Edit Orthopedic Surgery", "Edit Ophthalmology Surgery", true),
 	/**CREATE_OPHTHALMOLOGY_SURGERY**/
-	CREATE_PHYSICALTHERAPY_OV(8900, "Create Ophthalmology Surgery", "Ophthalmology Surgery", true),
+	CREATE_PHYSICALTHERAPY_OV(8900, "Create Physical Therapy", "Create Physical Therapy", true),
 	/**VIEW_OPHTHALMOLOGY_SURGERY**/
-	VIEW_PHYSICALTHERAPY_OV(8901, "View Ophthalmology Surgery", "View Ophthalmology Surgery", true),
+	VIEW_PHYSICALTHERAPY_OV(8901, "View Physical Therapy", "View Physical Therapy", true),
 	/**EDIT_OPHTHALMOLOGY_SURGERY**/
-	EDIT_PHYSICALTHERAPY_OV(8902, "Edit Ophthalmology Surgery", "Edit Ophthalmology Surgery", true),
+	EDIT_PHYSICALTHERAPY_OV(8902, "Edit Physical Therapy", "Edit Physical Therapy", true)
 	;
 	/**
 	 * This string is used in the SQL statement associated with pulling events for
