@@ -34,7 +34,6 @@ public class PatientRoomAssignmentAction {
 		wardDAO.checkOutPatientReason(mid, reason);
 		wardRoom.setOccupiedBy(null);
 		wardDAO.updateWardRoomOccupant(wardRoom);
-
 		
 	}
 	
@@ -46,7 +45,9 @@ public class PatientRoomAssignmentAction {
 		
 	}
 	
-	public void requestPatientToRoom(WardRoomBean wardRoom) throws DBException{
+	public void requestPatientToRoom(WardRoomBean wardRoom, long patientMID) throws DBException{
+		wardRoom.setAccepted(false);
+		wardRoom.setWaiting(patientMID);
 		wardDAO.updateWardRoomWaiting(wardRoom);
 		wardDAO.updateWardRoomState(wardRoom);
 		
