@@ -22,7 +22,6 @@ public class OrderBeanLoader implements BeanLoader<OrderBean> {
 	public PreparedStatement loadParameters(PreparedStatement ps, OrderBean bean) throws SQLException {
 		int i=1;
 
-		ps.setInt(i++, bean.getOrderID());
 		ps.setInt(i++, bean.getVisitID());
 		ps.setLong(i++, bean.getOrderHCPID());
 		ps.setLong(i++,  bean.getOrderedHCPID());
