@@ -17,6 +17,7 @@
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException" %>
 <%@page import="edu.ncsu.csc.itrust.action.EditORDiagnosesAction"%> 
 <%@page import="edu.ncsu.csc.itrust.action.ParseOrthopedicFormAction"%> 
+<%@page import="edu.ncsu.csc.itrust.action.ViewPersonnelBySpecialityAction"%> 
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean"%>
 <%@page import="edu.ncsu.csc.itrust.validate.OrthopedicDiagnosisBeanValidator"%>
 <%@page import="edu.ncsu.csc.itrust.BeanBuilder"%>
@@ -160,6 +161,25 @@
     		</tr>
 		</table>
  		<br />
+		<table class="fTable" align="center">
+	 		<tr><th colspan="3" style="text-align: center;">Order</th></tr>
+    		<tr>
+		        <td colspan="3" align=center>
+		            <select name="OrderedHCPID" style="font-size:10" >
+			            <option value="">-- None Selected --</option>
+			            <%
+			            ViewPersonnelBySpecialityAction viewAction = new ViewPersonnelBySpecialityAction(prodDAO, 0L);
+			            List<PersonnelBean> orthopedics = viewAction.getPersonnel("Orthopedic");
+			            List<PersonnelBean> therapists = viewAction.getPersonnel("physicaltherapist");
+			            orthopedics.addAll(therapists);
+			            for(PersonnelBean bean : orthopedics) { %>
+			            <option value="<%= bean.getMID() %>"><%= StringEscapeUtils.escapeHtml(bean.getFirstName() + " " + bean.getLastName()) %>
+			            - <%= StringEscapeUtils.escapeHtml(" " +bean.getSpecialty()) %></option>
+			            <%}%>
+		            </select>
+		    	</td>
+    		</tr>
+		</table>
 		<input type="submit" id="submit" value="Submit" />
 	</form>
 </div>

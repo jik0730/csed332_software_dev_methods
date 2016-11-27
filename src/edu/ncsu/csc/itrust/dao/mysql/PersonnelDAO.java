@@ -361,6 +361,34 @@ public class PersonnelDAO {
 	}
 	
 	/**
+	 * Returns all personnel of specified specialty.
+	 * 
+	 * @param specialty, the type of specialty to search for
+	 * @return A java.util.List of PersonnelBeans.
+	 * @throws DBException
+	 */
+	public List<PersonnelBean> getPersonnelBySpeciality(final String speciality) throws DBException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = factory.getConnection();
+			pstmt = conn.prepareStatement("SELECT * FROM personnel p where p.specialty = ? and p.role = 'hcp'");
+			pstmt.setString(1, speciality);
+			
+			final ResultSet results = pstmt.executeQuery();
+			final List<PersonnelBean> loadlist = personnelLoader.loadList(results);
+			results.close();
+			pstmt.close();
+			return loadlist;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, pstmt);
+		}
+	}
+	
+	/**
 	 * Returns all personnel in the database.
 	 * 
 	 * @return A java.util.List of personnel.
