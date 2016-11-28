@@ -1,5 +1,6 @@
 package edu.ncsu.csc.itrust.action;
 
+import edu.ncsu.csc.itrust.beans.OrderBean;
 import edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean;
 import edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
@@ -24,12 +25,14 @@ public class ParseOrthopedicFormAction {
 	
 	private OrthopedicOVRecordBean recordBean;
 	private OrthopedicDiagnosisBean diagnosisBean;
+	private OrderBean orderBean;
 	
 	public ParseOrthopedicFormAction(DAOFactory factory, long loggedInMID) {
 		this.factory = factory;
 		this.loggedInMID = loggedInMID;
 		this.recordBean = new OrthopedicOVRecordBean();
 		this.diagnosisBean = new OrthopedicDiagnosisBean();
+		this.orderBean = new OrderBean();
 	}
 	
 	public void parse(HttpServletRequest request, ServletContext servletContext) {
@@ -67,6 +70,8 @@ public class ParseOrthopedicFormAction {
 				case "ICDCode": diagnosisBean.setICDCode(f.getString());;
 				break;
 				case "ovID": recordBean.setOid(Integer.valueOf(f.getString()));
+				break;
+				case "OrderedHCPID" : orderBean.setOrderedHCPID(Long.valueOf(f.getString()));
 			}
 		}
 	}
@@ -77,6 +82,10 @@ public class ParseOrthopedicFormAction {
 	
 	public OrthopedicOVRecordBean getRecordBean() {
 		return recordBean;
+	}
+	
+	public OrderBean getOrderBean(){
+		return orderBean;
 	}
 	
 	/** Returns NULL if not available */

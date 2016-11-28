@@ -19,6 +19,10 @@
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean"%>
 <%@page import="edu.ncsu.csc.itrust.validate.OrthopedicDiagnosisBeanValidator"%>
 <%@page import="edu.ncsu.csc.itrust.BeanBuilder"%>
+<%@page import="edu.ncsu.csc.itrust.beans.OrderBean"%>
+<%@page import="edu.ncsu.csc.itrust.action.AddOROrderAction"%>
+<%@page import="edu.ncsu.csc.itrust.action.ViewPersonnelAction"%>
+<%@page import="edu.ncsu.csc.itrust.action.ViewPersonnelBySpecialityAction"%>
 
 <%@include file="/global.jsp"%>
 
@@ -66,7 +70,7 @@
 	    
 	    String remID = request.getParameter("removeDiagID");
 	    OrthopedicDiagnosisBean beanSub = new OrthopedicDiagnosisBean();
-	    beanSub.setOpDiagnosisID(Long.parseLong(remID));
+	    beanSub.setOrDiagnosisID(Long.parseLong(remID));
 	    diagnoses.deleteDiagnosis(beanSub);
 	}
 	
@@ -119,6 +123,22 @@
 		} catch (IllegalArgumentException e) {
 			clientSideErrors += "Injured is required field";
 			hasCSErrors = true;
+		}
+
+		OrderBean order = parseAction.getOrderBean();
+		
+		if(order.getOrderedHCPID() != 0){
+			order.setVisitID(bean.getOid());
+			order.setPatientID(bean.getPid());
+			order.setCompleted(false);
+			order.setOrderHCPID(loggedInMID);
+			AddOROrderAction addorder = new AddOROrderAction(prodDAO, ""+bean.getOid());
+			try {
+			  addorder.addOrder(order);
+			} catch (ITrustException e) {
+				clientSideErrors += "Order: " + e.getMessage();
+				hasCSErrors = true;
+			}
 		}
 			
 		if (hasCSErrors) {
@@ -178,7 +198,62 @@
 		
 		<br />
 		<br />
-		
+
+		<table class="fTable" align="center">
+			<tr>
+				<th colspan="3" style="text-align: center;">Order</th>
+			</tr>
+			<tr class="subHeader">
+				<th>Name</th>
+				<th>Speciality</th>
+				<th>Completed</th>
+			</tr>
+			<%
+				AddOROrderAction orderAction = new AddOROrderAction(prodDAO, oidString);
+				if (orderAction.getOrders().size() == 0) {
+			%>
+			<tr>
+				<td colspan="3">No Orders for this visit</td>
+			</tr>
+			<%
+				} else {
+					for (OrderBean b : orderAction.getOrders()) {
+						ViewPersonnelAction viewPersonnelAction = new ViewPersonnelAction(prodDAO, 0L);
+						PersonnelBean personnelBean = viewPersonnelAction.getPersonnel(String.valueOf(b.getOrderedHCPID()));
+						String speciality = personnelBean.getSpecialty();
+						String name = personnelBean.getFullName();
+						String completed = String.valueOf(b.isCompleted());
+			%>
+			<tr>
+				<td><%=name%></td>
+				<td><%=speciality%></td>
+				<td><%=completed%></td>
+			</tr>
+			<%
+				}
+				}
+			%>
+			<tr>
+				<td colspan="3" align=center><select name="OrderedHCPID"
+					style="font-size: 10">
+						<option value="0">-- None Selected --</option>
+						<%
+							ViewPersonnelBySpecialityAction viewSpecialityAction = new ViewPersonnelBySpecialityAction(prodDAO, 0L);
+							List<PersonnelBean> orthopedics = viewSpecialityAction.getPersonnel("Orthopedic");
+							List<PersonnelBean> therapists = viewSpecialityAction.getPersonnel("physicaltherapist");
+							orthopedics.addAll(therapists);
+							for (PersonnelBean pbean : orthopedics) {
+						%>
+						<option value="<%=pbean.getMID()%>"><%=StringEscapeUtils.escapeHtml(pbean.getFullName())%>
+							-
+							<%=StringEscapeUtils.escapeHtml(" " + pbean.getSpecialty())%></option>
+						<%
+							}
+						%>
+				</select></td>
+			</tr>
+		</table>
+
 		<input type="submit" id="submit" value="Submit" form="officeVisit" hidden="hidden"/>
 	</form>
 </div>
@@ -189,52 +264,67 @@
 <input type="hidden" name="ovID" value="<%= StringEscapeUtils.escapeHtml("" + oidString) %>" />
 </form>
 
-<form <% out.print("action=\"/iTrust/auth/hcp/editOrthopedicOV.jsp?formIsFilled=true&oid=" + oidString + "\""); %> method="post" id="diagnosesForm" >
-		<input type="hidden" name="formIsFilled" value="true" />
-		<input type="hidden" name="submittedFormName" value="diagnosesForm" />
-		<table class="fTable" align="center" >
-	<tr>
-		<th colspan="3">Diagnoses</th>
-	</tr>
-	<tr  class="subHeader">
-		<th>ICD Code</th>
-		<th>Description</th>
-		<th>URL</th>
-	</tr>
-	<%
-	EditORDiagnosesAction diagAction = new EditORDiagnosesAction(prodDAO,oidString);
-	if (diagAction.getDiagnoses().size() == 0) { %>
-	<tr>
-		<td colspan="3" >No Diagnoses for this visit</td>
-	</tr>
-	<% } else { 
-		for(OrthopedicDiagnosisBean d : diagAction.getDiagnoses()) { String link = d.getURL();%>
+<form
+	<%out.print("action=\"/iTrust/auth/hcp/editOrthopedicOV.jsp?formIsFilled=true&oid=" + oidString + "\"");%>
+	method="post" id="diagnosesForm">
+	<input type="hidden" name="formIsFilled" value="true" /> <input
+		type="hidden" name="submittedFormName" value="diagnosesForm" />
+	<table class="fTable" align="center">
 		<tr>
-			<td ><itrust:icd9cm code="<%= StringEscapeUtils.escapeHtml(d.getICDCode()) %>"/></td>
-			<td  style="white-space: nowrap;"><%= StringEscapeUtils.escapeHtml("" + (d.getDescription() )) %></td>
-			<td ><a
-            href="javascript:removeDiagID('<%= StringEscapeUtils.escapeHtml("" + (d.getOpDiagnosisID())) %>');">Remove</a></td>
+			<th colspan="3">Diagnoses</th>
 		</tr>
-	   <%} 
-  	   }  %>
-  	       <tr>
-        <th colspan="3" style="text-align: center;">New</th>
-    </tr>
-    <tr>
-        <td colspan="3" align=center>
-            <select name="ICDCode" style="font-size:10" >
-            <option value="">-- None Selected --</option>
-            <%for(OrthopedicDiagnosisBean diag : diagAction.getDiagnosisCodes()) { %>
-            <option value="<%=diag.getICDCode()%>"><%= StringEscapeUtils.escapeHtml("" + (diag.getICDCode())) %>
-            - <%= StringEscapeUtils.escapeHtml("" + (diag.getDescription())) %></option>
-            <%}%>
-            </select>
-            <input type="submit" id="add_diagnosis" value="Add Diagnosis" >
-        </td>
-    </tr>
-</table>
-<br /><br />
+		<tr class="subHeader">
+			<th>ICD Code</th>
+			<th>Description</th>
+			<th>URL</th>
+		</tr>
+		<%
+			EditORDiagnosesAction diagAction = new EditORDiagnosesAction(prodDAO, oidString);
+			if (diagAction.getDiagnoses().size() == 0) {
+		%>
+		<tr>
+			<td colspan="3">No Diagnoses for this visit</td>
+		</tr>
+		<%
+			} else {
+				for (OrthopedicDiagnosisBean d : diagAction.getDiagnoses()) {
+					String link = d.getURL();
+		%>
+		<tr>
+			<td><itrust:icd9cm
+					code="<%=StringEscapeUtils.escapeHtml(d.getICDCode())%>" /></td>
+			<td style="white-space: nowrap;"><%=StringEscapeUtils.escapeHtml("" + (d.getDescription()))%></td>
+			<td><a
+				href="javascript:removeDiagID('<%=StringEscapeUtils.escapeHtml("" + (d.getOrDiagnosisID()))%>');">Remove</a></td>
+		</tr>
+		<%
+			}
+			}
+		%>
+		<tr>
+			<th colspan="3" style="text-align: center;">New</th>
+		</tr>
+		<tr>
+			<td colspan="3" align=center><select name="ICDCode"
+				style="font-size: 10">
+					<option value="">-- None Selected --</option>
+					<%
+						for (OrthopedicDiagnosisBean diag : diagAction.getDiagnosisCodes()) {
+					%>
+					<option value="<%=diag.getICDCode()%>"><%=StringEscapeUtils.escapeHtml("" + (diag.getICDCode()))%>
+						-
+						<%=StringEscapeUtils.escapeHtml("" + (diag.getDescription()))%></option>
+					<%
+						}
+					%>
+			</select> <input type="submit" id="add_diagnosis" value="Add Diagnosis">
+			</td>
+		</tr>
+	</table>
+	<br />
+	<br />
 </form>
+
 <p align="middle">
 <input type="submit" id="submitoutside" value="Submit" form="officeVisit"/>
 </p>

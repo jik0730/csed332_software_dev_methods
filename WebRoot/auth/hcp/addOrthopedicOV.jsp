@@ -21,6 +21,8 @@
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean"%>
 <%@page import="edu.ncsu.csc.itrust.validate.OrthopedicDiagnosisBeanValidator"%>
 <%@page import="edu.ncsu.csc.itrust.BeanBuilder"%>
+<%@page import="edu.ncsu.csc.itrust.action.AddOROrderAction"%>
+<%@page import="edu.ncsu.csc.itrust.beans.OrderBean"%>
 
 <%@include file="/global.jsp"%>
 
@@ -78,13 +80,15 @@
 			clientSideErrors += "Injured is required field";
 			hasCSErrors = true;
 		}
-			
+
 		if (hasCSErrors) {
 			out.write(clientSideErrors + "]</p>");
 			clientSideErrors = "";
 		} else {
 			addAction.addOrthopedicOV(bean);
 			OrthopedicDiagnosisBean beanSub = parseAction.getDiagnosisBean();
+			
+			
 			if(beanSub.getICDCode() != null){
 				EditORDiagnosesAction diagnoses =  new EditORDiagnosesAction(prodDAO,""+bean.getOid()); 
 				//validator requires description but DiagnosesDAO does not. Set here to pass validation.
@@ -99,7 +103,25 @@
 						response.sendRedirect("/iTrust/auth/hcp/orthopedicHome.jsp");
 					throw new ITrustException("Invalid data entered into Orthopedic office visit creator."); 
 				}
+			}		
+			
+			OrderBean order = parseAction.getOrderBean();
+		
+			if(order.getOrderedHCPID() != 0){
+				order.setVisitID(bean.getOid());
+				order.setPatientID(bean.getPid());
+				order.setCompleted(false);
+				order.setOrderHCPID(loggedInMID);
+				AddOROrderAction addorder = new AddOROrderAction(prodDAO, ""+bean.getOid());
+				try {
+				  addorder.addOrder(order);
+				} catch (ITrustException e) {
+					e.printStackTrace();
+					response.sendRedirect("/iTrust/auth/hcp/orthopedicHome.jsp");
+					throw new ITrustException("Duplicate Order."); 
+				}
 			}
+			
 			addedSomething = true;
 		}
 		if (addedSomething) {
@@ -166,7 +188,7 @@
     		<tr>
 		        <td colspan="3" align=center>
 		            <select name="OrderedHCPID" style="font-size:10" >
-			            <option value="">-- None Selected --</option>
+			            <option value="0">-- None Selected --</option>
 			            <%
 			            ViewPersonnelBySpecialityAction viewAction = new ViewPersonnelBySpecialityAction(prodDAO, 0L);
 			            List<PersonnelBean> orthopedics = viewAction.getPersonnel("Orthopedic");
@@ -186,5 +208,4 @@
 
 <p><br/><a href="/iTrust/auth/hcp/orthopedicHome.jsp">Back to Home</a></p>
 <a name="diagnoses"></a>
-
 <%@include file="/footer.jsp" %>
