@@ -102,4 +102,20 @@ public class OrderDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	public void completeOrder(int orderID) throws DBException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try{
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("UPDATE orderTable SET Completed = true where OrderID = ?");
+			ps.setInt(1, orderID);
+			ps.executeUpdate();
+			ps.close();
+		}catch (SQLException e){
+			throw new DBException(e);
+		} finally{
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
 }
