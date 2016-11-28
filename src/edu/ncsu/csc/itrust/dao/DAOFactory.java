@@ -480,4 +480,8 @@ public class DAOFactory {
 	public PhysicalTherapyOVRecordDAO getPhysicalTherapyOVRecordDAO(){
 		return new PhysicalTherapyOVRecordDAO(this);
 	}
+	
+	public OrderDAO getOrderDAO(){
+		return new OrderDAO(this);
+	}
 }
