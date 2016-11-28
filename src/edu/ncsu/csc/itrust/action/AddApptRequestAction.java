@@ -7,11 +7,13 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.ApptBean;
 import edu.ncsu.csc.itrust.beans.ApptRequestBean;
 import edu.ncsu.csc.itrust.beans.ApptTypeBean;
+import edu.ncsu.csc.itrust.beans.OrderBean;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.ApptDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ApptRequestDAO;
 import edu.ncsu.csc.itrust.dao.mysql.ApptTypeDAO;
+import edu.ncsu.csc.itrust.dao.mysql.OrderDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 
@@ -26,11 +28,15 @@ public class AddApptRequestAction {
 	private ApptTypeDAO atDAO;
 	private PersonnelDAO pDAO;
 	
+	private OrderDAO orderDAO;
+	
 	public AddApptRequestAction(DAOFactory factory) {
 		aDAO = factory.getApptDAO();
 		arDAO = factory.getApptRequestDAO();
 		atDAO = factory.getApptTypeDAO();
 		pDAO = factory.getPersonnelDAO();
+		
+		orderDAO = factory.getOrderDAO();
 	}
 	
 	public String addApptRequest(ApptRequestBean bean) throws SQLException, DBException {
@@ -54,6 +60,14 @@ public class AddApptRequestAction {
 			if(!speciality.equals("physicaltherapist") && !speciality.equals("Orthopedic")){
 				return "You should change appointment type for this HCP.";
 			}
+			
+			long pid = bean.getRequestedAppt().getPatient();
+			long hid = bean.getRequestedAppt().getHcp();
+			List<OrderBean> check = orderDAO.getUncompletedOrderForPair(hid, pid);
+			if(check.size() ==0){
+				return "You can't make physical therapy appointment request without doctor's order";
+			}
+			
 		}
 		
 		arDAO.addApptRequest(bean);
