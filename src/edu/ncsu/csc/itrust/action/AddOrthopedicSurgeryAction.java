@@ -1,13 +1,18 @@
 package edu.ncsu.csc.itrust.action;
 
+import java.util.List;
+
+import edu.ncsu.csc.itrust.beans.OrderBean;
+import edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean;
 import edu.ncsu.csc.itrust.beans.OrthopedicSurgeryRecordBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
+import edu.ncsu.csc.itrust.dao.mysql.OrderDAO;
 import edu.ncsu.csc.itrust.dao.mysql.OrthopedicSurgeryRecordDAO;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.validate.OrthopedicSurgeryValidator;
-
+import edu.ncsu.csc.itrust.dao.mysql.OrthopedicOVRecordDAO;
 /**
  * Used for add Orthopedic office visit page (addOphalmologySurgeryRecord.jsp). 
  * 
@@ -22,6 +27,8 @@ public class AddOrthopedicSurgeryAction {
     /**loggingAction is used to write to the log.*/
     private EventLoggingAction loggingAction;
 
+    private OrderDAO orderDAO;
+    private OrthopedicOVRecordDAO recordDAO;
     /**
      * AddOrthopedicSurgeryAction is the constructor for this action class. It simply initializes the
      * instance variables.
@@ -32,6 +39,8 @@ public class AddOrthopedicSurgeryAction {
 		this.OrthopedicSurgeryDAO = factory.getOrthopedicSurgeryRecordDAO();
 		this.loggedInMID = loggedInMID;
 		this.loggingAction = new EventLoggingAction(factory);
+		this.orderDAO = factory.getOrderDAO();
+		this.recordDAO = factory.getOrthopedicOVRecordDAO();
 	}
 	
 	/**
@@ -46,9 +55,15 @@ public class AddOrthopedicSurgeryAction {
 			//Validate the bean
 			new OrthopedicSurgeryValidator().validate(p);
 			
-			//Add the Orthopedic office visit record to the database
-			OrthopedicSurgeryDAO.addOrthopedicSurgeryRecord(p);
+			List<OrderBean> order = orderDAO.getUncompletedOrderForPair(loggedInMID, p.getMid());
 			
+			if(order.size()!=0){
+				//Add the Orthopedic office visit record to the database
+				OrthopedicSurgeryDAO.addOrthopedicSurgeryRecord(p);
+				orderDAO.completeOrder(order.get(0).getOrderID());
+			}else{
+				throw new ITrustException("You can't make surgery without order.");
+			}
 			//Log the transaction
 			loggingAction.logEvent(TransactionType.parse(9000), loggedInMID, 
 					p.getMid(), "Surgical Orthopedic Office Visit " +  p.getOid() + " added");
