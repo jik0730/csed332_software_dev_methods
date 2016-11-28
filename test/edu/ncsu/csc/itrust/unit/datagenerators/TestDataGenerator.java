@@ -599,6 +599,10 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/patient42.sql");
 	}
 
+	public void patient91() throws FileNotFoundException, SQLException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/patient91.sql");
+	}
+	
 	/**
 	 * Adds patient Anakin Skywalker for UC10 and UC37 testing purposes.
 	 * 
