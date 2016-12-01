@@ -103,6 +103,7 @@ These are meeting logs summarizing our dicussions in every meeting.
 - [4th Meeting](meeting_log/4th_meeting.md)
 - [5th Meeting](meeting_log/5th_meeting.md)
 - [6th Meeting](meeting_log/6th_meeting.md)
+- [2nd Demo](meeting_log/2nd_demo.md)
 - [7th Meeting](meeting_log/7th_meeting.md)
 - [8th Meeting](meeting_log/8th_meeting.md)
 
