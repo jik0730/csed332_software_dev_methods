@@ -411,4 +411,28 @@ public class WardDAOTest extends TestCase{
 			//TODO
 		}
 	}
+	
+	/**
+	 * testgetAllWards
+	 */
+	public void testgetAllWards(){
+		List<WardBean> list = new ArrayList<WardBean>();
+		
+		try {
+			list = wd1.getAllWards();
+			assertNotNull(list);
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			expect(factory2.getConnection()).andThrow(new SQLException());
+			ctrl.replay();
+			wd2.getAllWards();
+			fail();
+		} catch (Exception e) {
+			//TODO
+		}
+		 
+	}
 }

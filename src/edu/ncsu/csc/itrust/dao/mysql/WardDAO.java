@@ -704,6 +704,32 @@ public class WardDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM hospitals h inner join wards ward inner join wardrooms room where room.OccupiedBy = ? and room.inward = ward.wardid and ward.inhospital = h.hospitalid");
+			ps.setLong(1, pid);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				HospitalBean loaded = hospitalLoader.loadSingle(rs);
+				rs.close();
+				ps.close();
+				return loaded;
+			} else{
+				rs.close();
+				ps.close();
+				return null;
+			}
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	public HospitalBean getHospitalByPatientID2(long pid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
 			ps = conn.prepareStatement("SELECT * FROM hospitals h inner join wards ward inner join wardroomsshared room where room.OccupiedBy = ? and room.inward = ward.wardid and ward.inhospital = h.hospitalid");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
@@ -737,6 +763,32 @@ public class WardDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM wardrooms r where r.occupiedby = ?");
+			ps.setLong(1, pid);
+			ResultSet rs = ps.executeQuery();
+				if(rs.next()){
+					WardRoomBean wrb = wardRoomLoader.loadSingle(rs);
+					rs.close();
+					ps.close();
+					return getWard(Long.toString(wrb.getInWard()));
+				} else{
+					rs.close();
+					ps.close();
+					return null;
+				}
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	public WardBean getWardByPid2(long pid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
 			ps = conn.prepareStatement("SELECT * FROM wardrooms r inner join wardroomsshared s where r.roomid = s.InWardRoom and s.occupiedby = ?");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
@@ -766,6 +818,32 @@ public class WardDAO {
 	 * @throws DBException
 	 */
 	public WardRoomBean getWardRoomByPid(long pid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM wardrooms r WHERE r.occupiedby = ?");
+			ps.setLong(1, pid);
+			ResultSet rs = ps.executeQuery();
+				if(rs.next()){
+					WardRoomBean wrb = wardRoomLoader.loadSingle(rs);
+					rs.close();
+					ps.close();
+					return wrb;
+				} else{
+					rs.close();
+					ps.close();
+					return null;
+				}
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	public WardRoomBean getWardRoomByPid2(long pid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -966,6 +1044,29 @@ public class WardDAO {
 	 * @throws DBException
 	 */
 	public int getNumberOfPatientsInWardRoom(long roomID) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM wardroomsshared WHERE InWardRoom = ?");
+			ps.setLong(1, roomID);
+			ResultSet rs = ps.executeQuery();
+			int rowcount = 0;
+			if (rs.next()) {
+				rowcount++;
+			}
+			rs.close();
+			ps.close();
+			return rowcount;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	public int getNumberOfPatientsInWardRoom2(long roomID) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
