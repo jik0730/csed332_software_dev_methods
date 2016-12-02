@@ -106,7 +106,7 @@ These are meeting logs summarizing our dicussions in every meeting.
 - [2nd Demo](meeting_log/2nd_demo.md)
 - [7th Meeting](meeting_log/7th_meeting.md)
 - [8th Meeting](meeting_log/8th_meeting.md)
-- [3rd Demo](meeting_log/demo3_meeting_log.md)
+- [3rd Demo](meeting_log/3rd_demo.md)
 Demo Presentation
 ---------------
 These are presention files presented at each demo.
