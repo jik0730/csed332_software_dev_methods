@@ -246,7 +246,7 @@ if (searchRooms != null) {
 			<td>Status</td>
 			<td>Price</td>
 			<td>Size</td>
-			<td>Occupied</td>
+			<!-- <td>Occupied</td> -->
 		</tr>
 		<tr>
 			<td><%=listOfAlreday.getRoomName() %></td>
@@ -255,7 +255,7 @@ if (searchRooms != null) {
 			<td><%=listOfAlreday.getStatus()%></td>
 			<td><%=listOfAlreday.getPrice()%></td>
 			<td><%=listOfAlreday.getSize()%></td>
-			<td><%=wardDAO.getNumberOfPatientsInWardRoom(listOfAlreday.getRoomID())%> / <%=listOfAlreday.getSize()%></td>
+			<%-- <td><%=wardDAO.getNumberOfPatientsInWardRoom(listOfAlreday.getRoomID())%> / <%=listOfAlreday.getSize()%></td> --%>
 		</tr>
 	</table>
 	
@@ -298,7 +298,7 @@ if(searchPrice != null || searchSize != null){
 			<td>Status</td>
 			<td>Price</td>
 			<td>Size</td>
-			<td>Occupied</td>
+			<!-- <td>Occupied</td> -->
 			<td>Request</td>
 			<td>Cancel</td>
 		</tr>
@@ -310,7 +310,7 @@ if(searchPrice != null || searchSize != null){
 			<td><%=room.getStatus()%></td>
 			<td><%=room.getPrice()%></td>
 			<td><%=room.getSize()%></td>
-			<td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td>
+			<%-- <td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td> --%>
 			<td align="center">
 			<!-- Need to actually request room change. -->
 			<%if(is_hospital && is_ward && is_wardRoom) { %>
@@ -355,7 +355,7 @@ if(searchPrice != null || searchSize != null){
 			<td>Status</td>
 			<td>Price</td>
 			<td>Size</td>
-			<td>Occupied</td>
+			<!-- <td>Occupied</td> -->
 			<td>Request</td>
 			<td>Cancel</td>
 		</tr>
@@ -367,7 +367,7 @@ if(searchPrice != null || searchSize != null){
 			<td><%=room.getStatus()%></td>
 			<td><%=room.getPrice()%></td>
 			<td><%=room.getSize()%></td>
-			<td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td>
+			<%-- <td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td> --%>
 			<td align="center">
 			<!-- Need to actually request room change. -->
 			<%if(is_hospital && is_ward && is_wardRoom) { %>

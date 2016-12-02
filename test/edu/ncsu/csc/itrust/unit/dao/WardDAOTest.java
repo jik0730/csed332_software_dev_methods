@@ -435,4 +435,19 @@ public class WardDAOTest extends TestCase{
 		}
 		 
 	}
+	
+	public void testgetAllWardRoomsBySpecialty(){
+		List<WardRoomBean> list = new ArrayList<WardRoomBean>();
+		
+		try {
+			list = wd1.getAllWardRoomsBySpecialty(2L);
+			assertEquals (7, list.size());
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		//TODO
+		
+		
+	}
 }
