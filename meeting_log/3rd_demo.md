@@ -10,7 +10,7 @@ Minutes of Meetings
 - Meeting notes:
 
 ### Presentation
-- [ppt](https://docs.google.com/presentation/d/1KzMXVRpEalgWdQYbr7cXUyccOa92VIz-cuexanIdMK0/edit?usp=sharing)
+- [3rd Demo Presentation](https://docs.google.com/presentation/d/1KzMXVRpEalgWdQYbr7cXUyccOa92VIz-cuexanIdMK0/edit?usp=sharing)
 
 ### 3rd Demo Feedback
 - 진행사항 문제없음.
