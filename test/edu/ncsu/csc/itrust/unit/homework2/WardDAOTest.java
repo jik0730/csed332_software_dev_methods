@@ -66,7 +66,7 @@ public class WardDAOTest {
 
 	@Test
 	public void getWardRoomGotResult() {
-		WardRoomBean stubWardRoom = new WardRoomBean(100, 100, 100, "Stub", "Stub");
+		WardRoomBean stubWardRoom = new WardRoomBean(100, 100, 100, "Stub", "Stub",true, 0, 50, 4);
 		WardRoomBean resultWardRoom = null;
 		try {
 			// this does not add a wardroom with Room ID 100, the room id of
@@ -147,7 +147,7 @@ public class WardDAOTest {
 	}
 
 	private void prepareStubWardRoomInDBWithRoomIdAndInWard(int roomID, int inWard) {
-		WardRoomBean stubWardRoom = new WardRoomBean(roomID, 1000, inWard, "Stub", "Stub");
+		WardRoomBean stubWardRoom = new WardRoomBean(roomID, 1000, inWard, "Stub", "Stub",true, 0, 50, 4);
 		try {
 			wardDao.addWardRoom(stubWardRoom);
 		} catch (ITrustException e) {

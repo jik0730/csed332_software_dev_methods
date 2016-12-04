@@ -18,7 +18,11 @@ public class PatientRoomAssignmentAction {
 	
 	public void assignPatientToRoom(WardRoomBean wardRoom, long patientMID) throws DBException{
 		wardRoom.setOccupiedBy(patientMID);
+		wardRoom.setWaiting(null);
+		wardRoom.setAccepted(true);
 		wardDAO.updateWardRoomOccupant(wardRoom);
+		wardDAO.updateWardRoomWaiting(wardRoom);
+		wardDAO.updateWardRoomState(wardRoom);
 	}
 	
 	public void assignPatientToRoom(WardRoomBean wardRoom, PatientBean patient) throws DBException{
@@ -30,5 +34,23 @@ public class PatientRoomAssignmentAction {
 		wardDAO.checkOutPatientReason(mid, reason);
 		wardRoom.setOccupiedBy(null);
 		wardDAO.updateWardRoomOccupant(wardRoom);
+		
 	}
+	
+	public void removeWaitingFromRoom(WardRoomBean wardRoom) throws DBException{
+		wardRoom.setWaiting(null);
+		wardRoom.setAccepted(true);
+		wardDAO.updateWardRoomWaiting(wardRoom);
+		wardDAO.updateWardRoomState(wardRoom);
+		
+	}
+	
+	public void requestPatientToRoom(WardRoomBean wardRoom, long patientMID) throws DBException{
+		wardRoom.setAccepted(false);
+		wardRoom.setWaiting(patientMID);
+		wardDAO.updateWardRoomWaiting(wardRoom);
+		wardDAO.updateWardRoomState(wardRoom);
+		
+	}	
+	
 }

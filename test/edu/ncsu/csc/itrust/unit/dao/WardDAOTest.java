@@ -124,7 +124,7 @@ public class WardDAOTest extends TestCase{
 	public void testRemoveWard(){
 		
 		try {
-			wd1.removeWard(1L);
+			wd1.removeWard(5L);
 		} catch (DBException e) {
 			//TODO
 		}
@@ -167,7 +167,7 @@ public class WardDAOTest extends TestCase{
 	 * testAddWardRoom
 	 */
 	public void testAddWardRoom(){
-		WardRoomBean wb = new WardRoomBean(0, 0, 0, "name1", "status");
+		WardRoomBean wb = new WardRoomBean(0, 0, 0, "name1", "status",true, 0, 50, 4);
 		
 		try {
 			assertTrue(wd1.addWardRoom(wb));
@@ -192,7 +192,7 @@ public class WardDAOTest extends TestCase{
 	 * testUpdateWardRoom
 	 */
 	public void testUpdateWardRoom(){
-		WardRoomBean wb = new WardRoomBean(0, 0, 0, "name1", "status");
+		WardRoomBean wb = new WardRoomBean(0, 0, 0, "name1", "status",true, 0, 50, 4);
 		try {
 			assertEquals(0, wd1.updateWardRoom(wb));
 		} catch (DBException e) {
@@ -214,7 +214,7 @@ public class WardDAOTest extends TestCase{
 	 */
 	public void testRemoveWardRoom(){
 		try {
-			wd1.removeWardRoom(1L);
+			wd1.removeWardRoom(8L);
 		} catch (DBException e) {
 			//TODO
 		}
@@ -324,7 +324,7 @@ public class WardDAOTest extends TestCase{
 	 */
 	public void testUpdateWardRoomOccupant(){
 		
-		WardRoomBean wrb = new WardRoomBean(0, 0, 0, "name", "status");
+		WardRoomBean wrb = new WardRoomBean(0, 0, 0, "name", "status",true, 0, 50, 4);
 		
 		try {
 			assertEquals(0, wd1.updateWardRoomOccupant(wrb));
@@ -370,7 +370,7 @@ public class WardDAOTest extends TestCase{
 	 * testGetWardRoom
 	 */
 	public void testGetWardRoom(){
-		WardRoomBean wrb = new WardRoomBean(0, 0, 0, "name", "status");
+		WardRoomBean wrb = new WardRoomBean(0, 0, 0, "name", "status",true, 0, 50, 4);
 	
 		try {
 			wrb = wd1.getWardRoom("0");
@@ -411,4 +411,271 @@ public class WardDAOTest extends TestCase{
 			//TODO
 		}
 	}
+	
+	/**
+	 * testgetAllWards
+	 */
+	public void testgetAllWards(){
+		List<WardBean> list = new ArrayList<WardBean>();
+		
+		try {
+			list = wd1.getAllWards();
+			assertNotNull(list);
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			expect(factory2.getConnection()).andThrow(new SQLException());
+			ctrl.replay();
+			wd2.getAllWards();
+			fail();
+		} catch (Exception e) {
+			//TODO
+		}
+		 
+	}
+	
+	public void testgetAllWardRoomsBySpecialty(){
+		List<WardRoomBean> list = new ArrayList<WardRoomBean>();
+		
+		try {
+			list = wd1.getAllWardRoomsBySpecialty(2L);
+			assertEquals (7, list.size());
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			list = wd1.getAllWardRoomsBySpecialty(1L);
+			assertEquals (3, list.size());
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			list = wd1.getAllWardRoomsBySpecialty(11L);
+			assertNull (list);
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			expect(factory2.getConnection()).andThrow(new SQLException());
+			ctrl.replay();
+			wd2.getAllWardRoomsBySpecialty(1L);
+			fail();
+		} catch (Exception e) {
+			//TODO
+		}
+	}
+	
+	public void testgetAllWardRoomsBySpecialtyByPrice(){
+		List<WardRoomBean> list = new ArrayList<WardRoomBean>();
+		
+		try {
+			list = wd1.getAllWardRoomsBySpecialtyByPrice(1L, 25, 50);
+			assertEquals (2, list.size());
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			list = wd1.getAllWardRoomsBySpecialtyByPrice(1L, 0, 25);
+			assertNull (list);
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			expect(factory2.getConnection()).andThrow(new SQLException());
+			ctrl.replay();
+			wd2.getAllWardRoomsBySpecialtyByPrice(1L, 25, 50);
+			fail();
+		} catch (Exception e) {
+			//TODO
+		}
+	}
+	
+	public void testgetAllWardRoomsBySpecialtyByStory(){
+		List<WardRoomBean> list = new ArrayList<WardRoomBean>();
+		
+		try {
+			list = wd1.getAllWardRoomsBySpecialtyByStory(1L, 3);
+			assertEquals (2, list.size());
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			list = wd1.getAllWardRoomsBySpecialtyByStory(1L, 5);
+			assertNull (list);
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			expect(factory2.getConnection()).andThrow(new SQLException());
+			ctrl.replay();
+			wd2.getAllWardRoomsBySpecialtyByStory(1L, 1);
+			fail();
+		} catch (Exception e) {
+			//TODO
+		}
+	}
+	
+	public void testgetAllWardRoomsBySpecialtyByStoryByPrice(){
+		List<WardRoomBean> list = new ArrayList<WardRoomBean>();
+		
+		try {
+			list = wd1.getAllWardRoomsBySpecialtyByStoryByPrice(1L, 3, 25, 50);
+			assertEquals (2, list.size());
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			list = wd1.getAllWardRoomsBySpecialtyByStoryByPrice(1L, 1, 0, 25);
+			assertNull (list);
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			expect(factory2.getConnection()).andThrow(new SQLException());
+			ctrl.replay();
+			wd2.getAllWardRoomsBySpecialtyByStoryByPrice(1L, 3, 25, 50);
+			fail();
+		} catch (Exception e) {
+			//TODO
+		}
+	}
+	
+	public void testgetAllWardRoomsBySystemRecommanded(){
+		List<WardRoomBean> list = new ArrayList<WardRoomBean>();
+		
+		try {
+			list = wd1.getAllWardRoomsBySystemRecommanded(1L, 50);
+			assertEquals (2, list.size());
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			list = wd1.getAllWardRoomsBySystemRecommanded(1L, 0);
+			assertNull (list);
+		} catch (DBException e) {
+			//TODO
+		}
+		
+		try {
+			expect(factory2.getConnection()).andThrow(new SQLException());
+			ctrl.replay();
+			wd2.getAllWardRoomsBySystemRecommanded(1L, 50);
+			fail();
+		} catch (Exception e) {
+			//TODO
+		}
+	}
+	
+	public void testgetSpecialtyOfWard(){
+		String s;
+		try {
+			s = wd1.getSpecialtyOfWard("2");
+			assertEquals (s, "Elderly");
+		} catch (DBException e) {
+			//TODO
+		}
+	}
+	
+	   //UC93
+	   
+	   
+	   public void testUpdateWaitingWardRoom(){
+	      WardRoomBean wb = new WardRoomBean(0, 0, 0, "name1", "status",true, 0, 50, 4);
+	      try {
+	         assertEquals(0, wd1.updateWardRoomWaiting(wb));
+	      } catch (DBException e) {
+	         //TODO
+	      }
+	      
+	      try {
+	         expect(factory2.getConnection()).andThrow(new SQLException());
+	         ctrl.replay();
+	         wd2.updateWardRoomWaiting(wb);
+	         fail();
+	      } catch (Exception e) {
+	         //TODO
+	      }
+	   }   
+	   
+	   
+	   /**
+	    * testgetAllWardRoomsByWaiting
+	    */
+	   public void testgetAllWardRoomsByWaiting(){
+	      List<WardRoomBean> list = new ArrayList<WardRoomBean>();
+	      
+	      try {
+	         list = wd1.getAllWardRoomsByWaiting(1L);
+	         assertNotNull(list);
+	      } catch (DBException e) {
+	         //TODO
+	      }
+	        
+	      try {
+	         expect(factory2.getConnection()).andThrow(new SQLException());
+	         ctrl.replay();
+	         wd2.getAllWardRoomsByWaiting(1L);
+	         fail();
+	      } catch (Exception e) {
+	         //TODO
+	      }
+	   }   
+	   
+	   /**
+	    * testgetAllWardRoomsByWaiting
+	    */
+	   public void testgetWardRoomsByWaiting(){
+	      WardRoomBean list= null;
+	      
+	      try {
+	         list = wd1.getWardRoomByWaiting(1L);
+	         assertNotNull(list);
+	      } catch (DBException e) {
+	         //TODO
+	      }
+	        
+	      try {
+	         expect(factory2.getConnection()).andThrow(new SQLException());
+	         ctrl.replay();
+	         wd2. getWardRoomByWaiting(1L);
+	         fail();
+	      } catch (Exception e) {
+	         //TODO
+	      }
+	   }      
+	   
+	   /**
+	    * testgetAllWardRoomsByState
+	    */
+	   public void testgetWardRoomsByState(){
+	      List<WardRoomBean> list = new ArrayList<WardRoomBean>();
+	      
+	      try {
+	         list = wd1.getWardRoomsByState(false,1L);
+	         assertNotNull(list);
+	      } catch (DBException e) {
+	         //TODO
+	      }
+	        
+	      try {
+	         expect(factory2.getConnection()).andThrow(new SQLException());
+	         ctrl.replay();
+	         wd2.getWardRoomsByState(false,1L);
+	         fail();
+	      } catch (Exception e) {
+	         //TODO
+	      }
+	   }         
 }

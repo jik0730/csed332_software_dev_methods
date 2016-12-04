@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.beans.HospitalBean;
@@ -183,6 +184,28 @@ public class WardDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+
+	
+	public List<WardRoomBean> getAllWardRoomsByWaiting(long waiting) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM WARDROOMS WHERE Waiting = ? ORDER BY RoomName");
+			ps.setLong(1, waiting);
+			ResultSet rs = ps.executeQuery();
+			List<WardRoomBean> loadlist = wardRoomLoader.loadList(rs);
+			rs.close();
+			ps.close();
+			return loadlist;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
 	
 	/**
 	 * Adds a WardRoom
@@ -197,10 +220,13 @@ public class WardDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO WardRooms (InWard, RoomName, Status) " + "VALUES (?,?,?)");
+			ps = conn.prepareStatement("INSERT INTO WardRooms (InWard, RoomName, Status, State, Price, Story) " + "VALUES (?,?,?,?,?,?)");
 			ps.setLong(1, wardRoom.getInWard());
 			ps.setString(2, wardRoom.getRoomName());
 			ps.setString(3, wardRoom.getStatus());
+			ps.setBoolean(4, wardRoom.getState());
+			ps.setInt(5, wardRoom.getPrice());
+			ps.setInt(6, wardRoom.getStory());
 			boolean check = (1 == ps.executeUpdate());
 			ps.close();
 			return check;
@@ -226,11 +252,15 @@ public class WardDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE wardrooms SET InWard=?, RoomName=?, Status=? " + "WHERE RoomID = ?");
+			ps = conn.prepareStatement("UPDATE wardrooms SET InWard=?, RoomName=?, Status=?, State=?, Waiting=?, Price=?, Story=? " + "WHERE RoomID = ?");
 			ps.setLong(1, wardRoom.getInWard());
 			ps.setString(2, wardRoom.getRoomName());
 			ps.setString(3, wardRoom.getStatus());
-			ps.setLong(4, wardRoom.getRoomID());
+			ps.setBoolean(4, wardRoom.getState());
+			ps.setLong(5, wardRoom.getWaiting());
+			ps.setInt(6, wardRoom.getPrice());
+			ps.setInt(7, wardRoom.getStory());
+			ps.setLong(8, wardRoom.getRoomID());
 			int result = ps.executeUpdate();
 			ps.close();
 			return result;
@@ -408,6 +438,83 @@ public class WardDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+
+	public int updateWardRoomWaiting(WardRoomBean wardRoom) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("UPDATE wardRooms SET Waiting=? " + "WHERE RoomID = ?");
+			if(wardRoom.getWaiting() == null){
+				ps.setNull(1, java.sql.Types.BIGINT);
+			} else {
+				ps.setLong(1, wardRoom.getWaiting());
+			}
+			ps.setLong(2, wardRoom.getRoomID());
+			int result = ps.executeUpdate();
+			ps.close();
+			return result;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	
+	public int updateWardRoomState(WardRoomBean wardRoom) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("UPDATE wardRooms SET State=? " + "WHERE RoomID = ?");
+			ps.setBoolean(1, wardRoom.getState());
+			ps.setLong(2, wardRoom.getRoomID());
+			int result = ps.executeUpdate();
+			ps.close();
+			return result;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+
+	
+
+	/**
+	 * Returns a list of all wards with the status specified that the hcp has access to
+	 * 
+	 * @param status  The Status to search on
+	 * @param hcpID The id of the HCP to get wards for
+	 * @return A java.util.List of WardRoomBeans that the specified hcp has access too.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getWardRoomsByState(Boolean State, Long hcpID) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM wardrooms wr inner join hcpassignedtoward hw where wr.state = ? and wr.inward = hw.ward and hw.hcp = ?");
+			ps.setBoolean(1, State);
+			ps.setLong(2, hcpID);
+			ResultSet rs = ps.executeQuery();
+			List<WardRoomBean> loadlist = wardRoomLoader.loadList(rs);
+			rs.close();
+			ps.close();
+			return loadlist;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}	
+	
+	
+	
 	
 
 	/**
@@ -471,6 +578,33 @@ public class WardDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	
+	public WardRoomBean getWardRoomByWaiting(long waitingID) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM wardrooms where Waiting = ?");
+			ps.setLong(1, waitingID);
+			ResultSet rs = ps.executeQuery();
+				if(rs.next()){
+					WardRoomBean loaded = wardRoomLoader.loadSingle(rs);
+					rs.close();
+					ps.close();
+					return loaded;
+				} else{
+					rs.close();
+					ps.close();
+					return null;
+				}
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}	
 	
 	/**
 	 * Returns a Ward specified by the id
@@ -596,5 +730,250 @@ public class WardDAO {
 		} finally {
 			DBUtil.closeConnection(conn, ps);
 		}
+	}
+	
+	/**
+	 * Returns a ward where a patient is in.
+	 * 
+	 * @param pid which is patient's id.
+	 * @return String Specialty
+	 * @throws DBException
+	 */
+	public WardBean getWardByPid(long pid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM wardrooms r where r.occupiedby = ?");
+			ps.setLong(1, pid);
+			ResultSet rs = ps.executeQuery();
+				if(rs.next()){
+					WardRoomBean wrb = wardRoomLoader.loadSingle(rs);
+					rs.close();
+					ps.close();
+					return getWard(Long.toString(wrb.getInWard()));
+				} else{
+					rs.close();
+					ps.close();
+					return null;
+				}
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Returns a wardroom where a patient is in.
+	 * 
+	 * @param pid which is patient's id.
+	 * @return String Specialty
+	 * @throws DBException
+	 */
+	public WardRoomBean getWardRoomByPid(long pid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM wardrooms r WHERE r.occupiedby = ?");
+			ps.setLong(1, pid);
+			ResultSet rs = ps.executeQuery();
+				if(rs.next()){
+					WardRoomBean wrb = wardRoomLoader.loadSingle(rs);
+					rs.close();
+					ps.close();
+					return wrb;
+				} else{
+					rs.close();
+					ps.close();
+					return null;
+				}
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Returns a list of all wards 
+	 * 
+	 * @param none
+	 * @return A java.util.List of WardBeans.
+	 * @throws DBException
+	 */
+	public List<WardBean> getAllWards() throws DBException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM WARDS ORDER BY RequiredSpecialty");
+			ResultSet rs = ps.executeQuery();
+			List<WardBean> loadlist = wardLoader.loadList(rs);
+			rs.close();
+			ps.close();
+			return loadlist;
+		} catch (SQLException e) {
+			
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	/**
+	 * Returns a list of all wardrooms by patient's specialty.
+	 * If the wardroom the patient stays doesn't have a specialty, return all wardrooms.
+	 * 
+	 * @param pid which is patient's id.
+	 * @return A java.util.List of all WardRoomBeans corresponding some restrictions.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getAllWardRoomsBySpecialty(long pid) throws DBException {
+		HospitalBean hb = getHospitalByPatientID(pid);
+		WardBean ward = getWardByPid(pid);
+		WardRoomBean cur = getWardRoomByPid(pid);
+		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		List<WardBean> lwb = null;
+		
+		if (hb == null) {
+			lwb = getAllWards();
+			for (WardBean w : lwb) {
+				List <WardRoomBean> ww = getAllWardRoomsByWardID(w.getWardID());
+				rooms.addAll(ww);
+			}
+			return rooms;
+		}
+		
+		lwb = getAllWardsByHospitalID(hb.getHospitalID());
+		if (ward.getRequiredSpecialty() == null || ward.getRequiredSpecialty().equals("")) {
+			for (WardBean w : lwb) {
+				List <WardRoomBean> ww = getAllWardRoomsByWardID(w.getWardID());
+				rooms.addAll(ww);
+			}
+		} else {
+			for (WardBean w : lwb) {
+				if (w.getRequiredSpecialty().equals(ward.getRequiredSpecialty())) {
+					List <WardRoomBean> ww = getAllWardRoomsByWardID(w.getWardID());
+					rooms.addAll(ww);
+				}
+			}
+		}
+
+		List <WardRoomBean> toReturn = new ArrayList<WardRoomBean>();
+		for (WardRoomBean w : rooms) {
+			if (!cur.equals(w)) {
+				toReturn.add(w);
+			}
+		}
+		if (toReturn.isEmpty()) {
+			toReturn = null;
+		}
+
+		return toReturn;
+	}
+	
+	/**
+	 * Returns a list of all wardrooms under the price range.
+	 * 
+	 * @param id The id of the ward to get all rooms for
+	 * @return A java.util.List of all WardRoomBeans in a ward.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getAllWardRoomsBySpecialtyByPrice(long pid, int l_price, int u_price) throws DBException {
+		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
+		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		
+		for (WardRoomBean w : srooms) {
+			if (l_price < w.getPrice() && w.getPrice() <= u_price) {
+				rooms.add(w);
+			}
+		}
+		if (rooms.isEmpty()) {
+			rooms = null;
+		}
+		return rooms;
+	}
+	
+	/**
+	 * Returns a list of all wardrooms under the room story.
+	 * 
+	 * @param pid, room story
+	 * @return A java.util.List of all WardRoomBeans in a ward.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getAllWardRoomsBySpecialtyByStory(long pid, int story) throws DBException {
+		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
+		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		
+		for (WardRoomBean w : srooms) {
+			if (w.getStory() == story) {
+				rooms.add(w);
+			}
+		}
+		if (rooms.isEmpty()) {
+			rooms = null;
+		}
+		return rooms;
+	}
+	
+	/**
+	 * Returns a list of all wardrooms under the room story and price
+	 * 
+	 * @param pid, room story, price
+	 * @return A java.util.List of all WardRoomBeans in a ward.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getAllWardRoomsBySpecialtyByStoryByPrice(long pid, int story, int l_price, int u_price) throws DBException {
+		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
+		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		
+		for (WardRoomBean w : srooms) {
+			if (w.getStory() == story && l_price < w.getPrice() && w.getPrice() <= u_price) {
+				rooms.add(w);
+			}
+		}
+		if (rooms.isEmpty()) {
+			rooms = null;
+		}
+		return rooms;
+	}
+	
+	/**
+	 * Returns a list of all wardrooms that system recommends, 
+	 * which means the system recommends for a patient with affordable ward rooms.
+	 * 
+	 * @param pid, price
+	 * @return A java.util.List of all WardRoomBeans in a ward.
+	 * @throws DBException
+	 */
+	public List<WardRoomBean> getAllWardRoomsBySystemRecommanded(long pid, int price) throws DBException {
+		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
+		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
+		
+		for (WardRoomBean w : srooms) {
+			if (price - 15 < w.getPrice() && w.getPrice() <= price + 15) {
+				rooms.add(w);
+			}
+		}
+		if (rooms.isEmpty()) {
+			rooms = null;
+		}
+		return rooms;
+	}
+	
+	/**
+	 * Returns specialty of the ward specified by wardid.
+	 * 
+	 * @param ward id
+	 * @return the specialty
+	 * @throws DBException
+	 */
+	public String getSpecialtyOfWard(String wardID) throws DBException {
+		WardBean w = getWard(wardID);
+		return w.getRequiredSpecialty();
 	}
 }
