@@ -26,11 +26,11 @@ Pair Programming
 -----------
 We assigned pairs in each iteration.
 
-|__Pairs__|__Iteration 1__|__Iteration 2__|__Iteration 3__|__Iteration 4__|
-|:---:|:---:|:---:|:---:|:---:|
-|Pair 1|정인교, 홍기재|김희곤, 홍기재|조성원, 정유철| |
-|Pair 2|김희곤, 조성원|김도혁, 조성원|정인교, 김희곤| |
-|Pair 3|정유철, 김도혁|정유철, 정인교|홍기재, 김도혁| |
+|__Pairs__|__Iteration 1__|__Iteration 2__|__Iteration 3__|__Iteration 4(1)__|__Iteration 4(2)__|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|Pair 1|정인교, 홍기재|김희곤, 홍기재|조성원, 정유철|정인교, 정유처| |
+|Pair 2|김희곤, 조성원|김도혁, 조성원|정인교, 김희곤|김도혁, 홍기재| |
+|Pair 3|정유철, 김도혁|정유철, 정인교|홍기재, 김도혁|조성원, 김희곤| |
 
 Timeline & Progress Report
 ---------------
@@ -46,13 +46,13 @@ We estimated our plan based on how much time we have for each iteration and eval
 
 |__Plan__|__Iteration 1__|__Iteration 2 (~ing)__|__Iteration 3__|__Iteration 4__|
 |:-:|:-:|:-:|:-:|:-:|
-|Total SP Remaining|62 SP (0 %)|51 SP (18 %)|21 SP (66 %)|0 SP (100 %)(Expected)|
+|Total SP Remaining|62 SP (0 %)|51 SP (18 %)|21 SP (66 %)|0 SP (100 %)|
 |Desired Features|UC 39, 41, 92 user stories|Remaining tasks of iteraion 1 and UC 88, 89, 90 user stories|Remaining tasks of iteraion 2 and UC 91, custom user stories|Remaining tasks of iteration 3 and testing, coverage|
-|Desired SP|17 SP|36 SP|21 SP|   |
-|Expected Velocity|17 SP / 1 iteration|36 SP / 1 iteration|21 SP / 1 iteration|   |
-|Actual Velocity|11 SP / 1 iteration|30 SP / 1 iteration|-|   |
-|Time we can spend|51 Hours|98 Hours|66 Hours|   |
-|Time per SP|4.64 Hour / 1 SP|3.27 Hour / 1 SP|-|   |
+|Desired SP|17 SP|36 SP|21 SP|0 SP (+ alpha)|
+|Expected Velocity|17 SP / 1 iteration|36 SP / 1 iteration|21 SP / 1 iteration|-|
+|Actual Velocity|11 SP / 1 iteration|30 SP / 1 iteration|21 SP / 1 iteration|-|
+|Time we can spend|51 Hours|98 Hours|66 Hours|(Flexiable)|
+|Time per SP|4.64 Hour / 1 SP|3.27 Hour / 1 SP|3.14 Hour / 1 SP|-|
 |Duration|1 iteration|1 iteration|1 iteration|1 iteration|
 
 Use Cases & User Stories
@@ -107,6 +107,8 @@ These are meeting logs summarizing our dicussions in every meeting.
 - [7th Meeting](meeting_log/7th_meeting.md)
 - [8th Meeting](meeting_log/8th_meeting.md)
 - [3rd Demo](meeting_log/3rd_demo.md)
+- [9th Meeting](meeting_log/9th_meeting.md)
+
 Demo Presentation
 ---------------
 These are presention files presented at each demo.
