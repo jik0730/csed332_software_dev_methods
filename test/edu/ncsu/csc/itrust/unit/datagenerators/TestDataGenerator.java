@@ -1203,8 +1203,17 @@ public class TestDataGenerator {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
+	
 	public void departmentInit() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/departmentInit.sql");
+	}
+	
+	public void wardhcp923() throws SQLException, FileNotFoundException, IOException {
+	    new DBBuilder(factory).executeSQLFile(DIR + "/wardhcp923.sql");
+	}   
+	   
+	public void wardtestdata() throws SQLException, FileNotFoundException, IOException {
+	    new DBBuilder(factory).executeSQLFile(DIR + "/wardtestdata.sql");
 	}
 	
 	/**

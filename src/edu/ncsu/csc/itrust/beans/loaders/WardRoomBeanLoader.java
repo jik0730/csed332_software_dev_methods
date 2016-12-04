@@ -19,7 +19,7 @@ public class WardRoomBeanLoader implements BeanLoader<WardRoomBean> {
 	public WardRoomBean loadSingle(ResultSet rs) throws SQLException {
 		WardRoomBean wardRoom = new WardRoomBean(rs.getLong("RoomID"), rs.getLong("OccupiedBy"), 
 				rs.getLong("InWard"), rs.getString("roomName"), rs.getString("Status"), rs.getBoolean("State"), 
-				rs.getLong("Waiting"), rs.getInt("Price"), rs.getInt("Size"));
+				rs.getLong("Waiting"), rs.getInt("Price"), rs.getInt("Story"));
 		return wardRoom;
 	}
 

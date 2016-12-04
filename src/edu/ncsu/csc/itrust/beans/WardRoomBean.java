@@ -18,10 +18,10 @@ public class WardRoomBean {
 	Boolean state = Boolean.valueOf(true);
 	Long waiting = null;
 	int price = 50;
-	int size = 4;
+	int story = 4;
 	
 	public WardRoomBean(long roomID, long occupiedBy, long inWard, String roomName, String status, 
-			Boolean state, long waiting, int price, int size){
+			Boolean state, long waiting, int price, int story){
 		this.roomID = roomID;
 		this.occupiedBy = occupiedBy;
 		this.inWard = inWard;
@@ -30,7 +30,7 @@ public class WardRoomBean {
 		this.state = state;
 		this.waiting = waiting;
 		this.price = price;
-		this.size = size;
+		this.story = story;
 	}
 
 
@@ -116,12 +116,12 @@ public class WardRoomBean {
 		this.price = price;
 	}
 
-	public int getSize() {
-		return size;
+	public int getStory() {
+		return story;
 	}
 
-	public void setSize(int size) {
-		this.size = size;
+	public void setStory(int story) {
+		this.story = story;
 	}
 
 	@Override

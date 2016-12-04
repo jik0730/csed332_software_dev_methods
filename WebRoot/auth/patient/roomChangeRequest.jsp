@@ -72,7 +72,7 @@ if (wardRoom == null) {
 
 // Get the submitted parameters to search by
 String searchPrice = request.getParameter("searchbyroomPrice");
-String searchSize = request.getParameter("searchbyroomSize");
+String searchStory = request.getParameter("searchbyroomStory");
 
 // this is the name of Search Button
 String searchRooms = request.getParameter("searchRooms");
@@ -103,21 +103,21 @@ List<WardRoomBean> listOfRooms = null;
 WardRoomBean listOfAlreday = wardDAO.getWardRoomByPid(personnelMID);
 // If search request was sent, find wardrooms with restrictions.
 if (searchRooms != null) {
-	if (searchPrice.equals("All Price") && searchSize.equals("All Size")) {
+	if (searchPrice.equals("All Price") && searchStory.equals("All Story")) {
 		listOfRooms = wardDAO.getAllWardRoomsBySpecialty(personnelMID);
 	} else if (searchPrice.equals("All Price")){
-		int size;
-		if (searchSize.equals("1s")) {
-			size = 1;
-		} else if (searchSize.equals("2s")) {
-			size = 2;
-		} else if (searchSize.equals("3s")) {
-			size = 4;
+		int story;
+		if (searchStory.equals("1s")) {
+			story = 1;
+		} else if (searchStory.equals("2s")) {
+			story = 2;
+		} else if (searchStory.equals("3s")) {
+			story = 3;
 		} else {
-			size = 8;
+			story = 4;
 		}
-		listOfRooms = wardDAO.getAllWardRoomsBySpecialtyBySize(personnelMID, size);
-	} else if (searchSize.equals("All Size")) {
+		listOfRooms = wardDAO.getAllWardRoomsBySpecialtyByStory(personnelMID, story);
+	} else if (searchStory.equals("All Story")) {
 		int l_price, u_price;
 		if (searchPrice.equals("1p")) {
 			l_price = 0;
@@ -134,7 +134,7 @@ if (searchRooms != null) {
 		}
 		listOfRooms = wardDAO.getAllWardRoomsBySpecialtyByPrice(personnelMID, l_price, u_price);
 	} else {
-		int size, l_price, u_price;
+		int story, l_price, u_price;
 		if (searchPrice.equals("1p")) {
 			l_price = 0;
 			u_price = 25;
@@ -148,16 +148,16 @@ if (searchRooms != null) {
 			l_price = 100;
 			u_price = Integer.MAX_VALUE;
 		}
-		if (searchSize.equals("1s")) {
-			size = 1;
-		} else if (searchSize.equals("2s")) {
-			size = 2;
-		} else if (searchSize.equals("3s")) {
-			size = 4;
+		if (searchStory.equals("1s")) {
+			story = 1;
+		} else if (searchStory.equals("2s")) {
+			story = 2;
+		} else if (searchStory.equals("3s")) {
+			story = 3;
 		} else {
-			size = 8;
+			story = 4;
 		}
-		listOfRooms = wardDAO.getAllWardRoomsBySpecialtyBySizeByPrice(personnelMID, size, l_price, u_price);
+		listOfRooms = wardDAO.getAllWardRoomsBySpecialtyByStoryByPrice(personnelMID, story, l_price, u_price);
 	}
 	
 } else {
@@ -195,7 +195,7 @@ if (searchRooms != null) {
 		</tr>
 		<tr class="subHeader">
 			<td>Price Range</td>
-			<td>Size</td>
+			<td>Story</td>
 		</tr>
 		<tr>
 			<td>
@@ -209,12 +209,12 @@ if (searchRooms != null) {
 			</td>
 			
 			<td>
-				<select name="searchbyroomSize">
-					<option value = "All Size">All Size</option>
-					<option value="1s">1 Person</option>
-					<option value="2s">2 People</option>
-					<option value="3s">4 People</option>
-					<option value="4s">8 People</option>
+				<select name="searchbyroomStory">
+					<option value = "All Story">All Story</option>
+					<option value="1s">1 Story</option>
+					<option value="2s">2 Story</option>
+					<option value="3s">3 Story</option>
+					<option value="4s">4 Story</option>
 				</select>
 			</td>
 
@@ -245,8 +245,7 @@ if (searchRooms != null) {
 			<td>Specialty</td>
 			<td>Status</td>
 			<td>Price</td>
-			<td>Size</td>
-			<!-- <td>Occupied</td> -->
+			<td>Story</td>
 		</tr>
 		<tr>
 			<td><%=listOfAlreday.getRoomName() %></td>
@@ -254,8 +253,7 @@ if (searchRooms != null) {
 			<td><%=wardDAO.getSpecialtyOfWard(String.valueOf(listOfAlreday.getInWard())) %></td>
 			<td><%=listOfAlreday.getStatus()%></td>
 			<td><%=listOfAlreday.getPrice()%></td>
-			<td><%=listOfAlreday.getSize()%></td>
-			<%-- <td><%=wardDAO.getNumberOfPatientsInWardRoom(listOfAlreday.getRoomID())%> / <%=listOfAlreday.getSize()%></td> --%>
+			<td><%=listOfAlreday.getStory()%></td>
 		</tr>
 	</table>
 	
@@ -269,19 +267,10 @@ if (searchRooms != null) {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 <%
 // Display results
-if(searchPrice != null || searchSize != null){
+if(searchPrice != null || searchStory != null){
 	if(listOfRooms != null && !listOfRooms.isEmpty()){
 
 		
@@ -297,8 +286,7 @@ if(searchPrice != null || searchSize != null){
 			<td>Specialty</td>
 			<td>Status</td>
 			<td>Price</td>
-			<td>Size</td>
-			<!-- <td>Occupied</td> -->
+			<td>Story</td>
 			<td>Request</td>
 			<td>Cancel</td>
 		</tr>
@@ -309,8 +297,7 @@ if(searchPrice != null || searchSize != null){
 			<td><%=wardDAO.getSpecialtyOfWard(String.valueOf(room.getInWard())) %></td>
 			<td><%=room.getStatus()%></td>
 			<td><%=room.getPrice()%></td>
-			<td><%=room.getSize()%></td>
-			<%-- <td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td> --%>
+			<td><%=room.getStory()%></td>
 			<td align="center">
 			<!-- Need to actually request room change. -->
 			<%if(is_hospital && is_ward && is_wardRoom) { %>
@@ -354,8 +341,7 @@ if(searchPrice != null || searchSize != null){
 			<td>Specialty</td>
 			<td>Status</td>
 			<td>Price</td>
-			<td>Size</td>
-			<!-- <td>Occupied</td> -->
+			<td>Story</td>
 			<td>Request</td>
 			<td>Cancel</td>
 		</tr>
@@ -366,8 +352,7 @@ if(searchPrice != null || searchSize != null){
 			<td><%=wardDAO.getSpecialtyOfWard(String.valueOf(room.getInWard())) %></td>
 			<td><%=room.getStatus()%></td>
 			<td><%=room.getPrice()%></td>
-			<td><%=room.getSize()%></td>
-			<%-- <td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td> --%>
+			<td><%=room.getStory()%></td>
 			<td align="center">
 			<!-- Need to actually request room change. -->
 			<%if(is_hospital && is_ward && is_wardRoom) { %>

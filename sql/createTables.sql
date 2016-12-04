@@ -611,19 +611,9 @@ CREATE TABLE WardRooms(
 	State				BOOLEAN NOT NULL,
 	Waiting          BIGINT UNSIGNED default NULL,
 	Price INT NOT NULL,
-	Size INT NOT NULL,
+	Story INT NOT NULL,
 	FOREIGN KEY (InWard) REFERENCES wards (WardID),
 	FOREIGN KEY (OccupiedBy) REFERENCES patients (MID)
-) ENGINE=MyISAM;
-
-/* Many people can stay in a ward room. */
-CREATE TABLE WardRoomsShared(
-	OccupiedBy BIGINT unsigned default NULL,
-	InWard BIGINT unsigned NOT NULL,
-	InWardRoom BIGINT unsigned NOT NULL,
-	FOREIGN KEY (InWard) REFERENCES wards (WardID),
-	FOREIGN KEY (OccupiedBy) REFERENCES patients (MID),
-	FOREIGN KEY (InWardRoom) REFERENCES wardrooms (RoomID)
 ) ENGINE=MyISAM;
 
 CREATE TABLE HCPAssignedToWard(

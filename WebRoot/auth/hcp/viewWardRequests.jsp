@@ -149,8 +149,7 @@
 		<td>Status</td>
 		<td>Hospital</td>
 		<td>Price</td>
-		<td>Size</td>
-		<td>Occupied</td>
+		<td>Story</td>
 		<td>Accept</td>
 		<td>Reject</td>
 	</tr>
@@ -175,8 +174,7 @@
 		<td><%=room.getStatus()%></td>
 		<td><%=wardDAO.getHospitalByWard(room.getRoomID() + "").getHospitalName()%></td>
 		<td><%=room.getPrice()%></td>
-		<td><%=room.getSize()%></td>
-		<td><%=wardDAO.getNumberOfPatientsInWardRoom(room.getRoomID())%> / <%=room.getSize()%></td>
+		<td><%=room.getStory()%></td>
 		<td>
 			<form id="mainForm" method="post"
 				action=<%="http://localhost:8080/iTrust/auth/hcp/viewWardRequests.jsp?patientIDSearch="

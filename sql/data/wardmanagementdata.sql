@@ -19,19 +19,15 @@ INSERT INTO `hcpassignedhos`(`hosid`,`hcpid`) VALUES('1','9000000007');
 
 
 /* What if I change the value of price and size??? */
-INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Size`) VALUES('Lolita','1', '001','Clean', TRUE,  NULL, '50', '4');
-INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Size`) VALUES('Boneyard','100', '002','Clean', TRUE,  NULL, '40', '4');
-INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Size`) VALUES('Heartless','10', '003','Clean', TRUE,  NULL, '50', '4');
-INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Size`) VALUES('Berbeh','11', '004','Clean', TRUE,  NULL, '50', '4');
-INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Size`) VALUES('TEST', NULL, '001','Clean', FALSE,  '1', '30', '8');
-INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Size`) VALUES('TEST2', NULL, '001','Clean', FALSE,  '2', '36', '4');
-INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Size`) VALUES('TEST3', NULL, '001','Clean', FALSE,  '3', '65', '2');
+INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Story`) VALUES('Lolita','1', '001','Clean', TRUE,  NULL, '50', '1');
+INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Story`) VALUES('Boneyard','100', '003','Clean', TRUE,  NULL, '40', '1');
+INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Story`) VALUES('Heartless','10', '003','Clean', TRUE,  NULL, '50', '2');
+INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Story`) VALUES('Berbeh','11', '004','Clean', TRUE,  NULL, '50', '2');
+INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Story`) VALUES('TEST', NULL, '001','Clean', FALSE,  '1', '30', '3');
+INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Story`) VALUES('TEST2', NULL, '001','Clean', FALSE,  '2', '36', '3');
+INSERT INTO `wardrooms`(`RoomName`,`OccupiedBy`,`InWard`, `Status`, `State`, `Waiting`, `Price`, `Story`) VALUES('TEST3', NULL, '001','Clean', FALSE,  '3', '65', '4');
 
 
 
-INSERT INTO `wardroomsshared`(`OccupiedBy`,`InWard`, `InWardRoom`) VALUES('1', '001','1');
-INSERT INTO `wardroomsshared`(`OccupiedBy`,`InWard`, `InWardRoom`) VALUES('100', '002','2');
-INSERT INTO `wardroomsshared`(`OccupiedBy`,`InWard`, `InWardRoom`) VALUES('10', '003','3');
-INSERT INTO `wardroomsshared`(`OccupiedBy`,`InWard`, `InWardRoom`) VALUES('11', '004','4');
 
 

@@ -220,10 +220,13 @@ public class WardDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("INSERT INTO WardRooms (InWard, RoomName, Status) " + "VALUES (?,?,?)");
+			ps = conn.prepareStatement("INSERT INTO WardRooms (InWard, RoomName, Status, State, Price, Story) " + "VALUES (?,?,?,?,?,?)");
 			ps.setLong(1, wardRoom.getInWard());
 			ps.setString(2, wardRoom.getRoomName());
 			ps.setString(3, wardRoom.getStatus());
+			ps.setBoolean(4, wardRoom.getState());
+			ps.setInt(5, wardRoom.getPrice());
+			ps.setInt(6, wardRoom.getStory());
 			boolean check = (1 == ps.executeUpdate());
 			ps.close();
 			return check;
@@ -249,11 +252,15 @@ public class WardDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("UPDATE wardrooms SET InWard=?, RoomName=?, Status=? " + "WHERE RoomID = ?");
+			ps = conn.prepareStatement("UPDATE wardrooms SET InWard=?, RoomName=?, Status=?, State=?, Waiting=?, Price=?, Story=? " + "WHERE RoomID = ?");
 			ps.setLong(1, wardRoom.getInWard());
 			ps.setString(2, wardRoom.getRoomName());
 			ps.setString(3, wardRoom.getStatus());
-			ps.setLong(4, wardRoom.getRoomID());
+			ps.setBoolean(4, wardRoom.getState());
+			ps.setLong(5, wardRoom.getWaiting());
+			ps.setInt(6, wardRoom.getPrice());
+			ps.setInt(7, wardRoom.getStory());
+			ps.setLong(8, wardRoom.getRoomID());
 			int result = ps.executeUpdate();
 			ps.close();
 			return result;
@@ -725,32 +732,6 @@ public class WardDAO {
 		}
 	}
 	
-	public HospitalBean getHospitalByPatientID2(long pid) throws DBException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		try {
-			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM hospitals h inner join wards ward inner join wardroomsshared room where room.OccupiedBy = ? and room.inward = ward.wardid and ward.inhospital = h.hospitalid");
-			ps.setLong(1, pid);
-			ResultSet rs = ps.executeQuery();
-			if(rs.next()){
-				HospitalBean loaded = hospitalLoader.loadSingle(rs);
-				rs.close();
-				ps.close();
-				return loaded;
-			} else{
-				rs.close();
-				ps.close();
-				return null;
-			}
-		} catch (SQLException e) {
-			
-			throw new DBException(e);
-		} finally {
-			DBUtil.closeConnection(conn, ps);
-		}
-	}
-	
 	/**
 	 * Returns a ward where a patient is in.
 	 * 
@@ -784,32 +765,6 @@ public class WardDAO {
 		}
 	}
 	
-	public WardBean getWardByPid2(long pid) throws DBException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		try {
-			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM wardrooms r inner join wardroomsshared s where r.roomid = s.InWardRoom and s.occupiedby = ?");
-			ps.setLong(1, pid);
-			ResultSet rs = ps.executeQuery();
-				if(rs.next()){
-					WardRoomBean wrb = wardRoomLoader.loadSingle(rs);
-					rs.close();
-					ps.close();
-					return getWard(Long.toString(wrb.getInWard()));
-				} else{
-					rs.close();
-					ps.close();
-					return null;
-				}
-		} catch (SQLException e) {
-			
-			throw new DBException(e);
-		} finally {
-			DBUtil.closeConnection(conn, ps);
-		}
-	}
-	
 	/**
 	 * Returns a wardroom where a patient is in.
 	 * 
@@ -823,32 +778,6 @@ public class WardDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("SELECT * FROM wardrooms r WHERE r.occupiedby = ?");
-			ps.setLong(1, pid);
-			ResultSet rs = ps.executeQuery();
-				if(rs.next()){
-					WardRoomBean wrb = wardRoomLoader.loadSingle(rs);
-					rs.close();
-					ps.close();
-					return wrb;
-				} else{
-					rs.close();
-					ps.close();
-					return null;
-				}
-		} catch (SQLException e) {
-			
-			throw new DBException(e);
-		} finally {
-			DBUtil.closeConnection(conn, ps);
-		}
-	}
-	
-	public WardRoomBean getWardRoomByPid2(long pid) throws DBException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		try {
-			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM wardrooms r inner join wardroomsshared s where r.roomid = s.InWardRoom and s.occupiedby = ?");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 				if(rs.next()){
@@ -970,18 +899,18 @@ public class WardDAO {
 	}
 	
 	/**
-	 * Returns a list of all wardrooms under the room size.
+	 * Returns a list of all wardrooms under the room story.
 	 * 
-	 * @param pid, room size
+	 * @param pid, room story
 	 * @return A java.util.List of all WardRoomBeans in a ward.
 	 * @throws DBException
 	 */
-	public List<WardRoomBean> getAllWardRoomsBySpecialtyBySize(long pid, int size) throws DBException {
+	public List<WardRoomBean> getAllWardRoomsBySpecialtyByStory(long pid, int story) throws DBException {
 		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
 		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
 		
 		for (WardRoomBean w : srooms) {
-			if (w.getSize() == size) {
+			if (w.getStory() == story) {
 				rooms.add(w);
 			}
 		}
@@ -992,18 +921,18 @@ public class WardDAO {
 	}
 	
 	/**
-	 * Returns a list of all wardrooms under the room size and price
+	 * Returns a list of all wardrooms under the room story and price
 	 * 
-	 * @param pid, room size, price
+	 * @param pid, room story, price
 	 * @return A java.util.List of all WardRoomBeans in a ward.
 	 * @throws DBException
 	 */
-	public List<WardRoomBean> getAllWardRoomsBySpecialtyBySizeByPrice(long pid, int size, int l_price, int u_price) throws DBException {
+	public List<WardRoomBean> getAllWardRoomsBySpecialtyByStoryByPrice(long pid, int story, int l_price, int u_price) throws DBException {
 		List <WardRoomBean> srooms = getAllWardRoomsBySpecialty(pid);
 		List <WardRoomBean> rooms = new ArrayList<WardRoomBean>();
 		
 		for (WardRoomBean w : srooms) {
-			if (w.getSize() == size && l_price < w.getPrice() && w.getPrice() <= u_price) {
+			if (w.getStory() == story && l_price < w.getPrice() && w.getPrice() <= u_price) {
 				rooms.add(w);
 			}
 		}
@@ -1035,62 +964,6 @@ public class WardDAO {
 		}
 		return rooms;
 	}
-	
-	/**
-	 * Returns a number of patients in one ward room
-	 * 
-	 * @param wardroom id
-	 * @return A number of patients in one ward room
-	 * @throws DBException
-	 */
-	public int getNumberOfPatientsInWardRoom(long roomID) throws DBException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		try {
-			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM wardroomsshared WHERE InWardRoom = ?");
-			ps.setLong(1, roomID);
-			ResultSet rs = ps.executeQuery();
-			int rowcount = 0;
-			if (rs.next()) {
-				rowcount++;
-			}
-			rs.close();
-			ps.close();
-			return rowcount;
-		} catch (SQLException e) {
-			
-			throw new DBException(e);
-		} finally {
-			DBUtil.closeConnection(conn, ps);
-		}
-	}
-	
-	public int getNumberOfPatientsInWardRoom2(long roomID) throws DBException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		try {
-			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM WARDROOMSSHARED WHERE InWardRoom = ?");
-			ps.setLong(1, roomID);
-			ResultSet rs = ps.executeQuery();
-			int rowcount = 0;
-			if (rs.next()) {
-				rowcount++;
-			}
-			rs.close();
-			ps.close();
-			return rowcount;
-		} catch (SQLException e) {
-			
-			throw new DBException(e);
-		} finally {
-			DBUtil.closeConnection(conn, ps);
-		}
-	}
-
-	
-	
 	
 	/**
 	 * Returns specialty of the ward specified by wardid.

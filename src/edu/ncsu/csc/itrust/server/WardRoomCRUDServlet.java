@@ -30,8 +30,8 @@ public class WardRoomCRUDServlet extends HttpServlet  {
 			Boolean state = Boolean.parseBoolean(request.getParameter("state"));
 			long waiting = Long.parseLong(request.getParameter("waiting"));
 			int price = Integer.parseInt(request.getParameter("price"));
-			int size = Integer.parseInt(request.getParameter("size"));
-			WardRoomBean wardRoom = new WardRoomBean(0, 0, inWard, roomName, status, state, waiting, price, size);
+			int story = Integer.parseInt(request.getParameter("story"));
+			WardRoomBean wardRoom = new WardRoomBean(0, 0, inWard, roomName, status, state, waiting, price, story);
 			wardDAO.addWardRoom(wardRoom);
 		} catch (RuntimeException e){
 			//Send error parameter back to page
@@ -56,8 +56,8 @@ public class WardRoomCRUDServlet extends HttpServlet  {
 			Boolean state = Boolean.parseBoolean(request.getParameter("state"));
 			long waiting = Long.parseLong(request.getParameter("waiting"));
 			int price = Integer.parseInt(request.getParameter("price"));
-			int size = Integer.parseInt(request.getParameter("size"));
-			WardRoomBean wardRoom = new WardRoomBean(0, occupiedBy, inWard, roomName, status, state, waiting, price, size);
+			int story = Integer.parseInt(request.getParameter("story"));
+			WardRoomBean wardRoom = new WardRoomBean(0, occupiedBy, inWard, roomName, status, state, waiting, price, story);
 			wardDAO.updateWardRoom(wardRoom);
 		} catch(Exception e){
 			//Send error parameter back to page
