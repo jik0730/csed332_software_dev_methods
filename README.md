@@ -15,10 +15,10 @@ The green team consists of these brilliant members.
 
 |__Name__|__Experiences__|__Iteration 1__|__Iteration 2__|__Iteration 3__|__Iteration 4__|
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|[정인교](@jik0730)|Java, Intellij|1st Presenter|Team Leader | | |
-|[김희곤](@sinjint)|Java, Unity| | |Team Leader| |
+|[정인교](@jik0730)|Java, Intellij|1st Presenter|Team Leader | |QA Leader|
+|[김희곤](@sinjint)|Java, Unity| | |Team Leader|Planning Leader|
 |[조성원](@kardy04)|Android, Eclipse, Unity, Django| | QA Leader |Planning Leader| |
-|[김도혁](@dohyeokkim)|PHP, Web Hacking| QA Leader | Planning Leader | | |
+|[김도혁](@dohyeokkim)|PHP, Web Hacking| QA Leader | Planning Leader | |Team Leader|
 |[정유철](@ycjung)|Java, JavaScript, Web| Team Leader | |QA Leader| |
 |[홍기재](@todok1020)|Java, JavaScript, ExtJs, Intellij| Planning Leader | |2nd Presenter| |
 
