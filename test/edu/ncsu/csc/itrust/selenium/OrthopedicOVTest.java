@@ -2,6 +2,7 @@ package edu.ncsu.csc.itrust.selenium;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +36,7 @@ public class OrthopedicOVTest extends iTrustSeleniumTest {
 		
 		driver.findElement(By.linkText("Orthopedic Home")).click();
 		driver.findElement(By.id("searchBox")).sendKeys("1");
-		driver.findElement(By.cssSelector("input[type=\"button\"][value=\"1\"]")).click();
+		driver.findElement(By.cssSelector("input[type=button][value=1]")).click();
 		int size = driver.findElements(By.xpath("//*[contains(text(), '11/14/2016')]")).size();
 		assertEquals(1, size);
 	}
@@ -46,7 +47,7 @@ public class OrthopedicOVTest extends iTrustSeleniumTest {
 		
 		driver.findElement(By.linkText("Orthopedic Home")).click();
 		driver.findElement(By.id("searchBox")).sendKeys("1");
-		driver.findElement(By.cssSelector("input[type=\"button\"][value=\"1\"]")).click();
+		driver.findElement(By.cssSelector("input[type=button][value=1]")).click();
 		driver.findElement(By.xpath("//*[contains(text(), '11/14/2016')]")).click();
 		
 		WebElement table = driver.findElements(By.className("fTable")).get(0);
