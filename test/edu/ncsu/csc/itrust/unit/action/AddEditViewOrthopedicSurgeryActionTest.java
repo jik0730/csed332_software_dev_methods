@@ -27,6 +27,7 @@ public class AddEditViewOrthopedicSurgeryActionTest {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();
 		gen.standardData();
+		gen.uc90Order();
 	}
 	
 	@Test

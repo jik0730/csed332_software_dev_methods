@@ -60,6 +60,10 @@ public class WardRoomBeanLoaderTest extends TestCase{
 			expect(rs.getLong("InWard")).andReturn(1L).once();
 			expect(rs.getString("roomName")).andReturn("CleanRoom").once();
 			expect(rs.getString("Status")).andReturn("Clean").once();
+			expect(rs.getBoolean("State")).andReturn(true).once();
+			expect(rs.getLong("Waiting")).andReturn(0L).once();
+			expect(rs.getInt("Price")).andReturn(10).once();
+			expect(rs.getInt("Story")).andReturn(1).once();
 			ctrl.replay();
 	
 			wbl.loadSingle(rs);

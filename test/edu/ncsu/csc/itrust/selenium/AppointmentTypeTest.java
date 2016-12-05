@@ -132,7 +132,7 @@ public class AppointmentTypeTest extends iTrustSeleniumTest{
 										
 		// Patient 2 moves to the view my appointments page.
 		driver.findElement(By.linkText("View My Appointments")).click();
-		assertTrue(driver.getPageSource().contains("iTrust - View My Messages"));
+		assertTrue(driver.getPageSource().contains("iTrust - View My Appointments"));
 		
 		// Create timestamp
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");

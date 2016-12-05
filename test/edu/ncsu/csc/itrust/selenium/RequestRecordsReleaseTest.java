@@ -131,7 +131,7 @@ public class RequestRecordsReleaseTest extends iTrustSeleniumTest {
 		driver.findElement(By.id("j_password")).sendKeys("pw");
 		driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
 		driver.findElement(By.linkText("Request Records Release")).click();
-		driver.findElement(By.xpath("(//a[contains(text(),'View')])[8]")).click();
+		driver.findElement(By.xpath("(//a[contains(text(),'View')])[16]")).click();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 		Assert.assertTrue(driver.getPageSource().contains(("Approved")));

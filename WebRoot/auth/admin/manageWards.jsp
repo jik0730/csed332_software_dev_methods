@@ -90,7 +90,7 @@ if(newRoom != null){
 	// get the ward id of the ward a room is being added to
 	long n = Long.parseLong(newRoom);
 	
-	WardRoomBean r = new WardRoomBean(0,0,n,newRoomName, "Clean");
+	WardRoomBean r = new WardRoomBean(0,0,n,newRoomName, "Clean", true, 0L, 50, 1);
 	wardDAO.addWardRoom(r);
 	
 } else if(deleteRoomWard != null){	

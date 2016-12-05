@@ -28,13 +28,14 @@ public class OrthopedicSurgeryTest extends iTrustSeleniumTest{
 		gen.patient27();
 		gen.patient28();
 		gen.hcp922();
+		gen.uc90Order();
 	}
 	
 	/**
 	 * Clears the database after each test.
 	 */
 	protected void tearDown() throws Exception {
-		gen.clearAllTables();
+		//gen.clearAllTables();
 	}
 	/**
 	 * Selenium test for UC90 Acceptance Scenario 1.
