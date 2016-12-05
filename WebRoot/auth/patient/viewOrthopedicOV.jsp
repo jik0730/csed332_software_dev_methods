@@ -11,7 +11,9 @@
 <%@page import="edu.ncsu.csc.itrust.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicDiagnosisBean"%>
 <%@page import="edu.ncsu.csc.itrust.exception.ITrustException"%>
-
+<%@page import="edu.ncsu.csc.itrust.action.AddOROrderAction" %>
+<%@page import="edu.ncsu.csc.itrust.beans.OrderBean" %>
+<%@page import="edu.ncsu.csc.itrust.action.ViewPersonnelBySpecialityAction" %>
 
 <%@include file="/global.jsp"%>
 
@@ -119,6 +121,42 @@
 	   <%} 
   	   }  %>
 </table>
+<br>
+<table class="fTable" align="center">
+			<tr>
+				<th colspan="3" style="text-align: center;">Order</th>
+			</tr>
+			<tr class="subHeader">
+				<th>Name</th>
+				<th>Speciality</th>
+				<th>Completed</th>
+			</tr>
+			<%
+				AddOROrderAction orderAction = new AddOROrderAction(prodDAO, oidString);
+				if (orderAction.getOrders().size() == 0) {
+			%>
+			<tr>
+				<td colspan="3">No Orders for this visit</td>
+			</tr>
+			<%
+				} else {
+					for (OrderBean b : orderAction.getOrders()) {
+						ViewPersonnelAction viewPersonnelAction = new ViewPersonnelAction(prodDAO, 0L);
+						PersonnelBean personnelBean = viewPersonnelAction.getPersonnel(String.valueOf(b.getOrderedHCPID()));
+						String speciality = personnelBean.getSpecialty();
+						String name = personnelBean.getFullName();
+						String completed = String.valueOf(b.isCompleted());
+			%>
+			<tr>
+				<td><%=name%></td>
+				<td><%=speciality%></td>
+				<td><%=completed%></td>
+			</tr>
+			<%
+				}
+				}
+			%>
+		</table>
 <br /><br />
 </div>
 
