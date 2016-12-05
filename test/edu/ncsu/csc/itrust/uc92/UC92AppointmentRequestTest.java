@@ -55,7 +55,8 @@ public class UC92AppointmentRequestTest{
 		b.setDate(new Timestamp(d.getTime()));
 		
 		ApptRequestBean req = new ApptRequestBean();
-		String expected = "Your appointment request has been saved and is pending.";
+		//String expected = "Your appointment request has been saved and is pending.";
+		String expected = "You can't make physical therapy appointment request without doctor's order";
 		req.setRequestedAppt(b);
 		assertEquals(expected, action.addApptRequest(req));
 	}

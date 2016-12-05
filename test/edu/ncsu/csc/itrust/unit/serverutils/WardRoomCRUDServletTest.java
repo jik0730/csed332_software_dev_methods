@@ -36,6 +36,10 @@ public class WardRoomCRUDServletTest extends TestCase {
 
 		expect(req.getParameter("status")).andReturn("clean").once();
 		expect(req.getParameter("occupiedBy")).andReturn("1").once();
+		expect(req.getParameter("state")).andReturn("false").once();
+		expect(req.getParameter("waiting")).andReturn("1").once();
+		expect(req.getParameter("price")).andReturn("10").once();
+		expect(req.getParameter("story")).andReturn("1").once();
 
 
 		resp.sendRedirect("");
@@ -53,6 +57,10 @@ public class WardRoomCRUDServletTest extends TestCase {
 		expect(req.getParameter("roomName")).andReturn("").once();
 		expect(req.getParameter("status")).andReturn("clean").once();
 		expect(req.getParameter("occupiedBy")).andReturn("1").once();
+		expect(req.getParameter("state")).andReturn("false").once();
+		expect(req.getParameter("waiting")).andReturn("1").once();
+		expect(req.getParameter("price")).andReturn("10").once();
+		expect(req.getParameter("story")).andReturn("1").once();
 
 
 		resp.sendRedirect("");

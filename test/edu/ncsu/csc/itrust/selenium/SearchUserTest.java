@@ -117,7 +117,7 @@ public class SearchUserTest extends iTrustSeleniumTest{
 	    assertLogged(TransactionType.HOME_VIEW, 9000000000L, 0L, "");
 	    wait.until(ExpectedConditions.titleIs("iTrust - HCP Home"));
 	    
-	    driver.findElement(By.xpath("//div[@id='iTrustMenu']/div/div[10]/div/h2")).click();
+	    driver.findElement(By.xpath("//div[@id='iTrustMenu']/div/div[12]/div/h2")).click();
 	    driver.findElement(By.linkText("UAPs")).click();
 	    assertEquals("iTrust - Please Select a Personnel", driver.getTitle());
 	    driver.findElement(By.name("FIRST_NAME")).sendKeys("Kelly");

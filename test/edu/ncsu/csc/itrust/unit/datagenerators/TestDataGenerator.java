@@ -899,6 +899,20 @@ public class TestDataGenerator {
 	public void uc88() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/UC88.sql");
 	}
+	
+	/**
+	 * Generate test data for UC89 Order
+	 */
+	public void uc89Order() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/uc89Order.sql");
+	}
+	
+	/**
+	 * Generate test data for UC90 Order
+	 */
+	public void uc90Order() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/uc90Order.sql");
+	}
 
 	public void standardData() throws FileNotFoundException, IOException, SQLException {
 		cptCodes();

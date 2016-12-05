@@ -15,6 +15,7 @@ public class PhysicalTherapyOfficeVisitTest extends iTrustSeleniumTest {
 		gen.hcp922();
 		gen.hcp0();
 		gen.patient27();
+		gen.uc89Order();
 	}
 	
 	protected void tearDown() throws Exception {

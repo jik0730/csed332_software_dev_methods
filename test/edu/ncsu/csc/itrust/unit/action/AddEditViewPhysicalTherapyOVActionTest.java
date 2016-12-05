@@ -28,6 +28,7 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();
 		gen.standardData();
+		gen.uc89Order();
 	}
 	
 	@Test
