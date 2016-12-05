@@ -47,8 +47,6 @@
 	if (oidString != null && !oidString.equals("")) {
 		long oid = Long.parseLong(request.getParameter("oid"));
 		bean = viewAction.getOrthopedicOVForHCP(oid);
-		System.out.println("WOWOWOOWOWOOWO" + bean.getXray().length);
-		System.out.println("POWPOWPOWPOWPOW" + bean.getMri().length);
 		
 		//then grab the associated PatientBean
 		ViewPatientAction viewPatient = new ViewPatientAction(prodDAO, loggedInMID, pidString);
