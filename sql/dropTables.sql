@@ -95,7 +95,11 @@ DROP TABLE IF EXISTS ophthalmologySchedule;
 
 DROP TABLE IF EXISTS ophthalmologySurgery;
 
-DROP TABLE IF EXISTS opdiagnosis;
+DROP TABLE IF EXISTS orthopedic;
+
+
+DROP TABLE IF EXISTS orthopedicSchedule;
+DROP TABLE IF EXISTS physicalTherapySchedule;
 
 DROP TABLE IF EXISTS department;
 DROP TABLE IF EXISTS orthopedic;
