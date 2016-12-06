@@ -92,5 +92,12 @@ ALTER TABLE ophthalmologySurgery AUTO_INCREMENT = 0;
 DELETE FROM ophthalmologyschedule;
 ALTER TABLE ophthalmologyschedule AUTO_INCREMENT = 0;
 
+DELETE FROM orthopedicSchedule;
+ALTER TABLE orthopedicSchedule AUTO_INCREMENT = 0;
+
+DELETE FROM physicalTherapySchedule;
+ALTER TABLE physicalTherapySchedule AUTO_INCREMENT = 0;
+
+
 DELETE FROM physicalTherapy;
 ALTER TABLE physicalTherapy AUTO_INCREMENT = 0;

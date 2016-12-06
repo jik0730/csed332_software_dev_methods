@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ncsu.csc.itrust.beans.PhysicalTherapyScheduleOVRecordBean;
+import edu.ncsu.csc.itrust.beans.OrderBean;
 import edu.ncsu.csc.itrust.beans.PersonnelBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.PhysicalTherapyScheduleOVDAO;
+import edu.ncsu.csc.itrust.dao.mysql.OrderDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
@@ -22,6 +24,7 @@ public class AddPhysicalTherapyScheduleOVAction {
 	private PhysicalTherapyScheduleOVDAO physicalTherapyOVDAO;
     /** PatientDAO for working with patient objects in the database*/
 	private PersonnelDAO perDAO;
+	private OrderDAO orderDAO;
     
     /**
      * AddPhysicalTherapyScheduleOVAction is the constructor for this action class. It simply initializes the
@@ -32,6 +35,7 @@ public class AddPhysicalTherapyScheduleOVAction {
 	public AddPhysicalTherapyScheduleOVAction(DAOFactory factory, long loggedInMID) {
 		this.physicalTherapyOVDAO = factory.getPhysicalTherapyScheduleOVDAO();
 		this.perDAO = factory.getPersonnelDAO();
+		this.orderDAO = factory.getOrderDAO();
 	}
 	
 	/**
@@ -45,6 +49,13 @@ public class AddPhysicalTherapyScheduleOVAction {
 		if(p != null){
 			new PhysicalTherapyScheduleOVValidator().validate(p);
 			
+			long pid = p.getPatientmid();
+			long hid = p.getDoctormid();
+			List<OrderBean> check = orderDAO.getUncompletedOrderForPair(hid, pid);
+			if(check.size() ==0){
+				throw new ITrustException("You can't make physical therapy appointment request without doctor's order");
+			}
+			
 			//Add the physicalTherapy office visit record to the database
 			physicalTherapyOVDAO.addPhysicalTherapyScheduleOVRecord(p);
 		} else {
@@ -53,7 +64,7 @@ public class AddPhysicalTherapyScheduleOVAction {
 	}
 	
 	/**
-	 * Returns a list of PersonnelBeans of all physicalTherapy personnel, ie doctors with the specialty of ophthalmologist or optometrist
+	 * Returns a list of PersonnelBeans of all physicalTherapy personnel, ie doctors with the specialty of physicaltherapist
 	 * 
 	 * @return a list of PersonnelBeans of all physicalTherapy personnel
 	 */

@@ -53,7 +53,7 @@ public class AddOrthopedicScheduleOVAction {
 	}
 	
 	/**
-	 * Returns a list of PersonnelBeans of all orthopedic personnel, ie doctors with the specialty of ophthalmologist or optometrist
+	 * Returns a list of PersonnelBeans of all orthopedic personnel, ie doctors with the specialty of orthopedic
 	 * 
 	 * @return a list of PersonnelBeans of all orthopedic personnel
 	 */

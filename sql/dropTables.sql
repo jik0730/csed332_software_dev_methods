@@ -108,4 +108,3 @@ DROP TABLE IF EXISTS physicalTherapy;
 DROP TABLE IF EXISTS orthopedicSurgery;
 DROP TABLE IF EXISTS orderTable;
 DROP TABLE IF EXISTS ordiagnosis;
-
