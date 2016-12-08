@@ -44,6 +44,7 @@ public class PhysicalTherapyOVRecordDAOTest {
 	@Test
 	public void testAddEditRecord() throws DBException{
 		dao.addPhysicalTherapyOVRecord(bean);
+		assertNull(dao.getPhysicalTherapyOVRecord(-1));
 		assertEquals(dao.getPhysicalTherapyOVRecord(1), bean);
 		List<PhysicalTherapyOVRecordBean> beans = dao.getPhysicalTherapyOVRecordsByMID(401);
 		assertEquals(beans.get(0), bean);
@@ -83,6 +84,36 @@ public class PhysicalTherapyOVRecordDAOTest {
 				beans = dao.getPhysicalTherapyOVRecordsByMID(1);
 			} catch (DBException e) {
 				assertNull(beans);
+			}
+
+			builder.createTables(); //now put them back so future tests aren't broken
+		} catch(Exception e) {
+			fail();
+		}
+		
+		//get all physicalTherapy records
+		try {
+			builder.dropTables(); //drop all tables in the DB
+			List<PhysicalTherapyOVRecordBean> beans = null;
+			try {
+				dao.editPhysicalTherapyOVRecordsRecord(1, bean);
+			} catch (DBException e) {
+				assertNull(null);
+			}
+
+			builder.createTables(); //now put them back so future tests aren't broken
+		} catch(Exception e) {
+			fail();
+		}
+		
+		//get all physicalTherapy records
+		try {
+			builder.dropTables(); //drop all tables in the DB
+			List<PhysicalTherapyOVRecordBean> beans = null;
+			try {
+				dao.addPhysicalTherapyOVRecord(bean);
+			} catch (DBException e) {
+				assertNull(null);
 			}
 
 			builder.createTables(); //now put them back so future tests aren't broken
