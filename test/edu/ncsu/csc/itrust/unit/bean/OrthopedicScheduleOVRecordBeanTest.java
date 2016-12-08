@@ -18,7 +18,7 @@ public class OrthopedicScheduleOVRecordBeanTest {
    public void testGetSet() throws ParseException{
       OrthopedicScheduleOVRecordBean bean1 = new OrthopedicScheduleOVRecordBean();
       bean1.setComment("Comment");
-      bean1.setDoctormid(101);
+      bean1.setDoctormid(9220000000L);
       bean1.setPatientmid(102);
       bean1.setPending(true);
       bean1.setDocFirstName("Momsen");
@@ -33,7 +33,7 @@ public class OrthopedicScheduleOVRecordBeanTest {
       }
       
       assertEquals(bean1.getComment(), "Comment");
-      assertEquals(bean1.getDoctormid(), 101);
+      assertEquals(bean1.getDoctormid(), 9220000000L);
       assertEquals(bean1.getPatientmid(), 102);
       assertEquals(bean1.isPending(), true);
       assertEquals(bean1.getDocFirstName(), "Momsen");
@@ -51,7 +51,7 @@ public class OrthopedicScheduleOVRecordBeanTest {
    public void testEquality(){
       OrthopedicScheduleOVRecordBean bean1 = new OrthopedicScheduleOVRecordBean();
       bean1.setComment("Comment");
-      bean1.setDoctormid(101);
+      bean1.setDoctormid(9220000000L);
       bean1.setPatientmid(102);
       bean1.setPending(true);
       bean1.setDocFirstName("Momsen");
@@ -67,7 +67,7 @@ public class OrthopedicScheduleOVRecordBeanTest {
       
       OrthopedicScheduleOVRecordBean bean2 = new OrthopedicScheduleOVRecordBean();
       bean2.setComment("Comment");
-      bean2.setDoctormid(101);
+      bean2.setDoctormid(9220000000L);
       bean2.setPatientmid(102);
       bean2.setPending(true);
       bean2.setDocFirstName("Momsen");
@@ -89,7 +89,7 @@ public class OrthopedicScheduleOVRecordBeanTest {
       assertFalse(bean1.equals(bean2));
       //assertFalse(bean1.hashCode() == (bean2.hashCode()));
       bean1.setComment("Comment");
-      bean1.setDoctormid(101);
+      bean1.setDoctormid(9220000000L);
       bean1.setPatientmid(102);
       bean1.setPending(true);
       bean1.setDocFirstName("Momsen");
@@ -98,7 +98,7 @@ public class OrthopedicScheduleOVRecordBeanTest {
       bean1.setDoctormid(103);
       assertFalse(bean1.equals(bean2));
       //assertFalse(bean1.hashCode() == (bean2.hashCode()));
-      bean1.setDoctormid(101);
+      bean1.setDoctormid(9220000000L);
       
       bean1.setPatientmid(1022);
       assertFalse(bean1.equals(bean2));

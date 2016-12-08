@@ -25,7 +25,7 @@ import edu.ncsu.csc.itrust.action.ViewPhysicalTherapyScheduleOVAction;
 import edu.ncsu.csc.itrust.action.EditPhysicalTherapyScheduleOVAction;
 
 public class AddEditViewPhysicalTherapyScheduleOVActionTest {
-   private final long LOGGED_IN_MID = 9000000085L;
+   private final long LOGGED_IN_MID = 9210000000L;
    private final long PATIENT_MID = 407L;
    
    @Before

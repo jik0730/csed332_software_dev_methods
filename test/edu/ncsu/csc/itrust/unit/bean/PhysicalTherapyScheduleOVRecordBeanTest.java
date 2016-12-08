@@ -18,7 +18,7 @@ public class PhysicalTherapyScheduleOVRecordBeanTest {
    public void testGetSet() throws ParseException{
       PhysicalTherapyScheduleOVRecordBean bean1 = new PhysicalTherapyScheduleOVRecordBean();
       bean1.setComment("Comment");
-      bean1.setDoctormid(101);
+      bean1.setDoctormid(9210000000L);
       bean1.setPatientmid(102);
       bean1.setPending(true);
       bean1.setDocFirstName("Momsen");
@@ -33,7 +33,7 @@ public class PhysicalTherapyScheduleOVRecordBeanTest {
       }
       
       assertEquals(bean1.getComment(), "Comment");
-      assertEquals(bean1.getDoctormid(), 101);
+      assertEquals(bean1.getDoctormid(), 9210000000L);
       assertEquals(bean1.getPatientmid(), 102);
       assertEquals(bean1.isPending(), true);
       assertEquals(bean1.getDocFirstName(), "Momsen");
@@ -51,7 +51,7 @@ public class PhysicalTherapyScheduleOVRecordBeanTest {
    public void testEquality(){
       PhysicalTherapyScheduleOVRecordBean bean1 = new PhysicalTherapyScheduleOVRecordBean();
       bean1.setComment("Comment");
-      bean1.setDoctormid(101);
+      bean1.setDoctormid(9210000000L);
       bean1.setPatientmid(102);
       bean1.setPending(true);
       bean1.setDocFirstName("Momsen");
@@ -67,7 +67,7 @@ public class PhysicalTherapyScheduleOVRecordBeanTest {
       
       PhysicalTherapyScheduleOVRecordBean bean2 = new PhysicalTherapyScheduleOVRecordBean();
       bean2.setComment("Comment");
-      bean2.setDoctormid(101);
+      bean2.setDoctormid(9210000000L);
       bean2.setPatientmid(102);
       bean2.setPending(true);
       bean2.setDocFirstName("Momsen");
@@ -89,7 +89,7 @@ public class PhysicalTherapyScheduleOVRecordBeanTest {
       assertFalse(bean1.equals(bean2));
       //assertFalse(bean1.hashCode() == (bean2.hashCode()));
       bean1.setComment("Comment");
-      bean1.setDoctormid(101);
+      bean1.setDoctormid(9210000000L);
       bean1.setPatientmid(102);
       bean1.setPending(true);
       bean1.setDocFirstName("Momsen");
@@ -98,7 +98,7 @@ public class PhysicalTherapyScheduleOVRecordBeanTest {
       bean1.setDoctormid(103);
       assertFalse(bean1.equals(bean2));
       //assertFalse(bean1.hashCode() == (bean2.hashCode()));
-      bean1.setDoctormid(101);
+      bean1.setDoctormid(9210000000L);
       
       bean1.setPatientmid(1022);
       assertFalse(bean1.equals(bean2));

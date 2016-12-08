@@ -23,23 +23,13 @@ public class AddOrthopedicScheduleOVAction {
     /** PatientDAO for working with patient objects in the database*/
 	private PersonnelDAO perDAO;
     
-    /**
-     * AddOrthopedicScheduleOVAction is the constructor for this action class. It simply initializes the
-     * instance variables.
-     * @param factory The factory used to get the obstetricsDAO.
-     * @param loggedInMID The MID of the logged in user.
-     */
+   
 	public AddOrthopedicScheduleOVAction(DAOFactory factory, long loggedInMID) {
 		this.orthopedicOVDAO = factory.getOrthopedicScheduleOVDAO();
 		this.perDAO = factory.getPersonnelDAO();
 	}
 	
-	/**
-	 * Adds a new orthopedic scheduled office visit record.
-	 * @param p OrthopedicScheduleOVRecordBean containing the info for the record to be created.
-	 * @throws FormValidationException if the patient is not successfully validated.
-	 * @throws ITrustException thrown if the database encounters an issue.
-	 */
+	
 	public void addOrthopedicOV(OrthopedicScheduleOVRecordBean p) 
 			throws FormValidationException, ITrustException {
 		if(p != null){

@@ -20,6 +20,7 @@ public class PhysicalTherapyScheduleOVTest  extends iTrustSeleniumTest{
     */
    protected void setUp() throws Exception{
       super.setUp();
+	
       gen.clearAllTables();
 
       gen.patient27();
@@ -99,7 +100,7 @@ public class PhysicalTherapyScheduleOVTest  extends iTrustSeleniumTest{
     * @throws Exception
     */
    public void testApprovePhysicalTherapyOfficeVisitRequest() throws Exception{
-      //Set up the outcome of Scenario 1
+      //Set up the outcome of Scenario 4
       gen.PhysicalTherapyScenario4();
       
       //Login as Taylor Physical Therapist

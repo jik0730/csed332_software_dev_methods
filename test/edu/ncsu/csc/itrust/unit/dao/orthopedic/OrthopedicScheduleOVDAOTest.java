@@ -34,7 +34,7 @@ public class OrthopedicScheduleOVDAOTest {
       //Make the test bean
       bean = new OrthopedicScheduleOVRecordBean();
       bean.setComment("Comment");
-      bean.setDoctormid(101);
+      bean.setDoctormid(9220000000L);
       bean.setPatientmid(102);
       bean.setPending(true);
       bean.setDocFirstName("Momsen");
@@ -56,7 +56,7 @@ public class OrthopedicScheduleOVDAOTest {
       List<OrthopedicScheduleOVRecordBean> beans = dao.getOrthopedicScheduleOVRecordsByPATIENTMID(102L);
       assertEquals(beans.get(0), bean);
       
-      beans = dao.getOrthopedicScheduleOVRecordsByDOCTORMID(101L);
+      beans = dao.getOrthopedicScheduleOVRecordsByDOCTORMID(9220000000L);
       assertEquals(beans.get(0), bean);
       
       //edit the bean
@@ -67,7 +67,7 @@ public class OrthopedicScheduleOVDAOTest {
       beans = dao.getOrthopedicScheduleOVRecordsByPATIENTMID(102L);
       assertEquals(beans.get(0), bean);
       
-      beans = dao.getOrthopedicScheduleOVRecordsByDOCTORMID(101L);
+      beans = dao.getOrthopedicScheduleOVRecordsByDOCTORMID(9220000000L);
       assertEquals(beans.get(0), bean);
    }
    

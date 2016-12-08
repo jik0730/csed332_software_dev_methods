@@ -26,24 +26,14 @@ public class AddPhysicalTherapyScheduleOVAction {
 	private PersonnelDAO perDAO;
 	private OrderDAO orderDAO;
     
-    /**
-     * AddPhysicalTherapyScheduleOVAction is the constructor for this action class. It simply initializes the
-     * instance variables.
-     * @param factory The factory used to get the obstetricsDAO.
-     * @param loggedInMID The MID of the logged in user.
-     */
+    
 	public AddPhysicalTherapyScheduleOVAction(DAOFactory factory, long loggedInMID) {
 		this.physicalTherapyOVDAO = factory.getPhysicalTherapyScheduleOVDAO();
 		this.perDAO = factory.getPersonnelDAO();
 		this.orderDAO = factory.getOrderDAO();
 	}
 	
-	/**
-	 * Adds a new physicalTherapy scheduled office visit record.
-	 * @param p PhysicalTherapyScheduleOVRecordBean containing the info for the record to be created.
-	 * @throws FormValidationException if the patient is not successfully validated.
-	 * @throws ITrustException thrown if the database encounters an issue.
-	 */
+	
 	public void addPhysicalTherapyOV(PhysicalTherapyScheduleOVRecordBean p) 
 			throws FormValidationException, ITrustException {
 		if(p != null){

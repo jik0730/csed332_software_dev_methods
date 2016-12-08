@@ -36,7 +36,7 @@ public class ViewOrthopedicScheduleOVAction {
 		return orthopedicOVDAO.getOrthopedicScheduleOVRecordsByPATIENTMID(mid);	
 	}
 	
-	/**
+	/*
      * getOrthopedicScheduleOVByMID returns a list of orthopedic scheduled office visits record beans for the doctor.
      * @param mid the mid of the patient.
      * @return The list of orthopedic office visit records.
@@ -46,23 +46,13 @@ public class ViewOrthopedicScheduleOVAction {
 		return orthopedicOVDAO.getOrthopedicScheduleOVRecordsByDOCTORMID(mid);	
 	}
 	
-	/**
-	 * Retrieves an OrthopedicScheduleOVRecordBean for a Patient.
-	 * @param oid The oid of the orthopedic scheduled office visit
-	 * @return A bean containing the orthopedic scheduled office visit.
-	 * @throws ITrustException When there is a bad oid passed in.
-	 */
+	
 	public OrthopedicScheduleOVRecordBean getOrthopedicScheduleOVForPatient(long oid) throws ITrustException{
 		OrthopedicScheduleOVRecordBean record = orthopedicOVDAO.getOrthopedicScheduleOVRecord(oid);
     	return record;
 	}
 	
-	/**
-	 * Retrieves an OrthopedicScheduleOVRecordBean for a HCP.
-	 * @param oid The oid of the orthopedic scheduled office visit
-	 * @return A bean containing the orthopedic scheduled office visit.
-	 * @throws ITrustException When there is a bad oid passed in.
-	 */
+
 	public OrthopedicScheduleOVRecordBean getOrthopedicScheduleOVForHCP(long oid) throws ITrustException{
 		OrthopedicScheduleOVRecordBean record = orthopedicOVDAO.getOrthopedicScheduleOVRecord(oid);
     	return record;

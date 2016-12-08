@@ -90,15 +90,15 @@ public class OrthopedicScheduleOVRecordBean {
 	}
 	
 	/**
-	 * Getter for the last name of the optometrist.
-	 * @return the optometrist last name.
+	 * Getter for the last name of the orthopedic
+	 * @return the orthopedic last name.
 	 */
 	public String getDocLastName() {
 		return docLastName;
 	}
 	
 	/**
-	 * Set the last name of the optometrist.
+	 * Set the last name of the orthopedic
 	 * @param docLastName the new value.
 	 */
 	public void setDocLastName(String docLastName) {
@@ -106,7 +106,7 @@ public class OrthopedicScheduleOVRecordBean {
 	}
 	
 	/**
-	 * Getter for the first name of the optometrist.
+	 * Getter for the first name of the orthopedic
 	 * @return the doctors first name.
 	 */
 	public String getDocFirstName() {
@@ -114,7 +114,7 @@ public class OrthopedicScheduleOVRecordBean {
 	}
 	
 	/**
-	 * Set the first name of the optometrist.
+	 * Set the first name of the orthopedic
 	 * @param docFirstName the new value.
 	 */
 	public void setDocFirstName(String docFirstName) {

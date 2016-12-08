@@ -38,7 +38,7 @@ public class OrthopedicScheduleValidatorTest {
    public void testNoDoctorName(){
       OrthopedicScheduleOVRecordBean badbean = new OrthopedicScheduleOVRecordBean();
       badbean.setComment("Comment");
-      badbean.setDoctormid(101);
+      badbean.setDoctormid(9220000000L);
       badbean.setPatientmid(102);
       badbean.setPending(true);
       SimpleDateFormat frmt = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
@@ -61,7 +61,7 @@ public class OrthopedicScheduleValidatorTest {
    public void testNoDate(){
       OrthopedicScheduleOVRecordBean badbean = new OrthopedicScheduleOVRecordBean();
       badbean.setComment("Comment");
-      badbean.setDoctormid(101);
+      badbean.setDoctormid(9220000000L);
       badbean.setPatientmid(102);
       badbean.setPending(true);
       badbean.setDocFirstName("Momsen");
