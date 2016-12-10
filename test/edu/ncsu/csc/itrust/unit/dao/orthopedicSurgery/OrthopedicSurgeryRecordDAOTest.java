@@ -45,6 +45,7 @@ public class OrthopedicSurgeryRecordDAOTest {
 		
 		//edit the bean
 		dao.editOrthopedicSurgeryRecordsRecord(1, bean);
+		assertEquals(dao.getOrthopedicSurgeryRecord(-1), null);
 		assertEquals(dao.getOrthopedicSurgeryRecord(1), bean);
 		beans = dao.getOrthopedicSurgeryRecordsByMID(401);
 		assertEquals(beans.get(0), bean);
@@ -77,6 +78,21 @@ public class OrthopedicSurgeryRecordDAOTest {
 				beans = dao.getOrthopedicSurgeryRecordsByMID(1);
 			} catch (DBException e) {
 				assertNull(beans);
+			}
+
+			builder.createTables(); //now put them back so future tests aren't broken
+		} catch(Exception e) {
+			fail();
+		}
+		
+		//get all obstetrics records
+		try {
+			builder.dropTables(); //drop all tables in the DB
+			List<OrthopedicSurgeryRecordBean> beans = null;
+			try {
+				dao.addOrthopedicSurgeryRecord(bean);
+			} catch (DBException e) {
+				assertNull(null);
 			}
 
 			builder.createTables(); //now put them back so future tests aren't broken

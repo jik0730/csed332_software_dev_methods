@@ -79,12 +79,22 @@ public class AddEditViewOrthopedicSurgeryActionTest {
 		bean5.setFirstName("Brooke");
 		bean5.setSurgeryNotes("Surgery rescheduled");
 		
+		//Create unvalid bean
+		OrthopedicSurgeryRecordBean bean6 = new OrthopedicSurgeryRecordBean();
+		bean6.setMid(1L);
+		bean6.setVisitDate("01/26/2015");
+		bean6.setLastName("Tran");
+		bean6.setFirstName("Brooke");
+		bean6.setSurgeryNotes("Surgery rescheduled");
+		
 		//Add the beans
 		addAction.addOrthopedicSurgery(bean1);
 		addAction.addOrthopedicSurgery(bean2);
 		addAction.addOrthopedicSurgery(bean3);
 		addAction.addOrthopedicSurgery(bean4);
 		addAction.addOrthopedicSurgery(bean5);
+		
+			
 		
 		//Now test the view
 		ViewOrthopedicSurgeryAction viewAction = new ViewOrthopedicSurgeryAction(prodDAO, LOGGED_IN_MID);
@@ -103,9 +113,15 @@ public class AddEditViewOrthopedicSurgeryActionTest {
 		bean3.setOid(2L);
 		assertEquals(viewAction.getOrthopedicSurgeryForHCP(2L), bean3);
 		
+		try {
+			addAction.addOrthopedicSurgery(bean6);
+		}catch(ITrustException e){
+			assertEquals(e.getMessage(), "You can't make surgery without order.");
+		}
 		// Patients don't have to be able to view their surgical records, per documentation
 	}
 	
+	@Test
 	public void testErrors() throws FormValidationException{
 		DAOFactory prodDAO = TestDAOFactory.getTestInstance();
 		AddOrthopedicSurgeryAction addAction = new AddOrthopedicSurgeryAction(prodDAO, 401L);
