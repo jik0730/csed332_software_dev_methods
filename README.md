@@ -108,6 +108,7 @@ These are meeting logs summarizing our dicussions in every meeting.
 - [8th Meeting](meeting_log/8th_meeting.md)
 - [3rd Demo](meeting_log/3rd_demo.md)
 - [9th Meeting](meeting_log/9th_meeting.md)
+- [10th Meeting](meeting_log/10th_meeting.md)
 
 Demo Presentation
 ---------------
