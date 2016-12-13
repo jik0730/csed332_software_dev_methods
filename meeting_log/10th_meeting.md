@@ -5,7 +5,7 @@ Minutes of Meetings
 - Venue: GSR 517
 - Members Present (with roles): 김도혁 (Team leader), 김희곤 (Planning leader), 정인교 (Quality Assurance leader), 홍기재, 조성원, 정유철
 - Agenda: Final wrap-up planning
-- Time : Sunday 10:30 ~ 11:30  
+- Time : Sunday 22:30 ~ 23:30  
   
 - Meeting notes:
 
