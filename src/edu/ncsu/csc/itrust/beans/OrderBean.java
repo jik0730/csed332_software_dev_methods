@@ -19,6 +19,7 @@ public class OrderBean {
 			boolean completed) {
 		this.orderID = orderID;
 		this.orderHCPID = orderHCPID;
+		this.visitID = visitID;
 		this.orderedHCPID = orderedHCPID;
 		this.patientID = patientID;
 		this.completed = completed;

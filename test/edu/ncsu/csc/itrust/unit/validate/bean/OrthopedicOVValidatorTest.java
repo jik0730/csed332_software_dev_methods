@@ -5,29 +5,29 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.ncsu.csc.itrust.beans.OrthopedicSurgeryRecordBean;
+import edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
-import edu.ncsu.csc.itrust.validate.OrthopedicSurgeryValidator;
+import edu.ncsu.csc.itrust.validate.OrthopedicOVValidator;
 
-public class OrthopedicSurgeryValidatorTest {
+public class OrthopedicOVValidatorTest {
 
-	OrthopedicSurgeryValidator v;
+	OrthopedicOVValidator v;
 	
 	@Before
 	public void setUp(){
-		v = new OrthopedicSurgeryValidator();
+		v = new OrthopedicOVValidator();
 	}
 	
 	@Test
 	public void testNullBean() {
-		OrthopedicSurgeryRecordBean badbean = null;
+		OrthopedicOVRecordBean badbean = null;
 		try {
 			v.validate(badbean);
 		} catch (FormValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		badbean = new OrthopedicSurgeryRecordBean();
+		badbean = new OrthopedicOVRecordBean();
 		badbean.setVisitDate(null);
 		try {
 			v.validate(badbean);
@@ -51,8 +51,8 @@ public class OrthopedicSurgeryValidatorTest {
 			e.printStackTrace();
 		}
 		
-		badbean.setFirstName("hi");
-		badbean.setLastName("doctor");
+		badbean.setHid(1L);
+		badbean.setPid(2L);
 		try {
 			v.validate(badbean);
 		} catch (FormValidationException e) {
@@ -63,7 +63,7 @@ public class OrthopedicSurgeryValidatorTest {
 	
 	@Test
 	public void testValidateAllNull(){
-		OrthopedicSurgeryRecordBean badbean = new OrthopedicSurgeryRecordBean();
+		OrthopedicOVRecordBean badbean = new OrthopedicOVRecordBean();
 		try{
 			v.validate(badbean);
 			fail();
