@@ -82,7 +82,7 @@
 			int index = -1;
 				for (MessageBean message : messages) {
 					String style = "";
-					if (message.getRead() == 0) {
+					if (!isReminder && message.getRead() == 0) {
 						style = "style=\"font-weight: bold;\"";
 					}
 

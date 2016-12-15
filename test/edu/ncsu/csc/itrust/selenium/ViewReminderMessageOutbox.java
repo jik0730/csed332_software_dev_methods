@@ -32,7 +32,7 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 	}
 
 	Pattern subjectPattern = Pattern.compile("Reminder: upcoming appointment in (\\d) day[(]s[)]$");
-	Pattern bodyPattern = Pattern.compile("You have an appointment on \\d{4}-\\d{2}-\\d{2}, with Dr[.] (\\w+)");
+	Pattern bodyPattern = Pattern.compile("You have an appointment on \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}, with Dr[.] (\\w+)");
 	
 	@Test
 	public void testWhenInputIsValid() throws Exception {
@@ -67,9 +67,10 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 			}
 			else if(parsedDay == 7) {
 				if("Anakin Skywalker".equals(cols.get(0).getText()))
-				contains7 = true;
+					contains7 = true;
 			}
 		}
+		
 		assertTrue(contains6);
 		assertTrue(contains7);
 	}
@@ -84,6 +85,7 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 		boolean contains6 = false , contains7 = false;
 		for (int i=0; i<messageCount; i++) {
 			driver.findElements(By.linkText("Read")).get(i).click();
+			
 			WebElement headTable = driver.findElement(By.xpath("id('iTrustContent')/div/table"));
 			WebElement bodyTable = driver.findElement(By.xpath("id('iTrustContent')/table"));
 
@@ -98,13 +100,16 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 			
 			if(toField.getText().contains("Anakin Skywalker")) {
 				if (bodyMatcher.group(1).equals("Kelly")) {
-					if (subjectMatcher.group(1).equals("6")) contains6 = true;
-					if (subjectMatcher.group(1).equals("7")) contains7 = true;
+					if (subjectMatcher.group(1).equals("6"))
+						contains6 = true;
+					if (subjectMatcher.group(1).equals("7"))
+						contains7 = true;
 				}
 			}
 			
 			driver.findElement(By.linkText("Back")).click();
 		}
+		
 		assertTrue(contains6);
 		assertTrue(contains7);
 	}

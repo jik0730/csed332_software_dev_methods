@@ -3,7 +3,7 @@ VALUES (
 	9000000000,
 	100,
 	now() + INTERVAL 6 DAY,
-	"Ultrasound",
+	"General Checkup",
 	"uc41lt"
 );
 
@@ -12,7 +12,7 @@ VALUES (
 	9000000000,
 	100,
 	now() + INTERVAL 7 DAY,
-	"Ultrasound",
+	"General Checkup",
 	"uc41eq"
 );
 
@@ -21,6 +21,6 @@ VALUES (
 	9000000000,
 	100,
 	now() + INTERVAL 8 DAY,
-	"Ultrasound",
+	"General Checkup",
 	"uc41gt"
 );
