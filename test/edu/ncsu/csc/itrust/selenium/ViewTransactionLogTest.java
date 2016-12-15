@@ -32,12 +32,13 @@ public class ViewTransactionLogTest extends iTrustSeleniumTest {
 	
 	/**
 	 * testViewTransactionLog1
-	 * This is for checking list
+	 * This is for checking list of Admin
 	 */
 	public void testViewTransactionLog1() throws Exception {
 		driver = (HtmlUnitDriver)login("9000000001","pw");
 		driver.findElement(By.xpath("//div[@id='iTrustMenu']/div/div[2]/div/h2")).click();
 		driver.findElement(By.linkText("View Transaction Logs")).click();
+		System.out.println(driver.getTitle());
 		assertEquals("iTrust - View Transaction Logs", driver.getTitle());
 		driver.findElement(By.xpath("//input[@name='view']")).click();
 		java.util.Date dt = new java.util.Date();
@@ -57,11 +58,52 @@ public class ViewTransactionLogTest extends iTrustSeleniumTest {
 	
 	/**
 	 * testViewTransactionLogs2
-	 * this is for checking graph
+	 * this is for checking graph of Admin
 	 */
 	public void testViewTransactionLog2() throws Exception {
 		driver = (HtmlUnitDriver)login("9000000001","pw");
 		driver.findElement(By.xpath("//div[@id='iTrustMenu']/div/div[2]/div/h2")).click();
+		driver.findElement(By.linkText("View Transaction Logs")).click();
+		assertEquals("iTrust - View Transaction Logs", driver.getTitle());
+		driver.findElement(By.xpath("//input[@name='graph']")).click();
+		assertNotNull(driver.findElement(By.id("chart_div")));
+		assertNotNull(driver.findElement(By.id("chart_div2")));
+		assertNotNull(driver.findElement(By.id("chart_div3")));
+		assertNotNull(driver.findElement(By.id("chart_div4")));
+	}
+	
+	/**
+	 * testViewTransactionLog3
+	 * This is for checking list of Tester
+	 */
+	public void testViewTransactionLog3() throws Exception {
+		driver = (HtmlUnitDriver)login("9999999999","pw");
+		driver.findElement(By.id("view-menu")).click();
+		driver.findElement(By.linkText("View Transaction Logs")).click();
+		System.out.println(driver.getTitle());
+		assertEquals("iTrust - View Transaction Logs", driver.getTitle());
+		driver.findElement(By.xpath("//input[@name='view']")).click();
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(dt).toString().substring(0, 10);
+		TableElement table = new TableElement(driver.findElement(By.id("list_table")));
+		int i;
+		int size = table.getRowSize();
+		String s;
+		for(i = 1; i < size-1; i++)
+		{
+			s = table.getCellAsText(i, 1).substring(0, 10);
+			assertEquals(today, s);
+		}
+	}
+	
+	/**
+	 * testViewTransactionLogs4
+	 * this is for checking graph of Tester
+	 */
+	public void testViewTransactionLog4() throws Exception {
+		driver = (HtmlUnitDriver)login("9999999999","pw");
+		driver.findElement(By.id("view-menu")).click();
 		driver.findElement(By.linkText("View Transaction Logs")).click();
 		assertEquals("iTrust - View Transaction Logs", driver.getTitle());
 		driver.findElement(By.xpath("//input[@name='graph']")).click();
