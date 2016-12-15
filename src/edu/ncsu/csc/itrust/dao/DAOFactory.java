@@ -492,4 +492,9 @@ public class DAOFactory {
 	public OrderDAO getOrderDAO(){
 		return new OrderDAO(this);
 	}
+
+	public TransactionLogDAO getTransactionLogDAO() {
+		// TODO Auto-generated method stub
+		return new TransactionLogDAO(this);
+	}
 }

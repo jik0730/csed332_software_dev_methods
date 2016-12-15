@@ -4,9 +4,9 @@ public enum TransactionLogColumnType {
 	/** Table TransactionLog 's column 'transactionID' */
 	TRANSACTION_ID(0, "transactionID"),
 	/** Table TransactionLog 's column 'loggedinMID' */
-	LOGGED_IN_MID(1, "loggedinMID"),
+	LOGGED_IN_MID(1, "loggedinRole"),
 	/** Table TransactionLog 's column 'secondaryMID' */
-	SECONDARY_MID(2, "secondaryMID"),
+	SECONDARY_MID(2, "secondaryRole"),
 	/** Table TransactionLog 's column 'transactionCode' */
 	TRANSACTION_CODE(3, "transactionCode"),
 	/** Table TransactionLog 's column 'timeLogged' */
