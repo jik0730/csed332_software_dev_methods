@@ -17,6 +17,7 @@ import edu.ncsu.csc.itrust.beans.loaders.ReportRequestBeanLoader;
 import edu.ncsu.csc.itrust.beans.loaders.SurveyLoader;
 import edu.ncsu.csc.itrust.beans.loaders.SurveyResultBeanLoader;
 import edu.ncsu.csc.itrust.beans.loaders.TransactionBeanLoader;
+import edu.ncsu.csc.itrust.beans.loaders.TransactionLogBeanLoader;
 import edu.ncsu.csc.itrust.beans.loaders.VisitReminderReturnFormLoader;
 
 public class BeanLoaderTest extends TestCase {
@@ -144,6 +145,13 @@ public class BeanLoaderTest extends TestCase {
 		
 		try {
 			new VisitReminderReturnFormLoader().loadParameters(null, null);
+			fail("Should have thrown Exception");
+		} catch (IllegalStateException ex) {
+			assertEquals("unimplemented!", ex.getMessage());
+		}
+		
+		try {
+			new TransactionLogBeanLoader().loadParameters(null, null);
 			fail("Should have thrown Exception");
 		} catch (IllegalStateException ex) {
 			assertEquals("unimplemented!", ex.getMessage());
