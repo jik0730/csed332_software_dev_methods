@@ -61,7 +61,8 @@ public class SendReminderMessageAction extends ApptAction {
 		for (ApptBean appt: appts) {
 			sendReminders(appt);
 		}
-		addLog(0);
+		
+		transactionDAO.logTransaction(TransactionType.SYSTEM_REMINDERS_VIEW, loggedInMID, 0, "");
 	}
 	
 	private void sendReminders(ApptBean appt) throws SQLException, DBException, ITrustException {
@@ -95,17 +96,13 @@ public class SendReminderMessageAction extends ApptAction {
 		email.setBody(body);
 		fakeEmailDAO.sendEmailRecord(email);
 	}
-	
-	private void addLog(long patientMID) throws DBException {
-		transactionDAO.logTransaction(TransactionType.SYSTEM_REMINDERS_VIEW, loggedInMID, patientMID, "");
-	}
 
 	private String genSubject(long daysLeft) {
 		return "Reminder: upcoming appointment in " + daysLeft + " day(s)";
 	}
 
 	private String genBody(Timestamp date, String doctorName) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		return "You have an appointment on " + sdf.format(date) + ", with Dr. " + doctorName;
 	}
 }

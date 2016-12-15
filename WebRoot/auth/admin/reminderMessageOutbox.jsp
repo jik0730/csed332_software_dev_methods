@@ -14,7 +14,6 @@ pageTitle = "iTrust - View System Remider Message ";
 session.setAttribute("outbox",true);
 session.setAttribute("isHCP",userRole.equals("hcp"));
 session.setAttribute("isReminder", true);
-loggingAction.logEvent(TransactionType.INBOX_VIEW, loggedInMID.longValue(), 0L, "");
 %>
 
 <%@include file="/header.jsp" %>
@@ -22,7 +21,8 @@ loggingAction.logEvent(TransactionType.INBOX_VIEW, loggedInMID.longValue(), 0L, 
 <div align=center>
 	<h2>My Messages</h2>
 		<%
-			if (userRole.equals("admin")) %>
+			if (userRole.equals("admin"))
+		%>
 				<%@ include file="/auth/mailbox.jsp" %>
 </div>
 
