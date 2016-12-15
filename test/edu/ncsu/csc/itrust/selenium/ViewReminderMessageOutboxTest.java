@@ -11,7 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
+public class ViewReminderMessageOutboxTest extends iTrustSeleniumTest {
 	
 	@Override
 	protected void setUp() throws Exception {
