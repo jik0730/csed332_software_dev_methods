@@ -1,17 +1,16 @@
 package edu.ncsu.csc.itrust.selenium;
 
-import static org.junit.Assert.*;
-
 import java.util.regex.*;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
+import edu.ncsu.csc.itrust.enums.TransactionType;
+
+public class ViewReminderMessageOutboxTest extends iTrustSeleniumTest {
 	
 	@Override
 	protected void setUp() throws Exception {
@@ -32,20 +31,32 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 	}
 
 	Pattern subjectPattern = Pattern.compile("Reminder: upcoming appointment in (\\d) day[(]s[)]$");
-	Pattern bodyPattern = Pattern.compile("You have an appointment on \\d{4}-\\d{2}-\\d{2}, with Dr[.] (\\w+)");
+	Pattern bodyPattern = Pattern.compile("You have an appointment on \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}, with Dr[.] (\\w+)");
 	
+	// Test when input is valid
+	/**
+	 * @throws Exception
+	 */
 	@Test
 	public void testWhenInputIsValid() throws Exception {
 		WebDriver driver = testSendReminder("7");
 		assertTrue(driver.getPageSource().contains("Succeeded"));
 	}
 
+	// Test when input is invalid
+	/**
+	 * @throws Exception
+	 */
 	@Test
 	public void testWhenInputIsInvalid() throws Exception {
 		WebDriver driver = testSendReminder("troll");
 		assertTrue(driver.getPageSource().contains("Failed"));
 	}
 	
+	// Check reminder message outbox
+	/**
+	 * @throws Exception
+	 */
 	@Test
 	public void testCheckReminderMessageOutbox() throws Exception {
 		WebDriver driver = testSendReminder("7");
@@ -67,13 +78,19 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 			}
 			else if(parsedDay == 7) {
 				if("Anakin Skywalker".equals(cols.get(0).getText()))
-				contains7 = true;
+					contains7 = true;
 			}
 		}
+		
 		assertTrue(contains6);
 		assertTrue(contains7);
+		assertLogged(TransactionType.SYSTEM_REMINDERS_VIEW, 9000000001L, 0L, "");
 	}
 	
+	// Read reminder message outbox entry
+	/**
+	 * @throws Exception
+	 */
 	@Test
 	public void testReadReminderMessageOutboxEntry() throws Exception {
 		WebDriver driver = testSendReminder("7");
@@ -84,6 +101,7 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 		boolean contains6 = false , contains7 = false;
 		for (int i=0; i<messageCount; i++) {
 			driver.findElements(By.linkText("Read")).get(i).click();
+			
 			WebElement headTable = driver.findElement(By.xpath("id('iTrustContent')/div/table"));
 			WebElement bodyTable = driver.findElement(By.xpath("id('iTrustContent')/table"));
 
@@ -98,13 +116,16 @@ public class ViewReminderMessageOutbox extends iTrustSeleniumTest {
 			
 			if(toField.getText().contains("Anakin Skywalker")) {
 				if (bodyMatcher.group(1).equals("Kelly")) {
-					if (subjectMatcher.group(1).equals("6")) contains6 = true;
-					if (subjectMatcher.group(1).equals("7")) contains7 = true;
+					if (subjectMatcher.group(1).equals("6"))
+						contains6 = true;
+					if (subjectMatcher.group(1).equals("7"))
+						contains7 = true;
 				}
 			}
 			
 			driver.findElement(By.linkText("Back")).click();
 		}
+		
 		assertTrue(contains6);
 		assertTrue(contains7);
 	}

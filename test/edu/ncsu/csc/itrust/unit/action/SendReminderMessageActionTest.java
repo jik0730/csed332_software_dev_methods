@@ -20,7 +20,6 @@ import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.unit.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.unit.testutils.TestDAOFactory;
 import edu.ncsu.csc.itrust.action.SendReminderMessageAction;
-import edu.ncsu.csc.itrust.beans.ApptBean;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.MessageBean;
 import edu.ncsu.csc.itrust.beans.TransactionBean;
@@ -37,22 +36,36 @@ public class SendReminderMessageActionTest {
 	private final String REMINDER_SUBJECT_EQ = "Reminder: upcoming appointment in 7 day(s)";
 	private final String REMINDER_SUBJECT_GT = "Reminder: upcoming appointment in 8 day(s)";
 
-	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	private final long oneDay = 1000 * 60 * 60 * 24;
+	private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	private final long oneSecond = 1000;
+	private final long oneMinute = 60 * oneSecond;
+	private final long oneDay = 24 * 60 * oneMinute;
 	private final Date curDate = new Date();
 	private final Date ltDate = new Date(curDate.getTime() + oneDay * 6);
 	private final Date eqDate = new Date(curDate.getTime() + oneDay * 7);
-
 	
+	private final long adminMID = 9000000001L;
+
 	@Before
 	public void setUp() throws Exception {
 		gen.clearAllTables();
 		gen.standardData();
 		gen.uc41_add_appointments();
-		action = new SendReminderMessageAction(factory, 9000000000L);
+		action = new SendReminderMessageAction(factory, adminMID);
 	}
 
-
+	@Test
+	public void testSendReminderMessageAction() {
+		boolean exceptionIsTriggered = false;
+		try {
+			SendReminderMessageAction actionWithInvalidRole = new SendReminderMessageAction(factory, 9000000000L);
+		} catch (ITrustException e) {
+			exceptionIsTriggered = true;
+		}
+		
+		assertTrue(exceptionIsTriggered);
+	}
+	
 	@Test
 	public void testSendReminderMessage() throws DBException, SQLException, ITrustException {
 		action.sendReminderMessage(7);
@@ -62,7 +75,6 @@ public class SendReminderMessageActionTest {
 	}
 	
 	private void checkMessages() throws DBException, SQLException {
-		//Reminder Message
 		List<MessageBean> messages = messageDAO.getMessagesFor(100);
 		MessageBean ltMsg = null, eqMsg = null, gtMsg = null;
 		
@@ -82,7 +94,6 @@ public class SendReminderMessageActionTest {
 	}
 	
 	private void checkEmails() throws DBException, SQLException {
-		//FakeEmail
 		Email ltMail = null, eqMail = null, gtMail = null;
 		List<Email> mails = fakeEmailDAO.getEmailWithBody("You have an appointment on");
 		for(Email mail: mails) {
@@ -101,8 +112,9 @@ public class SendReminderMessageActionTest {
 	}
 	
 	private void checkLogs() throws DBException, SQLException {
-		List<TransactionBean> transactions = transactionDAO.getTransactionList(9000000000L, 0, new Date(curDate.getTime() - oneDay), ltDate, 4100);
+		List<TransactionBean> transactions = transactionDAO.getTransactionList(adminMID, 0, new Date(curDate.getTime() - oneSecond), new Date(curDate.getTime() + oneMinute), 4100);
 		assertTrue(transactions.size() == 1);
+		
 		TransactionBean log = transactions.get(0);
 		assertTrue(log.getTransactionType() == TransactionType.SYSTEM_REMINDERS_VIEW);
 	}

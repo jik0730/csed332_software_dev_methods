@@ -7,19 +7,21 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import edu.ncsu.csc.itrust.beans.ApptBean;
 import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.MessageBean;
+
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.ApptDAO;
+import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.MessageDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PersonnelDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
+
 import edu.ncsu.csc.itrust.enums.TransactionType;
+
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
 
@@ -33,12 +35,16 @@ public class SendReminderMessageAction extends ApptAction {
 	FakeEmailDAO fakeEmailDAO;
 	MessageDAO messageDAO;
 	TransactionDAO transactionDAO;
+	AuthDAO authDAO;
 	long loggedInMID;
 	
-	/**
-	 * SendReminderMessageAction
+	// Constructor
+	/** 
+	 * @param factory
+	 * @param loggedInMID
+	 * @throws ITrustException
 	 */
-	public SendReminderMessageAction(DAOFactory factory, long loggedInMID) {
+	public SendReminderMessageAction(DAOFactory factory, long loggedInMID) throws ITrustException {
 		super(factory);
 		apptDAO = factory.getApptDAO();
 		patientDAO = factory.getPatientDAO();
@@ -46,14 +52,25 @@ public class SendReminderMessageAction extends ApptAction {
 		fakeEmailDAO = factory.getFakeEmailDAO();
 		messageDAO = factory.getMessageDAO();
 		transactionDAO = factory.getTransactionDAO();
+		authDAO = factory.getAuthDAO();
 		
+		try {
+			if (authDAO.getUserRole(loggedInMID).getUserRolesString() != "admin")
+				throw new ITrustException("Only admin can use this feature.");
+		} catch (ITrustException e) {
+			throw e;
+		}
+			
 		this.loggedInMID = loggedInMID;
 	}
 	
+	// Send reminder Messages to patients who have appointments within given days
 	/**
-	 * Send reminder Messages to patients who have appointments within given days
-	 * 
-	 * @param apptDaysLeftUpperBound Days left until an appointment
+	 *
+	 * @param apptDaysLeftUpperBound
+	 * @throws SQLException
+	 * @throws DBException
+	 * @throws ITrustException
 	 */
 	public void sendReminderMessage(long apptDaysLeftUpperBound) throws SQLException, DBException, ITrustException {
 		List<ApptBean> appts = apptDAO.getApptsIn(apptDaysLeftUpperBound);
@@ -61,7 +78,8 @@ public class SendReminderMessageAction extends ApptAction {
 		for (ApptBean appt: appts) {
 			sendReminders(appt);
 		}
-		addLog(0);
+		
+		transactionDAO.logTransaction(TransactionType.SYSTEM_REMINDERS_VIEW, loggedInMID, 0, "");
 	}
 	
 	private void sendReminders(ApptBean appt) throws SQLException, DBException, ITrustException {
@@ -95,17 +113,13 @@ public class SendReminderMessageAction extends ApptAction {
 		email.setBody(body);
 		fakeEmailDAO.sendEmailRecord(email);
 	}
-	
-	private void addLog(long patientMID) throws DBException {
-		transactionDAO.logTransaction(TransactionType.SYSTEM_REMINDERS_VIEW, loggedInMID, patientMID, "");
-	}
 
 	private String genSubject(long daysLeft) {
 		return "Reminder: upcoming appointment in " + daysLeft + " day(s)";
 	}
 
 	private String genBody(Timestamp date, String doctorName) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		return "You have an appointment on " + sdf.format(date) + ", with Dr. " + doctorName;
 	}
 }
