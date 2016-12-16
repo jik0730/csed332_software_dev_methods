@@ -56,12 +56,14 @@ public class SendReminderMessageActionTest {
 
 	@Test
 	public void testSendReminderMessageAction() {
+		boolean exceptionIsTriggered = false;
 		try {
 			SendReminderMessageAction actionWithInvalidRole = new SendReminderMessageAction(factory, 9000000000L);
 		} catch (ITrustException e) {
+			exceptionIsTriggered = true;
 		}
 		
-		assertTrue(false);
+		assertTrue(exceptionIsTriggered);
 	}
 	
 	@Test
