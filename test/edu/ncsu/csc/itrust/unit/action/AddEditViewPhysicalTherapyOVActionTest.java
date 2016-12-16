@@ -2,14 +2,17 @@ package edu.ncsu.csc.itrust.unit.action;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import edu.ncsu.csc.itrust.beans.PhysicalTherapyOVRecordBean;
+import edu.ncsu.csc.itrust.beans.TransactionBean;
 import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
+import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.unit.datagenerators.TestDataGenerator;
@@ -22,137 +25,151 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 	private final long LOGGED_IN_MID = 9220000000L;
 	private final long PATIENT_MID = 407L;
 	private final long DEPENDENT_MID = 409L;
-	
+
+	private DAOFactory prodDAO = TestDAOFactory.getTestInstance();
+	private AddPhysicalTherapyOVAction addAction = new AddPhysicalTherapyOVAction(prodDAO, LOGGED_IN_MID);
+
+	private PhysicalTherapyOVRecordBean[] patientBeans = new PhysicalTherapyOVRecordBean[5];
+	private PhysicalTherapyOVRecordBean dependentBean = new PhysicalTherapyOVRecordBean();
+
+	private String survey = "100,0,0,0,0,0,0,0,0,0";
+	private String exercise = "false,true,false,false,true,false,false,true,false,true";
+	private String docFirstName = "Kelly";
+	private String docLastName = "Doctor";
+
+	private TransactionDAO transactionDAO = prodDAO.getTransactionDAO();
+
+	private final long oneDay = 1000 * 60 * 60 * 24;
+	private final Date curDate = new Date();
+
 	@Before
 	public void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();
 		gen.standardData();
 		gen.uc89Order();
-	}
-	
-	@Test
-	public void testAddPhysicalTherapyOV() throws FormValidationException, ITrustException{
-		DAOFactory prodDAO = TestDAOFactory.getTestInstance();
-		
-		AddPhysicalTherapyOVAction addAction = new AddPhysicalTherapyOVAction(prodDAO, LOGGED_IN_MID);
-		
-		//Create a valid bean
-		PhysicalTherapyOVRecordBean bean1 = new PhysicalTherapyOVRecordBean();
-		bean1.setMid(407L);
-		bean1.setOid(1L);
-		bean1.setFirstName("Kelly");
-		bean1.setLastName("Doctor");
-		bean1.setVisitDate("12/12/2015");
-		String survey = "100,0,0,0,0,0,0,0,0,0";
-		bean1.setWellnessSurveyResults(survey);
-		bean1.setWellnessSurveyScore(10L);
-		String exercise = "false,true,false,false,true,false,false,true,false,true";
-		bean1.setExercise(exercise);
-		
-		
-		//Create another valid bean
-		PhysicalTherapyOVRecordBean bean2 = new PhysicalTherapyOVRecordBean();
-		bean2.setMid(407L);
-		bean2.setOid(2L);
-		bean2.setFirstName("Kelly");
-		bean2.setLastName("Doctor");
-		bean2.setVisitDate("12/13/2015");
-		survey = "100,0,0,0,0,0,0,0,0,0";
-		bean2.setWellnessSurveyResults(survey);
-		bean2.setWellnessSurveyScore(10L);
-		exercise = "false,true,false,false,true,false,false,true,false,true";
-		bean2.setExercise(exercise);
-		
-		
-		//Create another valid bean
-		PhysicalTherapyOVRecordBean bean3 = new PhysicalTherapyOVRecordBean();
-		bean3.setMid(407L);
-		bean3.setOid(3L);
-		bean3.setFirstName("Kelly");
-		bean3.setLastName("Doctor");
-		bean3.setVisitDate("12/14/2015");
-		survey = "100,0,0,0,0,0,0,0,0,0";
-		bean3.setWellnessSurveyResults(survey);
-		bean3.setWellnessSurveyScore(10L);
-		exercise = "false,true,false,false,true,false,false,true,false,true";
-		bean3.setExercise(exercise);
-		
-		
-		//Create another valid bean
-		PhysicalTherapyOVRecordBean bean4 = new PhysicalTherapyOVRecordBean();
-		bean4.setMid(407L);
-		bean4.setOid(4L);
-		bean4.setFirstName("Kelly");
-		bean4.setLastName("Doctor");
-		bean4.setVisitDate("12/15/2015");
-		survey = "100,0,0,0,0,0,0,0,0,0";
-		bean4.setWellnessSurveyResults(survey);
-		bean4.setWellnessSurveyScore(10L);
-		exercise = "false,true,false,false,true,false,false,true,false,true";
-		bean4.setExercise(exercise);
-		
-		PhysicalTherapyOVRecordBean bean5 = new PhysicalTherapyOVRecordBean();
-		bean5.setMid(407L);
-		bean5.setOid(5L);
-		bean5.setFirstName("Kelly");
-		bean5.setLastName("Doctor");
-		bean5.setVisitDate("12/16/2015");
-		survey = "100,0,0,0,0,0,0,0,0,0";
-		bean5.setWellnessSurveyResults(survey);
-		bean5.setWellnessSurveyScore(10L);
-		exercise = "false,true,false,false,true,false,false,true,false,true";
-		bean5.setExercise(exercise);
-	
-		
 
-		
-		
-		//Add the beans
-		addAction.addPhysicalTherapyOV(bean1);
-		addAction.addPhysicalTherapyOV(bean2);
-		addAction.addPhysicalTherapyOV(bean3);
-		addAction.addPhysicalTherapyOV(bean4);
-		addAction.addPhysicalTherapyOV(bean5);
-		
-		//Now test the view
-		ViewPhysicalTherapyOVAction viewAction = new ViewPhysicalTherapyOVAction(prodDAO, LOGGED_IN_MID);
-		
-		
-		List<PhysicalTherapyOVRecordBean> beans = viewAction.getPhysicalTherapyOVByMID(PATIENT_MID);
-		assertEquals(beans.get(0), bean5);
-		assertEquals(beans.get(1), bean4);
-		assertEquals(beans.get(2), bean3);
-		assertEquals(beans.get(3), bean2);
-		assertEquals(beans.get(4), bean1);
-		
-		EditPhysicalTherapyOVAction editAction = new EditPhysicalTherapyOVAction(prodDAO, LOGGED_IN_MID);
-		editAction.editPhysicalTherapyOV(3L, bean3);
-		bean3.setOid(3L);
-		assertEquals(viewAction.getPhysicalTherapyOVForHCP(3L), bean3);
+		// for patient
+		for (int i = 0; i < 5; i++) {
+			patientBeans[i] = new PhysicalTherapyOVRecordBean();
+			patientBeans[i].setMid(PATIENT_MID);
+			patientBeans[i].setVisitDate("12/1" + String.valueOf(2 + i) + "/2015");
+			patientBeans[i].setFirstName(docFirstName);
+			patientBeans[i].setLastName(docLastName);
+			patientBeans[i].setWellnessSurveyResults(survey);
+			patientBeans[i].setWellnessSurveyScore(10L);
+			patientBeans[i].setExercise(exercise);
+
+			addAction.addPhysicalTherapyOV(patientBeans[i]);
+		}
+
+		// for dependent
+		dependentBean.setMid(DEPENDENT_MID);
+		dependentBean.setVisitDate("12/17/2015");
+		dependentBean.setFirstName(docFirstName);
+		dependentBean.setLastName(docLastName);
+		dependentBean.setWellnessSurveyResults(survey);
+		dependentBean.setWellnessSurveyScore(10L);
+		dependentBean.setExercise(exercise);
+
+		addAction.addPhysicalTherapyOV(dependentBean);
 	}
-	
+
 	@Test
-	public void testErrors() throws FormValidationException{
+	public void testAddPhysicalTherapyOV1() throws FormValidationException, ITrustException {
+		// Now test the view
+		ViewPhysicalTherapyOVAction viewAction = new ViewPhysicalTherapyOVAction(prodDAO, LOGGED_IN_MID);
+		List<PhysicalTherapyOVRecordBean> beans = viewAction.getPhysicalTherapyOVByMID(PATIENT_MID);
+		assertEquals(beans.get(0), patientBeans[4]);
+		assertEquals(beans.get(1), patientBeans[3]);
+		assertEquals(beans.get(2), patientBeans[2]);
+		assertEquals(beans.get(3), patientBeans[1]);
+		assertEquals(beans.get(4), patientBeans[0]);
+
+		EditPhysicalTherapyOVAction editAction = new EditPhysicalTherapyOVAction(prodDAO, LOGGED_IN_MID);
+		editAction.editPhysicalTherapyOV(3L, patientBeans[2]);
+		patientBeans[2].setOid(3L);
+		assertEquals(viewAction.getPhysicalTherapyOVForHCP(3L), patientBeans[2]);
+	}
+
+	@Test
+	public void testAddPhysicalTherapyOV2() throws FormValidationException, ITrustException {
+		PhysicalTherapyOVRecordBean trollBean = new PhysicalTherapyOVRecordBean();
+		trollBean.setMid(0);
+		trollBean.setVisitDate("12/17/2015");
+		trollBean.setFirstName(docFirstName);
+		trollBean.setLastName(docLastName);
+		trollBean.setWellnessSurveyResults(survey);
+		trollBean.setWellnessSurveyScore(10L);
+		trollBean.setExercise(exercise);
+
+		try {
+			addAction.addPhysicalTherapyOV(trollBean);
+			assertTrue(false);
+		}
+		catch (ITrustException e) {
+		}
+	}
+
+	@Test
+	public void testGetPhysicalTherapyOVForPatient() throws ITrustException {
+		ViewPhysicalTherapyOVAction viewAction = new ViewPhysicalTherapyOVAction(prodDAO, PATIENT_MID);
+		long oid = 1;
+		PhysicalTherapyOVRecordBean bean = viewAction.getPhysicalTherapyOVForPatient(oid);
+
+		assertEquals(bean.getOid(), oid);
+
+		List<TransactionBean> transactions = transactionDAO.getTransactionList(PATIENT_MID, PATIENT_MID,
+				new Date(curDate.getTime() - oneDay), curDate, 9100);
+
+		assertEquals(1, transactions.size());
+	}
+
+	@Test
+	public void testGetPhysicalTherapyOVForDependent() throws ITrustException, FormValidationException {
+		ViewPhysicalTherapyOVAction viewAction = new ViewPhysicalTherapyOVAction(prodDAO, PATIENT_MID);
+		long oid = 6;
+		PhysicalTherapyOVRecordBean bean = viewAction.getPhysicalTherapyOVForDependent(oid);
+
+		assertEquals(bean.getOid(), oid);
+
+		List<TransactionBean> transactions = transactionDAO.getTransactionList(PATIENT_MID, DEPENDENT_MID,
+				new Date(curDate.getTime() - oneDay), curDate, 9101);
+
+		assertEquals(1, transactions.size());
+	}
+
+	@Test
+	public void testGetDependents() {
+		ViewPhysicalTherapyOVAction viewAction = new ViewPhysicalTherapyOVAction(prodDAO, LOGGED_IN_MID);
+		List<PatientBean> dependents = viewAction.getDependents(PATIENT_MID);
+
+		assertEquals(2, dependents.size());
+		assertEquals(DEPENDENT_MID, dependents.get(0).getMID());
+		assertEquals(410, dependents.get(1).getMID());
+	}
+
+	@Test
+	public void testErrors() throws FormValidationException {
 		DAOFactory prodDAO = TestDAOFactory.getTestInstance();
 		AddPhysicalTherapyOVAction addAction = new AddPhysicalTherapyOVAction(prodDAO, 401L);
 		EditPhysicalTherapyOVAction editAction = new EditPhysicalTherapyOVAction(prodDAO, 401L);
-		
+
 		PhysicalTherapyOVRecordBean nullBean = null;
-		
-		try{
+
+		try {
 			addAction.addPhysicalTherapyOV(nullBean);
 			fail();
-		}catch(ITrustException e){
+		} catch (ITrustException e) {
 			assertNull(nullBean);
 		}
-		
-		try{
+
+		try {
 			editAction.editPhysicalTherapyOV(1, nullBean);
 			fail();
-		}catch(ITrustException e){
+		} catch (ITrustException e) {
 			assertNull(nullBean);
 		}
 	}
-	
+
 }

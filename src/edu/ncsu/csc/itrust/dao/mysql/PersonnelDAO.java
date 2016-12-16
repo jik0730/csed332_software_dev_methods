@@ -617,4 +617,45 @@ public class PersonnelDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+	
+	public List<PersonnelBean> getAllOrthopedicPersonnel() throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM personnel "
+					+ "WHERE specialty = 'orthopedic'; ");
+			ResultSet rs = ps.executeQuery();
+			List<PersonnelBean> loadList = personnelLoader.loadList(rs);
+			rs.close();
+			ps.close();
+			return loadList;
+		} catch (SQLException e) {
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
+	public List<PersonnelBean> getAllPhysicalTherapyPersonnel() throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM personnel "
+					+ "WHERE specialty = 'physicaltherapist'; ");
+			ResultSet rs = ps.executeQuery();
+			List<PersonnelBean> loadList = personnelLoader.loadList(rs);
+			rs.close();
+			ps.close();
+			return loadList;
+		} catch (SQLException e) {
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+	
 }

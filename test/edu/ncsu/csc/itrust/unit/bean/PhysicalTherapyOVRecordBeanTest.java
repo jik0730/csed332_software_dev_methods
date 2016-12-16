@@ -63,5 +63,63 @@ public class PhysicalTherapyOVRecordBeanTest {
 		bean1.setVisitDate(null);
 		assertNull(bean1.getVisitDate());
 	}
-	
+	 
+	@Test
+	public void testEquals() {
+		PhysicalTherapyOVRecordBean bean1 = new PhysicalTherapyOVRecordBean();
+		PhysicalTherapyOVRecordBean bean2 = new PhysicalTherapyOVRecordBean();
+		Integer tmpInteger = new Integer(0);
+		
+		assertTrue(bean1.equals(bean1));
+		assertTrue(!bean1.equals(null));
+		assertTrue(!bean1.equals(tmpInteger));
+		
+		bean1.setMid(0);
+		bean2.setMid(1);
+		
+		assertTrue(!bean1.equals(bean2));
+		
+		bean2.setMid(0);
+		bean1.setOid(0);
+		bean2.setOid(1);
+		
+		assertTrue(!bean1.equals(bean2));
+		
+		bean2.setOid(0);
+		bean1.setVisitDate("2015-12-12");
+		bean2.setVisitDate("2015-12-13");
+		
+		assertTrue(!bean1.equals(bean2));
+		
+		bean2.setVisitDate("2015-12-12");
+		bean1.setLastName("Doctor");
+		bean2.setLastName("Fisher");
+		
+		assertTrue(!bean1.equals(bean2));
+		
+		bean2.setLastName("Doctor");
+		bean1.setFirstName("Kelly");
+		bean2.setFirstName("Celly");
+		
+		
+		assertTrue(!bean1.equals(bean2));
+		
+		bean2.setFirstName("Kelly");
+		bean1.setWellnessSurveyResults("100,0,0,0,0,0,0,0,0,0");
+		bean2.setWellnessSurveyResults("100,0,0,0,0,0,0,0,0,100");
+		
+		assertTrue(!bean1.equals(bean2));
+		
+		bean2.setWellnessSurveyResults("100,0,0,0,0,0,0,0,0,0");
+		bean1.setWellnessSurveyScore(10);
+		bean2.setWellnessSurveyScore(100);
+		
+		assertTrue(!bean1.equals(bean2));
+		
+		bean2.setWellnessSurveyScore(10);
+		bean1.setExercise("false,true,false,false,true,false,false,true,false,true");
+		bean2.setExercise("false,true,false,false,true,false,false,true,false,false");
+		
+		assertTrue(!bean1.equals(bean2));
+	}
 }

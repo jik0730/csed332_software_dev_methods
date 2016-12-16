@@ -382,6 +382,13 @@ public class DAOFactory {
 		return new OrthopedicOVRecordDAO(this);
 	}
 
+
+	
+	public OrthopedicScheduleOVDAO getOrthopedicScheduleOVDAO() {
+		return new OrthopedicScheduleOVDAO(this);
+	}
+	
+
 	/**
 	 * Gets the DOA for ophthalmology scheduled office visit records.
 	 * 
@@ -503,12 +510,20 @@ public class DAOFactory {
 		return new PhysicalTherapyOVRecordDAO(this);
 	}
 
+
 	/**
 	 * Creates a new DAO for getOrder interactions
 	 * 
 	 * @return this DAO factory's Order interactions
 	 */
-	public OrderDAO getOrderDAO() {
+
+	
+	public PhysicalTherapyScheduleOVDAO getPhysicalTherapyScheduleOVDAO() {
+		return new PhysicalTherapyScheduleOVDAO(this);
+	}
+	
+	public OrderDAO getOrderDAO(){
+
 		return new OrderDAO(this);
 	}
 }

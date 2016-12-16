@@ -151,6 +151,8 @@
 	<div class="panel-body" id="pt-menu">
 		<ul class="nav nav-sidebar">
 			<li><a href="/iTrust/auth/hcp/physicalTherapyHome.jsp">PhysicalTherapy Home</a></li>
+			<li><a href="/iTrust/auth/hcp/viewPhysicalTherapyScheduleRequests.jsp">View PhysicalTherapy Office Visit Requests</a></li>
+			<li><a href="/iTrust/auth/hcp/viewPhysicalTherapyScheduleOV.jsp">View Scheduled PhysicalTherapy Office Visits</a></li>
 			<li><a href="/iTrust/auth/hcp/physicalTherapyHome.jsp?view">View PhysicalTherapy Records</a></li>
 			<li><a href="/iTrust/auth/hcp/addPhysicalTherapyOV.jsp">Add PhysicalTherapy Office Visit</a></li>
 		</ul>

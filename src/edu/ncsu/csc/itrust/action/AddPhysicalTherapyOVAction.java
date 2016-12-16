@@ -43,7 +43,7 @@ public class AddPhysicalTherapyOVAction {
 			List<OrderBean> order = orderDAO.getUncompletedOrderForPair(loggedInMID, p.getMid());
 
 			if (order.size() != 0) {
-				// Add the Orthopedic office visit record to the database
+				// Add the PhysicalTherapy office visit record to the database
 				physicalTherapyOVDAO.addPhysicalTherapyOVRecord(p);
 				orderDAO.completeOrder(order.get(0).getOrderID());
 			} else {
