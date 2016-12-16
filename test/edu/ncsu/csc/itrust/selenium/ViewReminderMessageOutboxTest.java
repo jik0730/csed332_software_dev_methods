@@ -33,18 +33,30 @@ public class ViewReminderMessageOutboxTest extends iTrustSeleniumTest {
 	Pattern subjectPattern = Pattern.compile("Reminder: upcoming appointment in (\\d) day[(]s[)]$");
 	Pattern bodyPattern = Pattern.compile("You have an appointment on \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}, with Dr[.] (\\w+)");
 	
+	// Test when input is valid
+	/**
+	 * @throws Exception
+	 */
 	@Test
 	public void testWhenInputIsValid() throws Exception {
 		WebDriver driver = testSendReminder("7");
 		assertTrue(driver.getPageSource().contains("Succeeded"));
 	}
 
+	// Test when input is invalid
+	/**
+	 * @throws Exception
+	 */
 	@Test
 	public void testWhenInputIsInvalid() throws Exception {
 		WebDriver driver = testSendReminder("troll");
 		assertTrue(driver.getPageSource().contains("Failed"));
 	}
 	
+	// Check reminder message outbox
+	/**
+	 * @throws Exception
+	 */
 	@Test
 	public void testCheckReminderMessageOutbox() throws Exception {
 		WebDriver driver = testSendReminder("7");
@@ -75,6 +87,10 @@ public class ViewReminderMessageOutboxTest extends iTrustSeleniumTest {
 		assertLogged(TransactionType.SYSTEM_REMINDERS_VIEW, 9000000001L, 0L, "");
 	}
 	
+	// Read reminder message outbox entry
+	/**
+	 * @throws Exception
+	 */
 	@Test
 	public void testReadReminderMessageOutboxEntry() throws Exception {
 		WebDriver driver = testSendReminder("7");

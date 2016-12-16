@@ -38,8 +38,11 @@ public class SendReminderMessageAction extends ApptAction {
 	AuthDAO authDAO;
 	long loggedInMID;
 	
-	/**
-	 * SendReminderMessageAction
+	// Constructor
+	/** 
+	 * @param factory
+	 * @param loggedInMID
+	 * @throws ITrustException
 	 */
 	public SendReminderMessageAction(DAOFactory factory, long loggedInMID) throws ITrustException {
 		super(factory);
@@ -61,10 +64,13 @@ public class SendReminderMessageAction extends ApptAction {
 		this.loggedInMID = loggedInMID;
 	}
 	
+	// Send reminder Messages to patients who have appointments within given days
 	/**
-	 * Send reminder Messages to patients who have appointments within given days
-	 * 
-	 * @param apptDaysLeftUpperBound Days left until an appointment
+	 *
+	 * @param apptDaysLeftUpperBound
+	 * @throws SQLException
+	 * @throws DBException
+	 * @throws ITrustException
 	 */
 	public void sendReminderMessage(long apptDaysLeftUpperBound) throws SQLException, DBException, ITrustException {
 		List<ApptBean> appts = apptDAO.getApptsIn(apptDaysLeftUpperBound);
