@@ -10,8 +10,9 @@ import edu.ncsu.csc.itrust.beans.WardBean;
 /**
  * A loader for WardBeans.
  * 
- * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency. 
- * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ * Loads in information to/from beans using ResultSets and PreparedStatements.
+ * Use the superclass to enforce consistency. For details on the paradigm for a
+ * loader (and what its methods do), see {@link BeanLoader}
  */
 public class WardBeanLoader implements BeanLoader<WardBean> {
 	public List<WardBean> loadList(ResultSet rs) throws SQLException {

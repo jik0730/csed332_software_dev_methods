@@ -34,15 +34,7 @@ public class UC91SeleniumTest extends iTrustSeleniumTest{
 		gen.hcp0();
 		gen.patient27();
 		gen.patient91();
-	}
-	
-	/**
-	 * Clears the database after each test.
-	 */
-	protected void tearDown() throws Exception {
-		gen.clearAllTables();
-	}
-	
+	}	
 	
 	/**
 	 * Selenium test for UC90 Acceptance Scenario 1.

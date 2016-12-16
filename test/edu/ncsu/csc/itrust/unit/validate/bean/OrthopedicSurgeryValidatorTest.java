@@ -19,6 +19,49 @@ public class OrthopedicSurgeryValidatorTest {
 	}
 	
 	@Test
+	public void testNullBean() {
+		OrthopedicSurgeryRecordBean badbean = null;
+		try {
+			v.validate(badbean);
+		} catch (FormValidationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		badbean = new OrthopedicSurgeryRecordBean();
+		badbean.setVisitDate(null);
+		try {
+			v.validate(badbean);
+		} catch (FormValidationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		badbean.setVisitDate("");
+		try {
+			v.validate(badbean);
+		} catch (FormValidationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		badbean.setVisitDate("11/11/2014");
+		try {
+			v.validate(badbean);
+		} catch (FormValidationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		badbean.setFirstName("hi");
+		badbean.setLastName("doctor");
+		try {
+			v.validate(badbean);
+		} catch (FormValidationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	public void testValidateAllNull(){
 		OrthopedicSurgeryRecordBean badbean = new OrthopedicSurgeryRecordBean();
 		try{

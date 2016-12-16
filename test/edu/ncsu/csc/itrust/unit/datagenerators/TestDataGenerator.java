@@ -913,6 +913,15 @@ public class TestDataGenerator {
 	public void uc90Order() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/uc90Order.sql");
 	}
+	
+	public void OrthopedicScenario4() throws SQLException, FileNotFoundException, IOException {
+	      new DBBuilder(factory).executeSQLFile(DIR + "/orthopedicScenario4.sql");
+	   }
+	   
+	   public void PhysicalTherapyScenario4() throws SQLException, FileNotFoundException, IOException {
+	      new DBBuilder(factory).executeSQLFile(DIR + "/physicalTherapyScenario4.sql");
+	   }
+	
 
 	public void standardData() throws FileNotFoundException, IOException, SQLException {
 		cptCodes();
@@ -1237,12 +1246,20 @@ public class TestDataGenerator {
 		new DBBuilder(factory).executeSQLFile(DIR + "/orderTest.sql");
 	}
 	
+	public void orderTestforUC92() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/orderTestforUC92.sql");
+	}
+	
 	public void wardhcp923() throws SQLException, FileNotFoundException, IOException {
 	    new DBBuilder(factory).executeSQLFile(DIR + "/wardhcp923.sql");
 	}   
 	   
 	public void wardtestdata() throws SQLException, FileNotFoundException, IOException {
 	    new DBBuilder(factory).executeSQLFile(DIR + "/wardtestdata.sql");
+	}
+
+	public void imageTest() throws SQLException, FileNotFoundException, IOException {
+	    new DBBuilder(factory).executeSQLFile(DIR + "/testImage.sql");
 	}
 	
 	/**

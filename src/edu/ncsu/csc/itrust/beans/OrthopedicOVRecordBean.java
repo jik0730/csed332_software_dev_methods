@@ -6,6 +6,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 
+ * @author KimHeeGon
+ *
+ */
 public class OrthopedicOVRecordBean {
 	private int oid;
 	private long pid;
@@ -15,11 +20,23 @@ public class OrthopedicOVRecordBean {
 	private String visitDate;
 	private byte[] xray;
 	private byte[] mri;
-	
-	public OrthopedicOVRecordBean() {}
-	
-	public OrthopedicOVRecordBean(int oid, int pid, int hid,
-			String xrayImageID, String mriImageID, String mriReport, String injured, String visitDate) {
+
+	public OrthopedicOVRecordBean() {
+	}
+
+	/**
+	 * A bean for storing data about OrthopedicOVRecord.
+	 * @param oid
+	 * @param pid
+	 * @param hid
+	 * @param xrayImageID
+	 * @param mriImageID
+	 * @param mriReport
+	 * @param injured
+	 * @param visitDate
+	 */
+	public OrthopedicOVRecordBean(int oid, int pid, int hid, String xrayImageID, String mriImageID, String mriReport,
+			String injured, String visitDate) {
 		this.oid = oid;
 		this.pid = pid;
 		this.hid = hid;
@@ -27,74 +44,157 @@ public class OrthopedicOVRecordBean {
 		this.injured = injured;
 		this.visitDate = visitDate;
 	}
-	
+
+	/**
+	 * getter Oid
+	 * @return oid
+	 */
 	public int getOid() {
 		return oid;
 	}
+
+	/**
+	 * set Oid
+	 * @param oid
+	 */
 	public void setOid(int oid) {
 		this.oid = oid;
 	}
+
+	/**
+	 * get Pid
+	 * @return pid
+	 */
 	public long getPid() {
 		return pid;
 	}
+
+	/**
+	 * set Pid
+	 * @param pid
+	 */
 	public void setPid(long pid) {
 		this.pid = pid;
 	}
+
+	/**
+	 * get Hid
+	 * @return
+	 */
 	public long getHid() {
 		return hid;
 	}
+
+	/**
+	 * set Hid
+	 * @param hid
+	 */
 	public void setHid(long hid) {
 		this.hid = hid;
 	}
+
+	/**
+	 * get Mri report
+	 * @return mriReport
+	 */
 	public String getMriReport() {
 		return mriReport;
 	}
+
+	/**
+	 * the setMriReport to set setMriReport
+	 * @param mriReport
+	 */
 	public void setMriReport(String mriReport) {
 		this.mriReport = mriReport;
 	}
-	public Date getVisitDate(){
+
+	/**
+	 * the getVisitDate
+	 * @return visitDate
+	 */
+	public Date getVisitDate() {
 		if (visitDate == null)
 			return null;
-		Date date = null; 
+		Date date = null;
 		try {
 			date = new SimpleDateFormat("MM/dd/yyyy").parse(visitDate);
 		} catch (ParseException e) {
-			//If it can't be parsed, return null.
+			// If it can't be parsed, return null.
 			return null;
 		}
 		return date;
 	}
+
+	/**
+	 * the getVisitDateString
+	 * @return visitDate
+	 */
 	public String getVisitDateString() {
 		return visitDate;
 	}
+
+	/**
+	 * the setVisitDate to set setVisitDate
+	 * @param visitDate
+	 */
 	public void setVisitDate(String visitDate) {
 		this.visitDate = visitDate;
 	}
+
+	/**
+	 * the getXray
+	 * @return xray
+	 */
 	public byte[] getXray() {
 		return xray;
 	}
 
+	/**
+	 * the setXray to set setXray
+	 * @param xray
+	 */
 	public void setXray(byte[] xray) {
 		this.xray = xray;
 	}
 
+	/**
+	 * the getMri
+	 * @return
+	 */
 	public byte[] getMri() {
 		return mri;
 	}
 
+	/**
+	 * the setMri to set setMri
+	 * @param mri 
+	 */
 	public void setMri(byte[] mri) {
 		this.mri = mri;
 	}
+
+	/**
+	 * The getInjured
+	 * @return getInjured
+	 */
 	public String getInjured() {
 		return injured;
 	}
 
+	/**
+	 * the setInjured to set setInjured 
+	 * @param injured
+	 */
 	public void setInjured(String injured) {
 		this.injured = injured;
 	}
-	
+
 	// Do not need to define hashcode??
-	
+	/**
+	 * Method used to determine if OrthopedicRecordBeans are equal. 
+	 * @return true if the OrthopedicRecordBeans are equal, false otherwise.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -137,7 +237,11 @@ public class OrthopedicOVRecordBean {
 			return false;
 		return true;
 	}
-	
+
+	/**
+	 * Method used to compute the hashcode for a OrthopedicRecordBean. 
+	 * @return true if the OrthopedicRecordBeans are equal, false otherwise.
+	 */
 
 	@Override
 	public int hashCode() {
@@ -154,11 +258,15 @@ public class OrthopedicOVRecordBean {
 
 		return result;
 	}
-	
+
+	/**
+	 * Creates a string representation of this object.
+	 * @return The string representation.
+	 */
 	public String toString() {
-		return "OrthopedicScheduleOVRecordBean [patientmid=" + pid
-				+ ", doctormid=" + hid + ", oid=" + oid + ", date="
-				+ visitDate + ", mriReport=" + mriReport + ", xraySize=" + xray.length + ", mriSize=" + mri.length +"]";
+		return "OrthopedicScheduleOVRecordBean [patientmid=" + pid + ", doctormid=" + hid + ", oid=" + oid + ", date="
+				+ visitDate + ", mriReport=" + mriReport + ", xraySize=" + xray.length + ", mriSize=" + mri.length
+				+ "]";
 	}
-	
+
 }

@@ -1,12 +1,15 @@
 package edu.ncsu.csc.itrust.enums;
 
+/*
+ * This is for TransactionLog grouping in retrieving records
+ */
 public enum TransactionLogColumnType {
 	/** Table TransactionLog 's column 'transactionID' */
 	TRANSACTION_ID(0, "transactionID"),
 	/** Table TransactionLog 's column 'loggedinMID' */
-	LOGGED_IN_MID(1, "loggedinMID"),
+	LOGGED_IN_MID(1, "loggedinRole"),
 	/** Table TransactionLog 's column 'secondaryMID' */
-	SECONDARY_MID(2, "secondaryMID"),
+	SECONDARY_MID(2, "secondaryRole"),
 	/** Table TransactionLog 's column 'transactionCode' */
 	TRANSACTION_CODE(3, "transactionCode"),
 	/** Table TransactionLog 's column 'timeLogged' */
@@ -15,29 +18,39 @@ public enum TransactionLogColumnType {
 	ADDED_INFO(5, "addedInfo");
 	private int code;
 	private String name;
+
 	private TransactionLogColumnType(int code, String name) {
 		this.code = code;
 		this.name = name;
 	}
+
 	/**
 	 * get code
-	 * @param code code
+	 * 
+	 * @param code
+	 *            code
 	 * @return code
 	 */
-	public int getCode(){
+	public int getCode() {
 		return this.code;
 	}
+
 	/**
 	 * get name
-	 * @param code code
+	 * 
+	 * @param code
+	 *            code
 	 * @return name
 	 */
-	public String getName(){
+	public String getName() {
 		return this.name;
 	}
+
 	/**
 	 * parse
-	 * @param code code
+	 * 
+	 * @param code
+	 *            code
 	 * @return type
 	 */
 	public static TransactionLogColumnType parse(int code) {

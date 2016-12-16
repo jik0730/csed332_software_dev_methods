@@ -1,6 +1,5 @@
 package edu.ncsu.csc.itrust.validate;
 
-import edu.ncsu.csc.itrust.beans.OphthalmologyOVRecordBean;
 import edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean;
 import edu.ncsu.csc.itrust.exception.ErrorList;
 import edu.ncsu.csc.itrust.exception.FormValidationException;

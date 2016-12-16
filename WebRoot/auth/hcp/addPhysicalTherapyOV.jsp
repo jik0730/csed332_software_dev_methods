@@ -16,7 +16,6 @@
 <!-- Used for specialty-checking -->
 <%@page import="edu.ncsu.csc.itrust.action.AddPhysicalTherapyOVAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.EditPHRAction"%>
-<%@page import="edu.ncsu.csc.itrust.beans.PhysicalTherapyOVRecordBean"%>
 <%@page import="edu.ncsu.csc.itrust.exception.FormValidationException"%>
 <%@page import="edu.ncsu.csc.itrust.action.EditOPDiagnosesAction"%>
 <%@page import="edu.ncsu.csc.itrust.BeanBuilder"%>

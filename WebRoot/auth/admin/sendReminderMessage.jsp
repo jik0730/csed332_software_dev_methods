@@ -15,16 +15,14 @@ pageTitle = "iTrust - Send Reminder Message";
 <%
 	String input = request.getParameter("apptDaysLeftUpperBound"); 
 	if (input != null && !input.equals("")) {
-		String daysString = request.getParameter("apptDaysLeftUpperBound");
 		try {
-			long days = Long.valueOf(daysString);
+			long days = Long.valueOf(input);
 			SendReminderMessageAction action = new SendReminderMessageAction(prodDAO, loggedInMID.longValue());
 			action.sendReminderMessage(days);
 %>
 			<span class="iTrustMessage"><%=StringEscapeUtils.escapeHtml("Succeeded") %></span>
 <%		
-		}
-		catch (NumberFormatException | ITrustException e) {
+		} catch (NumberFormatException | ITrustException e) {
 %>
 			<span class="iTrustError"><%=StringEscapeUtils.escapeHtml("Failed") %></span>
 <%
@@ -45,7 +43,7 @@ pageTitle = "iTrust - Send Reminder Message";
 	</tr>
 </table>
 <br />
-<input type="submit" style="font-size: 16pt; font-weight: bold;" value="Send">
+<input type="submit" style="font-size: 16pt; font-weight: bold;" value="Send Appointment Reminders">
 <br />
 </form>
 

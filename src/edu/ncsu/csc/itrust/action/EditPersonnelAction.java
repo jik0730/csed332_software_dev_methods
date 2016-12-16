@@ -11,8 +11,8 @@ import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.validate.PersonnelValidator;
 
 /**
- * Edits the designated personnel Used by admin/editPersonnel.jsp, staff/editMyDemographics.jsp,
- * editPersonnel.jsp
+ * Edits the designated personnel Used by admin/editPersonnel.jsp,
+ * staff/editMyDemographics.jsp, editPersonnel.jsp
  * 
  * 
  */
@@ -24,9 +24,12 @@ public class EditPersonnelAction extends PersonnelBaseAction {
 	/**
 	 * Super class validates the patient id
 	 * 
-	 * @param factory The DAOFactory used to create the DAOs for this action.
-	 * @param loggedInMID The MID of the user editing this personnel.
-	 * @param pidString The ID of the user being edited.
+	 * @param factory
+	 *            The DAOFactory used to create the DAOs for this action.
+	 * @param loggedInMID
+	 *            The MID of the user editing this personnel.
+	 * @param pidString
+	 *            The ID of the user being edited.
 	 * @throws ITrustException
 	 */
 	public EditPersonnelAction(DAOFactory factory, long loggedInMID, String pidString) throws ITrustException {
@@ -37,10 +40,10 @@ public class EditPersonnelAction extends PersonnelBaseAction {
 		Role editor = authDAO.getUserRole(loggedInMID);
 		Role editing = authDAO.getUserRole(pidlong);
 
-		if (editor == editing && pidlong != loggedInMID){
+		if (editor == editing && pidlong != loggedInMID) {
 			throw new ITrustException("You can only edit your own demographics!");
-		}else if (editor == Role.HCP && editing == Role.ADMIN || editor == Role.UAP && editing == Role.HCP
-				|| editor == Role.ADMIN && editing == Role.UAP){
+		} else if (editor == Role.HCP && editing == Role.ADMIN || editor == Role.UAP && editing == Role.HCP
+				|| editor == Role.ADMIN && editing == Role.UAP) {
 			throw new ITrustException("You are not authorized to edit this record!");
 		}
 		this.personnelDAO = factory.getPersonnelDAO();
@@ -54,11 +57,10 @@ public class EditPersonnelAction extends PersonnelBaseAction {
 	 * @throws ITrustException
 	 * @throws FormValidationException
 	 */
-	public void updateInformation(PersonnelBean personnelForm) throws ITrustException,
-			FormValidationException {
+	public void updateInformation(PersonnelBean personnelForm) throws ITrustException, FormValidationException {
 		personnelForm.setMID(pid);
 		validator.validate(personnelForm);
 		personnelDAO.editPersonnel(personnelForm);
 	}
-	
+
 }

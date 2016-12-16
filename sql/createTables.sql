@@ -829,6 +829,19 @@ CREATE TABLE IF NOT EXISTS orthopedic(
 	MRIReport VARCHAR(512)
 ) ENGINE = MyISAM;
 
+CREATE TABLE orthopedicSchedule(
+	PATIENTMID BIGINT unsigned NOT NULL default '0',
+	DOCTORMID BIGINT unsigned NOT NULL default '0',
+	OID BIGINT unsigned auto_increment,
+	dateTime DATETIME,
+	docLastName varchar(20),
+	docFirstName varchar(20),
+	comments mediumtext,
+	pending				BOOLEAN NOT NULL,
+	accepted			BOOLEAN NOT NULL,
+	PRIMARY KEY (OID)
+)  ENGINE=MyISAM;
+
 /*Physical Therapy office visit table*/
 CREATE TABLE IF NOT EXISTS physicalTherapy(
 	MID BIGINT unsigned NOT NULL default '0',
@@ -840,6 +853,19 @@ CREATE TABLE IF NOT EXISTS physicalTherapy(
 	WellnessSurveyScore INT(3) NOT NULL,
 	Exercise VARCHAR(512)
 ) ENGINE = MyISAM;
+
+CREATE TABLE physicalTherapySchedule(
+	PATIENTMID BIGINT unsigned NOT NULL default '0',
+	DOCTORMID BIGINT unsigned NOT NULL default '0',
+	OID BIGINT unsigned auto_increment,
+	dateTime DATETIME,
+	docLastName varchar(20),
+	docFirstName varchar(20),
+	comments mediumtext,
+	pending				BOOLEAN NOT NULL,
+	accepted			BOOLEAN NOT NULL,
+	PRIMARY KEY (OID)
+)  ENGINE=MyISAM;
 
 /*Orthopedic surgery office visit table*/
 
