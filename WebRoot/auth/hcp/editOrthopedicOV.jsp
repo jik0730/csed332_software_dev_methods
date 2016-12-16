@@ -4,6 +4,7 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.IllegalFormatException"%>
+<%@page import="java.io.File"%>
 <%@page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
 <%@page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewPersonnelAction"%> <!-- Used for specialty-checking -->
@@ -98,11 +99,11 @@
 		
 		// Create a factory for disk-based file items
 		DiskFileItemFactory fileFactory = new DiskFileItemFactory();
+		ServletContext servletContext = this.getServletConfig().getServletContext();
 		File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
 		fileFactory.setRepository(repository);
 		ParseOrthopedicFormAction parseAction = new ParseOrthopedicFormAction(new ServletFileUpload(fileFactory));
 		OrthopedicOVRecordBean newBean = null;
-		ServletContext servletContext = this.getServletConfig().getServletContext();
 		parseAction.parse(request);
 
 		clientSideErrors = "<p class=\"iTrustError\">This form has not been validated correctly. "

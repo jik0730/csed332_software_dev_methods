@@ -20,7 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 
-/** Provides BLOB Images in mysql database */
+/** 
+ * ImageDataServlet
+ * 
+ * Provides BLOB Images in mysql database 
+ */
 public class ImageDataServlet extends HttpServlet{
 
 	@Override

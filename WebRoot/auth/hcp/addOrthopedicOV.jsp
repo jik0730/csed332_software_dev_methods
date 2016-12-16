@@ -5,6 +5,7 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.IllegalFormatException"%>
+<%@page import="java.io.File"%>
 <%@page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
 <%@page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewPatientAction"%>
