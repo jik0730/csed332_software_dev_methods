@@ -6,33 +6,36 @@ import java.sql.SQLException;
 import edu.ncsu.csc.itrust.dao.mysql.*;
 
 /**
- * The central mediator for all Database Access Objects. The production instance uses the database connection
- * pool provided by Tomcat (so use the production instance when doing stuff from JSPs in the "real code").
- * Both the production and the test instance parses the context.xml file to get the JDBC connection.
+ * The central mediator for all Database Access Objects. The production instance
+ * uses the database connection pool provided by Tomcat (so use the production
+ * instance when doing stuff from JSPs in the "real code"). Both the production
+ * and the test instance parses the context.xml file to get the JDBC connection.
  * 
  * Also, @see {@link EvilDAOFactory} and @see {@link TestDAOFactory}.
  * 
- * Any DAO that is added to the system should be added in this class, in the same way that all other DAOs are.
+ * Any DAO that is added to the system should be added in this class, in the
+ * same way that all other DAOs are.
  * 
- *  
+ * 
  * 
  */
 public class DAOFactory {
 	private static DAOFactory productionInstance = null;
 	private IConnectionDriver driver;
 
-	
 	/**
 	 * 
-	 * @return A production instance of the DAOFactory, to be used in deployment (by Tomcat).
+	 * @return A production instance of the DAOFactory, to be used in deployment
+	 *         (by Tomcat).
 	 */
 	public static DAOFactory getProductionInstance() {
-			productionInstance = new DAOFactory();
+		productionInstance = new DAOFactory();
 		return productionInstance;
 	}
 
 	/**
-	 * Protected constructor. Call getProductionInstance to get an instance of the DAOFactory
+	 * Protected constructor. Call getProductionInstance to get an instance of
+	 * the DAOFactory
 	 */
 	protected DAOFactory() {
 		this.driver = new ProductionConnectionDriver();
@@ -54,13 +57,12 @@ public class DAOFactory {
 	public AccessDAO getAccessDAO() {
 		return new AccessDAO(this);
 	}
-	
+
 	/**
 	 *
 	 * @return this DAOFactory's ZipCodeDAO
 	 */
-	public ZipCodeDAO getZipCodeDAO()
-	{
+	public ZipCodeDAO getZipCodeDAO() {
 		return new ZipCodeDAO(this);
 	}
 
@@ -103,7 +105,7 @@ public class DAOFactory {
 	public AuthDAO getAuthDAO() {
 		return new AuthDAO(this);
 	}
-	
+
 	/**
 	 * 
 	 * @return this DAOFactory's BillingDAO
@@ -343,7 +345,7 @@ public class DAOFactory {
 	public PatientInstructionsDAO getPatientInstructionsDAO() {
 		return new PatientInstructionsDAO(this);
 	}
-	
+
 	/**
 	 * Gets the DAO for interaction with database table requiredprocedures.
 	 * 
@@ -355,6 +357,7 @@ public class DAOFactory {
 
 	/**
 	 * Gets the DAO for reviews with the DB table reviews.
+	 * 
 	 * @return this DAOFactory's ReviewsDAO
 	 */
 	public ReviewsDAO getReviewsDAO() {
@@ -363,54 +366,61 @@ public class DAOFactory {
 
 	/**
 	 * Gets the DOA for ophthalmology office visits records.
+	 * 
 	 * @return this DAO factory's OphthalmologyOVRecordDAO
 	 */
-	public OphthalmologyOVRecordDAO getOphthalmologyOVRecordDAO(){
+	public OphthalmologyOVRecordDAO getOphthalmologyOVRecordDAO() {
 		return new OphthalmologyOVRecordDAO(this);
 	}
-	
+
 	/**
 	 * Gets the DOA for orthopedic office visits records.
+	 * 
 	 * @return this DAO factory's OrthopedicOVRecordDAO
 	 */
-	public OrthopedicOVRecordDAO getOrthopedicOVRecordDAO(){
+	public OrthopedicOVRecordDAO getOrthopedicOVRecordDAO() {
 		return new OrthopedicOVRecordDAO(this);
 	}
-	
+
 	/**
 	 * Gets the DOA for ophthalmology scheduled office visit records.
+	 * 
 	 * @return this DAO factory's OphthalmologyOVRecordDAO
 	 */
 	public OphthalmologyScheduleOVDAO getOphthalmologyScheduleOVDAO() {
 		return new OphthalmologyScheduleOVDAO(this);
 	}
-	
-	/** 
+
+	/**
 	 * Gets the DOA for ophthalmology surgery records.
+	 * 
 	 * @return this DAO factory's OphthalmologyOVRecordDAO
 	 */
-	public OphthalmologySurgeryRecordDAO getOphthalmologySurgeryRecordDAO(){
+	public OphthalmologySurgeryRecordDAO getOphthalmologySurgeryRecordDAO() {
 		return new OphthalmologySurgeryRecordDAO(this);
 	}
 
-	/** 
+	/**
 	 * Gets the DOA for Orthopedic surgery records.
+	 * 
 	 * @return this DAO factory's OphthalmologyOVRecordDAO
 	 */
-	public OrthopedicSurgeryRecordDAO getOrthopedicSurgeryRecordDAO(){
+	public OrthopedicSurgeryRecordDAO getOrthopedicSurgeryRecordDAO() {
 		return new OrthopedicSurgeryRecordDAO(this);
-	}	
-	
+	}
+
 	/**
 	 * Gets the DAO for obstetrics records.
+	 * 
 	 * @return this DAO factory's ObstetricsRecordDAO
 	 */
 	public ObstetricsRecordDAO getObstetricsRecordDAO() {
 		return new ObstetricsRecordDAO(this);
 	}
-	
+
 	/**
 	 * Gets the DAO for setting flags. Currently used with obstetrics.
+	 * 
 	 * @return this DAO factory's ObstetricsRecordDAO
 	 */
 	public FlagsDAO getFlagsDAO() {
@@ -420,68 +430,85 @@ public class DAOFactory {
 	public PreExistingConditionsDAO getPreExistingConditionsDAO() {
 		return new PreExistingConditionsDAO(this);
 	}
-	
+
 	/**
 	 * Creates a new DAO for all of the Food Entries in a Food Diary
+	 * 
 	 * @return this DAO factory's FoodEntryDAO
 	 */
 	public FoodEntryDAO getFoodEntryDAO() {
 		return new FoodEntryDAO(this);
 	}
-	
+
 	/**
 	 * Creates a new DAO for all of the Exercise Entries in an Exercise Diary
+	 * 
 	 * @return this DAO factory's ExerciseEntryDAO
 	 */
 	public ExerciseEntryDAO getExerciseEntryDAO() {
 		return new ExerciseEntryDAO(this);
 	}
-	
+
 	/**
 	 * Creates a new DAO for all of the Sleep Entries in an Sleep Diary
+	 * 
 	 * @return this DAO factory's SleepEntryDAO
 	 */
 	public SleepEntryDAO getSleepEntryDAO() {
 		return new SleepEntryDAO(this);
 	}
-	
+
 	/**
 	 * Creates a new DAO for all of the Labels for diary entries
+	 * 
 	 * @return this DAO factory's LabelsDAO
 	 */
 	public LabelDAO getLabelDAO() {
 		return new LabelDAO(this);
 	}
-	
+
 	/**
 	 * Creates a new DAO for calculating a patient's Mifflin-St Jeor formula
+	 * 
 	 * @return this DAO factory's MacronutrientsDAO
 	 */
 	public MacronutrientsDAO getMacronutrientsDAO() {
 		return new MacronutrientsDAO(this);
 	}
-	
+
 	/**
 	 * Creates a new DAO for Ophthalmology Disease interactions
+	 * 
 	 * @return this DAO factory's Ophthalmology Disease interactions
 	 */
 	public OphthalmologyDiagnosisDAO getOPDiagnosisDAO() {
 		return new OphthalmologyDiagnosisDAO(this);
 	}
-	
+
 	/**
 	 * Creates a new DAO for Orthopedic Disease interactions
+	 * 
 	 * @return this DAO factory's Orthopedic Disease interactions
 	 */
 	public OrthopedicDiagnosisDAO getORDiagnosisDAO() {
 		return new OrthopedicDiagnosisDAO(this);
 	}
 
-	public PhysicalTherapyOVRecordDAO getPhysicalTherapyOVRecordDAO(){
+	/**
+	 * Creates a new DAO for getPhysicalTherapyOVRecordDAO interactions
+	 * 
+	 * @return this DAO factory's PhysicalTherapyOVRecord interactions
+	 */
+	public PhysicalTherapyOVRecordDAO getPhysicalTherapyOVRecordDAO() {
 		return new PhysicalTherapyOVRecordDAO(this);
 	}
-	
-	public OrderDAO getOrderDAO(){
+
+	/**
+	 * Creates a new DAO for getOrder interactions
+	 * 
+	 * @return this DAO factory's Order interactions
+	 */
+	public OrderDAO getOrderDAO() {
 		return new OrderDAO(this);
 	}
 }

@@ -1,6 +1,5 @@
 package edu.ncsu.csc.itrust.action;
 
-
 import edu.ncsu.csc.itrust.RandomPassword;
 import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
@@ -12,8 +11,8 @@ import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.validate.AddPatientValidator;
 
 /**
- * Used for Add Patient page (addPatient.jsp). This just adds an empty patient, creates a random password for
- * that patient.
+ * Used for Add Patient page (addPatient.jsp). This just adds an empty patient,
+ * creates a random password for that patient.
  * 
  * Very similar to {@link AddOfficeVisitAction}
  * 
@@ -35,16 +34,19 @@ public class AddPatientAction {
 		this.loggedInMID = loggedInMID;
 		this.authDAO = factory.getAuthDAO();
 	}
-	
+
 	/**
-	 * Creates a new patient, returns the new MID. Adds a new user to the table with a 
-	 * specified dependency
+	 * Creates a new patient, returns the new MID. Adds a new user to the table
+	 * with a specified dependency
 	 * 
-	 * @param p patient to be created
-	 * @param isDependent true if the patient is to be a dependent, false otherwise
+	 * @param p
+	 *            patient to be created
+	 * @param isDependent
+	 *            true if the patient is to be a dependent, false otherwise
 	 * @return the new MID of the patient
-	 * @throws FormValidationException if the patient is not successfully validated
-	 * @throws ITrustException 
+	 * @throws FormValidationException
+	 *             if the patient is not successfully validated
+	 * @throws ITrustException
 	 */
 	public long addDependentPatient(PatientBean p, long repId) throws FormValidationException, ITrustException {
 		new AddPatientValidator().validate(p);
@@ -52,14 +54,21 @@ public class AddPatientAction {
 		boolean isDependent = true;
 		p.setMID(newMID);
 		String pwd = authDAO.addUser(newMID, Role.PATIENT, RandomPassword.getRandomPassword());
-		
+
 		patientDAO.addRepresentative(repId, newMID);
 		authDAO.setDependent(newMID, isDependent);
 		p.setPassword(pwd);
 		patientDAO.editPatient(p, loggedInMID);
 		return newMID;
 	}
-	
+
+	/**
+	 * addPatient action add new patient.
+	 * @param p
+	 * @return
+	 * @throws FormValidationException
+	 * @throws ITrustException
+	 */
 	public long addPatient(PatientBean p) throws FormValidationException, ITrustException {
 		new AddPatientValidator().validate(p);
 		long newMID = patientDAO.addEmptyPatient();

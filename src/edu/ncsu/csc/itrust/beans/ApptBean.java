@@ -103,7 +103,9 @@ public class ApptBean implements Serializable {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
+	/**
+	 * return apptID
+	 */
 	@Override
 	public int hashCode() {
 		return apptID; // any arbitrary constant will do

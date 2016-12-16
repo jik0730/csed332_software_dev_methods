@@ -97,15 +97,15 @@ public class OrthopedicSurgeryRecordBean {
 	}
 	
 	/**
-	 * Getter for the last name of the optometrist.
-	 * @return the optometrist last name.
+	 * Getter for the last name of the orthopedic.
+	 * @return the orthopedic last name.
 	 */
 	public String getLastName(){
 		return this.docLastName;
 	}
 	
 	/**
-	 * Set the last name of the optometrist.
+	 * Set the last name of the orthopedic.
 	 * @param docLastName the new value.
 	 */
 	public void setLastName(String docLastName){
@@ -113,7 +113,7 @@ public class OrthopedicSurgeryRecordBean {
 	}
 
 	/**
-	 * Getter for the first name of the optometrist.
+	 * Getter for the first name of the orthopedic.
 	 * @return the doctors first name.
 	 */
 	public String getFirstName(){
@@ -121,7 +121,7 @@ public class OrthopedicSurgeryRecordBean {
 	}
 	
 	/**
-	 * Set the first name of the optometrist.
+	 * Set the first name of the orthopedic.
 	 * @param docFirstName the new value.
 	 */
 	public void setFirstName(String docFirstName){
