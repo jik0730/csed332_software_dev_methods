@@ -30,6 +30,13 @@ public class PhysicalTherapyOVRecordDAO {
 		physicalTherapyLoader = new PhysicalTherapyOVRecordLoader();
 	}
 
+	/**
+	 * PhysicalTherapyOVRecordBean getPhysicalTherapyOVRecord
+	 * 
+	 * @param oid
+	 * @return
+	 * @throws DBException
+	 */
 	public PhysicalTherapyOVRecordBean getPhysicalTherapyOVRecord(long oid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -55,6 +62,12 @@ public class PhysicalTherapyOVRecordDAO {
 		}
 	}
 
+	/**
+	 * addPhysicalTherapyOVRecord
+	 * 
+	 * @param p
+	 * @throws DBException
+	 */
 	public void addPhysicalTherapyOVRecord(PhysicalTherapyOVRecordBean p) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -79,6 +92,13 @@ public class PhysicalTherapyOVRecordDAO {
 		}
 	}
 
+	/**
+	 * getPhysicalTherapyOVRecordsByMID
+	 * 
+	 * @param mid
+	 * @return
+	 * @throws DBException
+	 */
 	public List<PhysicalTherapyOVRecordBean> getPhysicalTherapyOVRecordsByMID(long mid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -91,7 +111,7 @@ public class PhysicalTherapyOVRecordDAO {
 			List<PhysicalTherapyOVRecordBean> pat = physicalTherapyLoader.loadList(rs);
 			rs.close();
 			ps.close();
-			
+
 			return pat;
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -100,15 +120,21 @@ public class PhysicalTherapyOVRecordDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
-	
+
+	/**
+	 * editPhysicalTherapyOVRecordsRecord
+	 * 
+	 * @param oid
+	 * @param p
+	 * @throws DBException
+	 */
 	public void editPhysicalTherapyOVRecordsRecord(long oid, PhysicalTherapyOVRecordBean p) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("UPDATE physicalTherapy SET MID=?,dateVisit=?,docLastName=?,docFirstName=?,"
-					+ "WellnessSurveyResults=?, WellnessSurveyScore=? ,Exercise=? where OID=?"
-					);
+					+ "WellnessSurveyResults=?, WellnessSurveyScore=? ,Exercise=? where OID=?");
 			ps = physicalTherapyLoader.loadParameters(ps, p);
 			ps.setLong(8, oid);
 			ps.executeUpdate();

@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 
 /**
- * Selenium test cases for the PhysicalTherapy Office Visit Request feature in UC88.
+ * Selenium test cases for the PhysicalTherapy Office Visit Request feature in UC92.
  */
 public class PhysicalTherapyScheduleOVTest  extends iTrustSeleniumTest{
 
@@ -40,7 +40,7 @@ public class PhysicalTherapyScheduleOVTest  extends iTrustSeleniumTest{
    }
    
    /**
-    * Selenium test for UC88 Acceptance Scenario 1.
+    * Selenium test for UC92 Acceptance Scenario.
     * @throws Exception
     */
    public void testCreatePhysicalTherapyOfficeVisitRequest() throws Exception{
@@ -96,7 +96,7 @@ public class PhysicalTherapyScheduleOVTest  extends iTrustSeleniumTest{
    }
    
    /**
-    * Selenium test for UC88 Acceptance Scenario 2.
+    * Selenium test for UC92 Acceptance Scenario.
     * @throws Exception
     */
    public void testApprovePhysicalTherapyOfficeVisitRequest() throws Exception{
@@ -170,7 +170,7 @@ public class PhysicalTherapyScheduleOVTest  extends iTrustSeleniumTest{
    }
       
    /**
-    * Selenium test for UC88 Acceptance Scenario 3.
+    * Selenium test for UC92 Acceptance Scenario.
     * @throws Exception
     */
    public void testRejectPhysicalTherapyOfficeVisitRequest() throws Exception{

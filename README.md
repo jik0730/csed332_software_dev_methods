@@ -44,7 +44,7 @@ We used gantt chart to manage our plan and schedule.
 
 We estimated our plan based on how much time we have for each iteration and evaluated how much we achieved. This will help us to alert where we are in the project and to manage our schedule.
 
-|__Plan__|__Iteration 1__|__Iteration 2 (~ing)__|__Iteration 3__|__Iteration 4__|
+|__Plan__|__Iteration 1__|__Iteration 2__|__Iteration 3__|__Iteration 4__|
 |:-:|:-:|:-:|:-:|:-:|
 |Total SP Remaining|62 SP (0 %)|51 SP (18 %)|21 SP (66 %)|0 SP (100 %)|
 |Desired Features|UC 39, 41, 92 user stories|Remaining tasks of iteraion 1 and UC 88, 89, 90 user stories|Remaining tasks of iteraion 2 and UC 91, custom user stories|Testing, coverage, error fix, refactoring|
@@ -68,7 +68,7 @@ These are main use cases that we have to implement in iTrust. ( -> ) means chang
 | UC90 | Theme: Orthopedic Surgery. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc90.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC90/userstories/uc90.md)|11|
 | UC91 | Theme: Patient View. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc91.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/master/userstories/uc91.md) |5|
 | UC92 | Theme: Schedule Physical Therapy/Orthopedic Appointment. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc92.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC92/Usercase/UC92) |7 -> 10|
-| Our Use Case | Theme: Room Change Request and Acceptance. See details [here](usecases/custom_use_case.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/master/userstories/uc_custom.md) |10|
+| Our Own UC | Theme: Room Change Request and Acceptance. See details [here](usecases/custom_use_case.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/master/userstories/uc_custom.md) |10|
 
 Risks
 ---------------
@@ -108,6 +108,7 @@ These are meeting logs summarizing our dicussions in every meeting.
 - [8th Meeting](meeting_log/8th_meeting.md)
 - [3rd Demo](meeting_log/3rd_demo.md)
 - [9th Meeting](meeting_log/9th_meeting.md)
+- [10th Meeting](meeting_log/10th_meeting.md)
 
 Demo Presentation
 ---------------

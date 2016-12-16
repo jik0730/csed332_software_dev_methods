@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import edu.ncsu.csc.itrust.enums.TransactionType;
 
 /**
- * Selenium test cases for the Orthopedic Office Visit Request feature in UC88.
+ * Selenium test cases for the Orthopedic Office Visit Request feature in UC99.
  */
 public class OrthopedicScheduleOVTest  extends iTrustSeleniumTest{
 
@@ -39,7 +39,7 @@ public class OrthopedicScheduleOVTest  extends iTrustSeleniumTest{
    }
    
    /**
-    * Selenium test for UC88 Acceptance Scenario 1.
+    * Selenium test for UC92 Acceptance Scenario.
     * @throws Exception
     */
    public void testCreateOrthopedicOfficeVisitRequest() throws Exception{
@@ -95,7 +95,7 @@ public class OrthopedicScheduleOVTest  extends iTrustSeleniumTest{
    }
    
    /**
-    * Selenium test for UC88 Acceptance Scenario 2.
+    * Selenium test for UC92 Acceptance Scenario.
     * @throws Exception
     */
    public void testApproveOrthopedicOfficeVisitRequest() throws Exception{
@@ -169,7 +169,7 @@ public class OrthopedicScheduleOVTest  extends iTrustSeleniumTest{
    }
       
    /**
-    * Selenium test for UC88 Acceptance Scenario 3.
+    * Selenium test for UC92 Acceptance Scenario.
     * @throws Exception
     */
    public void testRejectOrthopedicOfficeVisitRequest() throws Exception{

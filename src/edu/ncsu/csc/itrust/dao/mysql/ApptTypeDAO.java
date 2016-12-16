@@ -21,6 +21,13 @@ public class ApptTypeDAO {
 		this.atLoader = new ApptTypeBeanLoader();
 	}
 
+	/**
+	 * getApptTypes
+	 * 
+	 * @return ApptTypeBean
+	 * @throws SQLException
+	 * @throws DBException
+	 */
 	public List<ApptTypeBean> getApptTypes() throws SQLException, DBException {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -41,6 +48,14 @@ public class ApptTypeDAO {
 
 	}
 
+	/**
+	 * addApptType
+	 * 
+	 * @param apptType
+	 * @return boolean
+	 * @throws SQLException
+	 * @throws DBException
+	 */
 	public boolean addApptType(final ApptTypeBean apptType) throws SQLException, DBException {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -59,6 +74,14 @@ public class ApptTypeDAO {
 
 	}
 
+	/**
+	 * editApptType
+	 * 
+	 * @param apptType
+	 * @return boolean
+	 * @throws SQLException
+	 * @throws DBException
+	 */
 	public boolean editApptType(final ApptTypeBean apptType) throws SQLException, DBException {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -78,6 +101,14 @@ public class ApptTypeDAO {
 
 	}
 
+	/**
+	 * getApptType
+	 * 
+	 * @param apptType
+	 * @return ApptTypeBean
+	 * @throws SQLException
+	 * @throws DBException
+	 */
 	public ApptTypeBean getApptType(final String apptType) throws SQLException, DBException {
 		Connection conn = null;
 		PreparedStatement stmt = null;

@@ -8,16 +8,13 @@ import java.util.List;
 import edu.ncsu.csc.itrust.beans.ApptBean;
 import edu.ncsu.csc.itrust.beans.ApptRequestBean;
 
-/**
- * 
- *
- */
+
 public class ApptRequestBeanLoader implements BeanLoader<ApptRequestBean> {
 
 	private ApptBeanLoader loader = new ApptBeanLoader();
 
 	/**
-	 * 
+	 * loadList
 	 */
 	public List<ApptRequestBean> loadList(ResultSet rs) throws SQLException {
 		List<ApptRequestBean> list = new ArrayList<ApptRequestBean>();
@@ -28,7 +25,7 @@ public class ApptRequestBeanLoader implements BeanLoader<ApptRequestBean> {
 	}
 
 	/**
-	 * 
+	 * loadSingle
 	 */
 	public ApptRequestBean loadSingle(ResultSet rs) throws SQLException {
 		ApptRequestBean bean = new ApptRequestBean();
@@ -40,7 +37,7 @@ public class ApptRequestBeanLoader implements BeanLoader<ApptRequestBean> {
 	}
 
 	/**
-	 * 
+	 * loadParameters
 	 */
 	public PreparedStatement loadParameters(PreparedStatement ps, ApptRequestBean bean) throws SQLException {
 		PreparedStatement ps2 = loader.loadParameters(ps, bean.getRequestedAppt());
