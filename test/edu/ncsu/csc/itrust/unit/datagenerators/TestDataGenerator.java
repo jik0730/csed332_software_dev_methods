@@ -1257,6 +1257,10 @@ public class TestDataGenerator {
 	public void wardtestdata() throws SQLException, FileNotFoundException, IOException {
 	    new DBBuilder(factory).executeSQLFile(DIR + "/wardtestdata.sql");
 	}
+
+	public void imageTest() throws SQLException, FileNotFoundException, IOException {
+	    new DBBuilder(factory).executeSQLFile(DIR + "/testImage.sql");
+	}
 	
 	/**
 	 * Do we have zipcodes?
