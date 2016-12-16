@@ -19,7 +19,6 @@
 <%@page import="edu.ncsu.csc.itrust.action.EditPersonnelAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.PatientRoomAssignmentAction"%>
 
-
 <%
 	String patientID = (String) session.getAttribute("pid");
     session.removeAttribute("pid");
@@ -46,29 +45,24 @@ boolean is_ward = true;
 boolean is_wardRoom = true;
 
 String rqhospital = null;
+
 // Get a hospital that the loggedin patient assigned.
 HospitalBean hospital = wardDAO.getHospitalByPatientID(personnelMID);
 if (hospital == null) {
-	// TODO: A patient cannot request a room change.
 	is_hospital = false;
 }
-//System.out.println("hospital??" + hospital.getHospitalCity());
 
 // Get a ward that the loggedin patient stays.
 WardBean ward = wardDAO.getWardByPid(personnelMID);
 if (ward == null) {
-	// TODO: A patient cannot request a room change.
 	is_ward = false;
 }
-//System.out.println("hospital??" + is_ward);
 
 //Get a wardroom that the loggedin patient stays.
 WardRoomBean wardRoom = wardDAO.getWardRoomByPid(personnelMID);
 if (wardRoom == null) {
-	// TODO: A pateient cannot request a room change.
 	is_wardRoom = false;
 }
-//System.out.println("hospital??" + is_wardRoom);
 
 // Get the submitted parameters to search by
 String searchPrice = request.getParameter("searchbyroomPrice");
@@ -76,8 +70,6 @@ String searchStory = request.getParameter("searchbyroomStory");
 
 // this is the name of Search Button
 String searchRooms = request.getParameter("searchRooms");
-
-
 
 PatientRoomAssignmentAction praa = new PatientRoomAssignmentAction(prodDAO);
 
@@ -90,13 +82,10 @@ if (forwardPatientSearch != null) {
 	//hospital = "";
 }
 
-
 if (forwardPatientSearch2 != null) {
 	WardRoomBean wardRoom4 = wardDAO.getWardRoom(forwardPatientSearch2);
 	praa.removeWaitingFromRoom(wardRoom4);
 }
-
-
 
 // List of wardrooms which will be used in the table of results or recommandation.
 List<WardRoomBean> listOfRooms = null;
@@ -167,15 +156,8 @@ if (searchRooms != null) {
 		listOfRooms = wardDAO.getAllWardRoomsBySystemRecommanded(personnelMID, 50);
 	}
 }
-
-
-
-
-
-
-
-
 %>
+
 	<form id="mainForm" method="post" action="roomChangeRequest.jsp" align="center">
 	<table class="fTable" align="center">
 		<tr>
@@ -233,7 +215,7 @@ if (searchRooms != null) {
 	
 <%
 	if(listOfAlreday != null){
-	%>
+%>
 	<hr>
 	<table class="fTable" align="center">
 		<tr>
@@ -264,16 +246,11 @@ if (searchRooms != null) {
 		<%
 	}
 %>
-	
-	
-	
 
 <%
 // Display results
 if(searchPrice != null || searchStory != null){
 	if(listOfRooms != null && !listOfRooms.isEmpty()){
-
-		
 	%>
 	<hr>
 	<table class="fTable" align="center">
@@ -299,36 +276,31 @@ if(searchPrice != null || searchStory != null){
 			<td><%=room.getPrice()%></td>
 			<td><%=room.getStory()%></td>
 			<td align="center">
-			<!-- Need to actually request room change. -->
 			<%if(is_hospital && is_ward && is_wardRoom) { %>
 				<form id="mainForm" method="post" action=<%="http://localhost:8080/iTrust/auth/patient/roomChangeRequest.jsp?forwardPatientSearch="+room.getRoomID()%>">
-				<input type="submit" value="Request" name="requestRoomChange"
-				<%if (room.getState() != true) {%> disabled <%}%> />
+					<input type="submit" value="Request" name="requestRoomChange"
+					<%if (room.getState() != true) {%> disabled <%}%> />
 				</form>
 			<%}%>
 			</td>
 			<td align="center">
-			<!-- Need to actually cancel room change. -->
 			<%if(is_hospital && is_ward && is_wardRoom) { %>
 				<form id="mainForm" method="post" action=<%="http://localhost:8080/iTrust/auth/patient/roomChangeRequest.jsp?forwardPatientSearch2="+room.getRoomID()%>">
-				<input type="submit" value="Cancel" name="requestCancel"
-				<%if (room.getWaiting() != personnelMID) {%> disabled <%}%> />
+					<input type="submit" value="Cancel" name="requestCancel"
+					<%if (room.getWaiting() != personnelMID) {%> disabled <%}%> />
 				</form>
 			<%}%>
 			</td>
 		</tr>
 		<%}%>
 	</table>
-	
-	
 	<% } else {
 		%>
 		<br>
 		<div align=center>No Results</div>
 		<%
 	}
-
-
+	
 } else { %>
 	<hr>
 	<table class="fTable" align="center">
@@ -357,8 +329,8 @@ if(searchPrice != null || searchStory != null){
 			<!-- Need to actually request room change. -->
 			<%if(is_hospital && is_ward && is_wardRoom) { %>
 				<form id="mainForm" method="post" action=<%="http://localhost:8080/iTrust/auth/patient/roomChangeRequest.jsp?forwardPatientSearch=" + room.getRoomID()%>">
-				<input type="submit" value="Request" name="requestRoomChange"
-				<%if (room.getState() != true) {%> disabled <%}%> />
+					<input type="submit" value="Request" name="requestRoomChange"
+					<%if (room.getState() != true) {%> disabled <%}%> />
 				</form>
 			<%}%>
 			</td>
@@ -366,8 +338,8 @@ if(searchPrice != null || searchStory != null){
 			<!-- Need to actually cancel room change. -->
 			<%if(is_hospital && is_ward && is_wardRoom) { %>
 				<form id="mainForm" method="post" action=<%="http://localhost:8080/iTrust/auth/patient/roomChangeRequest.jsp?forwardPatientSearch2=" + room.getRoomID()%>">
-				<input type="submit" value="Cancel" name="requestCancel"
-				<%if (room.getWaiting() != personnelMID) {%> disabled <%}%> />
+					<input type="submit" value="Cancel" name="requestCancel"
+					<%if (room.getWaiting() != personnelMID) {%> disabled <%}%> />
 				</form>
 			<%}%>
 			</td>

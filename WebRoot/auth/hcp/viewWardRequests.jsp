@@ -19,7 +19,6 @@
 <%@page import="edu.ncsu.csc.itrust.action.EditPersonnelAction"%>
 <%@page import="edu.ncsu.csc.itrust.action.PatientRoomAssignmentAction"%>
 
-
 <%
 	String patientID = request.getParameter("patientIDSearch");
 	String forwardPatientSearch = request.getParameter("forwardPatientSearch");
@@ -73,7 +72,6 @@
 		}
 		praa.assignPatientToRoom(wardRoom, Long.parseLong(patientID));
 		loggingAction.logEvent(TransactionType.PATIENT_ASSIGNED_TO_ROOM, loggedInMID, 0, "");
-		//hospital = "";
 	}
 
 	String removePatient = request.getParameter("removePatient");
@@ -115,7 +113,6 @@
 	valueSearchedBy = roomState;
 	parameterName = "searchbyroomState";
 %>
-
 
 <%
 	// Display results
