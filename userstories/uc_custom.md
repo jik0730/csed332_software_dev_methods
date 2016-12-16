@@ -34,8 +34,8 @@
   - Acceptance Test: testViewAllRequestsByPatient
   - "A HCP views all of requests that his or her patients made."
 
-7. Title: View All Requests a HCP received
+7. Title: View Already Assigned Room
   - Priority: 1
   - Unit (Story Points): 2
-  - Acceptance Test: testViewAllRequestsByHCP
-  - "A patient views all of requests the patient made."
+  - Acceptance Test: testViewAlreadyAssignedRoom
+  - "A patient views the room he or she already assigned in the page."

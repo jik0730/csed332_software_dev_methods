@@ -20,7 +20,7 @@ Sub Flows
 ---------
 
 * [S1] The patient sees the list of the rooms and their status which the system recommends where prices of the rooms are similar to the room which the patient currenly lives.
-* [S2] The patient chooses to view the list of the rooms available with the preference of the price or the room size.
+* [S2] The patient chooses to view the list of the rooms available with the preference of the price or the room story.
 * [S3] The patient [E1] may request the designated HCP for a room change [E2] by 
   specifying a room and some optional comments. The patient can choose only the rooms whose wards have the same specialties. 
 * [S4] The designated HCP may accept an room change request.
