@@ -20,8 +20,19 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ncsu.csc.itrust.DBUtil;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 
-/** Provides BLOB Images in mysql database */
+/** 
+ * ImageDataServlet
+ * 
+ * Provides BLOB Images in mysql database 
+ */
 public class ImageDataServlet extends HttpServlet{
+	
+	DAOFactory factory;
+	
+	public ImageDataServlet(DAOFactory factory){
+		super();
+		this.factory = factory;
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -61,7 +72,6 @@ public class ImageDataServlet extends HttpServlet{
 	private InputStream getImageStream(String tableName, String colName, String idName, String primaryKey) {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		DAOFactory factory = DAOFactory.getProductionInstance();
 		try {
 			conn = factory.getConnection();
 			/** TODO: Serious Security Problem: SQL Injection */

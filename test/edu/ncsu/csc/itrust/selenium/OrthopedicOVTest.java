@@ -16,11 +16,15 @@ import org.openqa.selenium.support.ui.Select;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
+/** OrthopedicOVTest */
 public class OrthopedicOVTest extends iTrustSeleniumTest {
 
 	private HtmlUnitDriver driver;
 	private String baseUrl;
 	
+	/**
+	 * set up
+	 */
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
@@ -33,6 +37,11 @@ public class OrthopedicOVTest extends iTrustSeleniumTest {
 	    driver.setJavascriptEnabled(true);
 	}
  	
+	/**
+	 * Access orthopedic office visit list
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void testViewOVList() throws Exception {
 		driver.get(baseUrl);
@@ -58,6 +67,11 @@ public class OrthopedicOVTest extends iTrustSeleniumTest {
 		assertEquals(1, size);
 	}
  	
+	/**
+	 * View Orthopedic Office Visit
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void testViewOVDetails() throws Exception {
 		driver.get(baseUrl);
@@ -105,7 +119,12 @@ public class OrthopedicOVTest extends iTrustSeleniumTest {
 		assertEquals("83.50", values2.get(0).getText());
 		assertEquals("83.20", values2.get(1).getText());
 	}
-	
+
+	/**
+	 * Document Office Visit Information
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void testAddOV() throws Exception {
 		driver.get(baseUrl);
@@ -149,7 +168,11 @@ public class OrthopedicOVTest extends iTrustSeleniumTest {
 		assertEquals(1, size);
 	}
 	
-	
+	/**
+	 * Edit office visit
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void testEditOV() throws Exception {
 		driver.get(baseUrl);

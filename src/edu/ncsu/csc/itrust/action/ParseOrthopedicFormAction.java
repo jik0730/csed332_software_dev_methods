@@ -18,79 +18,101 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+/**
+ * ParseOrthopedicFormAction
+ */
 public class ParseOrthopedicFormAction {
-	
-	private DAOFactory factory;
-	private long loggedInMID;
-	
 	private OrthopedicOVRecordBean recordBean;
 	private OrthopedicDiagnosisBean diagnosisBean;
 	private OrderBean orderBean;
-	
-	public ParseOrthopedicFormAction(DAOFactory factory, long loggedInMID) {
-		this.factory = factory;
-		this.loggedInMID = loggedInMID;
+	private ServletFileUpload upload;
+
+	/**
+	 * ParseOrthopedicFormAction
+	 * 
+	 * @param upload
+	 */
+	public ParseOrthopedicFormAction(ServletFileUpload upload) {
 		this.recordBean = new OrthopedicOVRecordBean();
 		this.diagnosisBean = new OrthopedicDiagnosisBean();
 		this.orderBean = new OrderBean();
+		this.upload = upload;
 	}
-	
-	public void parse(HttpServletRequest request, ServletContext servletContext) {
-		DiskFileItemFactory factory = new DiskFileItemFactory();
 
-		// Configure a repository (to ensure a secure temp location is used)
-		File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-		factory.setRepository(repository);
-
-		// Create a new file upload handler
-		ServletFileUpload upload = new ServletFileUpload(factory);
-
+	/**
+	 * Parse multipart post request and generate bean
+	 * 
+	 * @param request
+	 */
+	public void parse(HttpServletRequest request) {
 		// Parse the request
 		List<FileItem> items = null;
 		try {
 			items = upload.parseRequest(request);
-		} catch(FileUploadException e) {
+		} catch (FileUploadException e) {
 			e.printStackTrace();
 			return;
 		}
-		
-		
+
 		for (FileItem f : items) {
 			switch (f.getFieldName()) {
-				case "date": recordBean.setVisitDate(f.getString());
+			case "date":
+				recordBean.setVisitDate(f.getString());
 				break;
-				case "Injured": recordBean.setInjured(f.getString());
+			case "Injured":
+				recordBean.setInjured(f.getString());
 				break;
-				case "XRay": recordBean.setXray(fileItemToBytes(f));
+			case "XRay":
+				recordBean.setXray(fileItemToBytes(f));
 				break;
-				case "MRI": recordBean.setMri(fileItemToBytes(f));
+			case "MRI":
+				recordBean.setMri(fileItemToBytes(f));
 				break;
-				case "mriReport": recordBean.setMriReport(f.getString());
+			case "mriReport":
+				recordBean.setMriReport(f.getString());
 				break;
-				case "ICDCode": diagnosisBean.setICDCode(f.getString());;
+			case "ICDCode":
+				diagnosisBean.setICDCode(f.getString());
+				;
 				break;
-				case "ovID": recordBean.setOid(Integer.valueOf(f.getString()));
+			case "ovID":
+				recordBean.setOid(Integer.valueOf(f.getString()));
 				break;
-				case "OrderedHCPID" : orderBean.setOrderedHCPID(Long.valueOf(f.getString()));
+			case "OrderedHCPID":
+				orderBean.setOrderedHCPID(Long.valueOf(f.getString()));
 			}
 		}
 	}
-	
+
+	/**
+	 * Return diagnoses bean parsed in parse()
+	 * 
+	 * @return
+	 */
 	public OrthopedicDiagnosisBean getDiagnosisBean() {
 		return diagnosisBean;
 	}
-	
+
+	/**
+	 * Return record bean parsed in parse()
+	 * 
+	 * @return
+	 */
 	public OrthopedicOVRecordBean getRecordBean() {
 		return recordBean;
 	}
 	
-	public OrderBean getOrderBean(){
+	/**
+	 * Return order bean pared in parse()
+	 * 
+	 * @return
+	 */
+	public OrderBean getOrderBean() {
 		return orderBean;
 	}
-	
-	/** Returns NULL if not available */
+
 	private byte[] fileItemToBytes(FileItem f) {
 		return f.get();
 	}
-	
+
 }
