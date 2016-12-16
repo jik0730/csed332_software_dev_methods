@@ -1,8 +1,10 @@
 package edu.ncsu.csc.itrust.unit.action;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import edu.ncsu.csc.itrust.action.ViewMyApptsAction;
+import edu.ncsu.csc.itrust.beans.ApptBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
@@ -30,6 +32,9 @@ public class ViewMyApptsActionTest extends TestCase {
 		assertEquals(15, action.getAllMyAppointments().size());
 	}
 	
+	public void testGetMyAppointments2() throws SQLException, DBException {
+		assertEquals("Random Person", action.getAppointments(mid));
+	}
 	
 	public void testGetName() throws ITrustException {
 		assertEquals("Kelly Doctor", action.getName(hcpId));
