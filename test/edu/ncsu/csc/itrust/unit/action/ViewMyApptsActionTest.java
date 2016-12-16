@@ -33,7 +33,7 @@ public class ViewMyApptsActionTest extends TestCase {
 	}
 	
 	public void testGetMyAppointments2() throws SQLException, DBException {
-		assertEquals("Random Person", action.getAppointments(mid));
+		assertEquals(4, action.getAppointments(mid).size());
 	}
 	
 	public void testGetName() throws ITrustException {
