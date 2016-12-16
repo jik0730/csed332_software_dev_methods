@@ -54,30 +54,4 @@ public class ViewOrthopedicOVAction {
 				record.getPid(), "Orthopedic Office Visit " +  oid + " viewed by " + loggedInMID);
     	return record;
 	}
-	
-	public OrthopedicOVRecordBean getOrthopedicOVForPatient(long oid) throws ITrustException{
-		OrthopedicOVRecordBean record = orthopedicOVDAO.getOrthopedicOVRecord(oid);
-    	loggingAction.logEvent(TransactionType.parse(9100), loggedInMID, 
-				record.getPid(), "Orthopedic Office Visit " +  oid + " viewed by " + loggedInMID);
-    	return record;
-	}
-	
-	public OrthopedicOVRecordBean getOrthopedicOVForDependent(long oid) throws ITrustException{
-		OrthopedicOVRecordBean record = orthopedicOVDAO.getOrthopedicOVRecord(oid);
-    	loggingAction.logEvent(TransactionType.parse(9101), loggedInMID, 
-				record.getPid(), "Orthopedic Office Visit " +  oid + " viewed by " + loggedInMID);
-    	return record;
-	}
-	
-	public List<PatientBean> getDependents(long mid) {
-		List<PatientBean> dependents = new ArrayList<PatientBean>();
-		try {
-			dependents = patDAO.getDependents(mid);
-		} catch (DBException e) {
-			//If a DBException occurs print a stack trace and return an empty list
-			e.printStackTrace();
-		}
-		
-		return dependents;
-	}
 }

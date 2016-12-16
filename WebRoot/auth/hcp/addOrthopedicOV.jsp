@@ -5,6 +5,8 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.IllegalFormatException"%>
+<%@page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
+<%@page import="org.apache.commons.fileupload.servlet.ServletFileUpload"%>
 <%@page import="edu.ncsu.csc.itrust.action.ViewPatientAction"%>
 <%@page import="edu.ncsu.csc.itrust.beans.PatientBean"%>
 <%@page import="edu.ncsu.csc.itrust.beans.OrthopedicOVRecordBean"%>
@@ -59,8 +61,11 @@
 		boolean addedSomething = false;
 		
 		// Create a factory for disk-based file items
-		ParseOrthopedicFormAction parseAction = new ParseOrthopedicFormAction(prodDAO, loggedInMID);
-		parseAction.parse(request, servletContext);
+		DiskFileItemFactory fileFactory = new DiskFileItemFactory();
+		File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+		fileFactory.setRepository(repository);
+		ParseOrthopedicFormAction parseAction = new ParseOrthopedicFormAction(new ServletFileUpload(fileFactory));
+		parseAction.parse(request);
 
 		String clientSideErrors = "<p class=\"iTrustError\">This form has not been validated correctly. "
 				+ "The following field are not properly filled in: [";
