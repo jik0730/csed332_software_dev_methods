@@ -8,38 +8,40 @@ import java.util.Date;
 import junit.framework.TestCase;
 
 /**
- * WardBeanTest
+ * TransactionLogBeanTest
  */
 public class TransactionLogBeanTest extends TestCase {
 	TransactionLogBean testBean;
 	Date dt;
+
 	/**
-	 * setUp
+	 * get dt as today date
 	 */
-	public void setUp(){
-		dt = new Date ();
+	public void setUp() {
+		dt = new Date();
 	}
-	
+
 	/**
-	 * testWardID
+	 * to test TransactionLogBean
+	 * 
 	 */
-	public void testTransactionLogBean(){
-		testBean = new TransactionLogBean ();
-		assertNotNull (testBean);
-		
+	public void testTransactionLogBean() {
+		testBean = new TransactionLogBean();
+		assertNotNull(testBean);
+
 		testBean.setTransactionType(TransactionType.OFFICE_VISIT_EDIT);
 		testBean.setLoggedInRole("hcp");
 		testBean.setSecondaryRole("patient");
-		testBean.setTimeLogged(new Timestamp (dt.getTime()));
+		testBean.setTimeLogged(new Timestamp(dt.getTime()));
 		testBean.setTransactionID(1L);
 		testBean.setAddedInfo("hihi");
-		
-		assertEquals (testBean.getTransactionType(), TransactionType.OFFICE_VISIT_EDIT);
-		assertEquals (testBean.getLoggedInRole(), "hcp");
-		assertEquals (testBean.getSecondaryRole(), "patient");
-		assertEquals (testBean.getTimeLogged().getTime(), dt.getTime());
-		assertEquals (testBean.getTransactionID(), 1L);
-		assertEquals (testBean.getAddedInfo(), "hihi");
+
+		assertEquals(testBean.getTransactionType(), TransactionType.OFFICE_VISIT_EDIT);
+		assertEquals(testBean.getLoggedInRole(), "hcp");
+		assertEquals(testBean.getSecondaryRole(), "patient");
+		assertEquals(testBean.getTimeLogged().getTime(), dt.getTime());
+		assertEquals(testBean.getTransactionID(), 1L);
+		assertEquals(testBean.getAddedInfo(), "hihi");
 	}
 
 }

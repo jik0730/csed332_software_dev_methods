@@ -6,10 +6,11 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 /**
  * A bean for storing data about a transaction that occurred within iTrust.
  * 
- * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean 
- * (with the exception of minor formatting such as concatenating phone numbers together). 
- * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters
- * to create these easily)
+ * A bean's purpose is to store data. Period. Little or no functionality is to
+ * be added to a bean (with the exception of minor formatting such as
+ * concatenating phone numbers together). A bean must only have Getters and
+ * Setters (Eclipse Hint: Use Source > Generate Getters and Setters to create
+ * these easily)
  */
 public class TransactionLogBean {
 	private long transactionID;

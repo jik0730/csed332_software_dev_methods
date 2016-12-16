@@ -12,6 +12,11 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
 import edu.ncsu.csc.itrust.exception.DBException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
 
+/**
+ * Used for view physical therapy office visit page
+ * (viewPhysicalTherapyOVRecord.jsp).
+ * 
+ */
 public class ViewPhysicalTherapyOVAction {
 	private PhysicalTherapyOVRecordDAO physicalTherapyOVDAO;
 	private long loggedInMID;
@@ -23,7 +28,7 @@ public class ViewPhysicalTherapyOVAction {
 	 * simply initializes the instance variables.
 	 * 
 	 * @param factory
-	 *            The factory used to get the obstetricsDAO.
+	 *            The factory used to get the physicalTherapyDAO.
 	 * @param loggedInMID
 	 *            The MID of the logged in user.
 	 */
@@ -35,12 +40,12 @@ public class ViewPhysicalTherapyOVAction {
 	}
 
 	/**
-	 * getPhysicalTherapyOVByMID returns a list of PhysicalTherapy office visits
-	 * record beans for past PhysicalTherapy care.
+	 * getPhysicalTherapyOVByMID returns a list of physical therapy office
+	 * visits record beans for past physical therapy care.
 	 * 
 	 * @param mid
 	 *            the mid of the patient.
-	 * @return The list of PhysicalTherapy office visit records.
+	 * @return The list of physical therapy office visit records.
 	 * @throws ITrustException
 	 *             When there is a bad user.
 	 */
@@ -49,11 +54,11 @@ public class ViewPhysicalTherapyOVAction {
 	}
 
 	/**
-	 * Retrieves an PhysicalTherapyOVRecordBean for an HCP.
+	 * Retrieves an physiclalTherapyOVRecordBean for an HCP.
 	 * 
 	 * @param oid
-	 *            The oid of the PhysicalTherapy office visit
-	 * @return A bean containing the PhysicalTherapy office visit.
+	 *            The office visit id of the physical therapy office visit
+	 * @return A bean containing the physical therapy office visit.
 	 * @throws ITrustException
 	 *             When there is a bad oid passed in.
 	 */
@@ -65,11 +70,11 @@ public class ViewPhysicalTherapyOVAction {
 	}
 
 	/**
-	 * Retrieves an PhysicalTherapyOVRecordBean for a Patient.
+	 * Retrieves an physiclalTherapyOVRecordBean for a patient.
 	 * 
 	 * @param oid
-	 *            The oid of the PhysicalTherapy office visit
-	 * @return A bean containing the PhysicalTherapy office visit.
+	 *            The office visit id of the physical therapy office visit
+	 * @return A bean containing the physical therapy office visit.
 	 * @throws ITrustException
 	 *             When there is a bad oid passed in.
 	 */
@@ -81,12 +86,11 @@ public class ViewPhysicalTherapyOVAction {
 	}
 
 	/**
-	 * Retrieves an PhysicalTherapyOVRecordBean for Representee of the
-	 * dependent.
+	 * Retrieves an PhysicalTherapyOVRecordBean for Represent of the dependent.
 	 * 
 	 * @param oid
-	 *            The oid of the PhysicalTherapy office visit
-	 * @return A bean containing the PhysicalTherapy office visit.
+	 *            The oid of the physical therapy office visit
+	 * @return A bean containing the physical therapy office visit.
 	 * @throws ITrustException
 	 *             When there is a bad oid passed in.
 	 */

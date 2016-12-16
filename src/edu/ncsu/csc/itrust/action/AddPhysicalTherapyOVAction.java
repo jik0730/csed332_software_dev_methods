@@ -11,6 +11,12 @@ import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.dao.mysql.OrderDAO;
 
+/**
+ * Used for add physical therapy office visit page
+ * (addPhysicalTherapyOVRecord.jsp).
+ * 
+ * Very similar to {@link AddObstetricsAction}
+ */
 public class AddPhysicalTherapyOVAction {
 	private PhysicalTherapyOVRecordDAO physicalTherapyOVDAO;
 	private long loggedInMID;
@@ -22,7 +28,9 @@ public class AddPhysicalTherapyOVAction {
 	 * simply initializes the instance variables.
 	 * 
 	 * @param factory
+	 *            The factory used to get the physicalTherapyOVDAO.
 	 * @param loggedInMID
+	 *            The MID of the logged in user.
 	 */
 	public AddPhysicalTherapyOVAction(DAOFactory factory, long loggedInMID) {
 		this.physicalTherapyOVDAO = factory.getPhysicalTherapyOVRecordDAO();
@@ -32,11 +40,15 @@ public class AddPhysicalTherapyOVAction {
 	}
 
 	/**
-	 * Adds a new PhysicalTherapy office visit record.
+	 * Adds a new physical therapy office visit record.
 	 * 
 	 * @param p
+	 *            PhysicalTherapyOVRecordBean containing the info for the record
+	 *            to be created.
 	 * @throws FormValidationException
+	 *             if the patient is not successfully validated.
 	 * @throws ITrustException
+	 *             thrown if the database encounters an issue.
 	 */
 	public void addPhysicalTherapyOV(PhysicalTherapyOVRecordBean p) throws FormValidationException, ITrustException {
 		if (p != null) {

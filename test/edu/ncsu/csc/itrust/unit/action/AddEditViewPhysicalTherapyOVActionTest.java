@@ -12,15 +12,20 @@ import edu.ncsu.csc.itrust.beans.PhysicalTherapyOVRecordBean;
 import edu.ncsu.csc.itrust.beans.TransactionBean;
 import edu.ncsu.csc.itrust.beans.PatientBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
+import edu.ncsu.csc.itrust.dao.mysql.OrderDAO;
 import edu.ncsu.csc.itrust.dao.mysql.TransactionDAO;
 import edu.ncsu.csc.itrust.exception.FormValidationException;
 import edu.ncsu.csc.itrust.exception.ITrustException;
 import edu.ncsu.csc.itrust.unit.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.unit.testutils.TestDAOFactory;
 import edu.ncsu.csc.itrust.action.AddPhysicalTherapyOVAction;
-import edu.ncsu.csc.itrust.action.ViewPhysicalTherapyOVAction;
 import edu.ncsu.csc.itrust.action.EditPhysicalTherapyOVAction;
+import edu.ncsu.csc.itrust.action.ViewPhysicalTherapyOVAction;
 
+/**
+ * test for action of add, edit, view physical therapy OV
+ *
+ */
 public class AddEditViewPhysicalTherapyOVActionTest {
 	private final long LOGGED_IN_MID = 9220000000L;
 	private final long PATIENT_MID = 407L;
@@ -42,6 +47,11 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 	private final long oneDay = 1000 * 60 * 60 * 24;
 	private final Date curDate = new Date();
 
+	/**
+	 * Set up before test
+	 * 
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
@@ -75,6 +85,12 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		addAction.addPhysicalTherapyOV(dependentBean);
 	}
 
+	/**
+	 * Test for add physical therapy office visit well
+	 * 
+	 * @throws FormValidationException
+	 * @throws ITrustException
+	 */
 	@Test
 	public void testAddPhysicalTherapyOV1() throws FormValidationException, ITrustException {
 		// Now test the view
@@ -92,6 +108,12 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		assertEquals(viewAction.getPhysicalTherapyOVForHCP(3L), patientBeans[2]);
 	}
 
+	/**
+	 * Test for fail to add physical therapy ov
+	 * 
+	 * @throws FormValidationException
+	 * @throws ITrustException
+	 */
 	@Test
 	public void testAddPhysicalTherapyOV2() throws FormValidationException, ITrustException {
 		PhysicalTherapyOVRecordBean trollBean = new PhysicalTherapyOVRecordBean();
@@ -106,11 +128,16 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		try {
 			addAction.addPhysicalTherapyOV(trollBean);
 			assertTrue(false);
+		} catch (ITrustException e) {
 		}
-		catch (ITrustException e) {
-		}
+
 	}
 
+	/**
+	 * Test for get physical thearpy OV by pid
+	 * 
+	 * @throws ITrustException
+	 */
 	@Test
 	public void testGetPhysicalTherapyOVForPatient() throws ITrustException {
 		ViewPhysicalTherapyOVAction viewAction = new ViewPhysicalTherapyOVAction(prodDAO, PATIENT_MID);
@@ -125,6 +152,12 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		assertEquals(1, transactions.size());
 	}
 
+	/**
+	 * Test view action of dependent
+	 * 
+	 * @throws ITrustException
+	 * @throws FormValidationException
+	 */
 	@Test
 	public void testGetPhysicalTherapyOVForDependent() throws ITrustException, FormValidationException {
 		ViewPhysicalTherapyOVAction viewAction = new ViewPhysicalTherapyOVAction(prodDAO, PATIENT_MID);
@@ -139,6 +172,9 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		assertEquals(1, transactions.size());
 	}
 
+	/**
+	 * Test get dependents
+	 */
 	@Test
 	public void testGetDependents() {
 		ViewPhysicalTherapyOVAction viewAction = new ViewPhysicalTherapyOVAction(prodDAO, LOGGED_IN_MID);
@@ -149,6 +185,11 @@ public class AddEditViewPhysicalTherapyOVActionTest {
 		assertEquals(410, dependents.get(1).getMID());
 	}
 
+	/**
+	 * Test error checking well for action
+	 * 
+	 * @throws FormValidationException
+	 */
 	@Test
 	public void testErrors() throws FormValidationException {
 		DAOFactory prodDAO = TestDAOFactory.getTestInstance();
