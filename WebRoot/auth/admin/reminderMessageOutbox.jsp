@@ -1,12 +1,5 @@
 <%@page errorPage="/auth/exceptionHandler.jsp"%>
 
-<%@page import="java.util.List"%>
-
-<%@page import="edu.ncsu.csc.itrust.action.ViewMyMessagesAction"%>
-<%@page import="edu.ncsu.csc.itrust.beans.MessageBean"%>
-<%@page import="edu.ncsu.csc.itrust.dao.DAOFactory"%>
-<%@page import="edu.ncsu.csc.itrust.dao.mysql.PatientDAO"%>
-
 <%@include file="/global.jsp" %>
 
 <%
