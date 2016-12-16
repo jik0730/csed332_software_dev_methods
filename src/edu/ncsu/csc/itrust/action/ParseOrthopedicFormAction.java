@@ -84,19 +84,33 @@ public class ParseOrthopedicFormAction {
 		}
 	}
 
+	/**
+	 * Return diagnoses bean parsed in parse()
+	 * 
+	 * @return
+	 */
 	public OrthopedicDiagnosisBean getDiagnosisBean() {
 		return diagnosisBean;
 	}
 
+	/**
+	 * Return record bean parsed in parse()
+	 * 
+	 * @return
+	 */
 	public OrthopedicOVRecordBean getRecordBean() {
 		return recordBean;
 	}
-
+	
+	/**
+	 * Return order bean pared in parse()
+	 * 
+	 * @return
+	 */
 	public OrderBean getOrderBean() {
 		return orderBean;
 	}
 
-	/** Returns NULL if not available */
 	private byte[] fileItemToBytes(FileItem f) {
 		return f.get();
 	}

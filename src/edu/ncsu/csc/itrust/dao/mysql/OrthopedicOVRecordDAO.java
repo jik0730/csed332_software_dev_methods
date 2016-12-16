@@ -13,18 +13,28 @@ import edu.ncsu.csc.itrust.beans.loaders.OrthopedicOVRecordLoader;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.exception.DBException;
 
+/**
+ * OrthopedicOVRecordDAO 
+ */
 public class OrthopedicOVRecordDAO {
 	private DAOFactory factory;
 	private OrthopedicOVRecordLoader orthopedicLoader;
-	
+
+	/**
+	 * OrthopedicOVRecordDAO
+	 * 
+	 * @param factory
+	 */
 	public OrthopedicOVRecordDAO(DAOFactory factory) {
 		this.factory = factory;
 		this.orthopedicLoader = new OrthopedicOVRecordLoader();
 	}
-	
+
 	/**
 	 * Return list of records that match given mid
-	 * @param pid is the patient's mid
+	 * 
+	 * @param pid
+	 *            is the patient's mid
 	 */
 	public List<OrthopedicOVRecordBean> getOrthopedicOVRecordsByMID(long pid) throws DBException {
 		Connection conn = null;
@@ -33,8 +43,7 @@ public class OrthopedicOVRecordDAO {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement(
 					"SELECT OrthopedicVisitID, PatientiD, HCPID, DateVisit, Injured, XRay, MRI, MRIReport "
-					+ "FROM orthopedic WHERE PatientID=? ORDER BY DateVisit DESC"
-				);
+							+ "FROM orthopedic WHERE PatientID=? ORDER BY DateVisit DESC");
 			ps.setLong(1, pid);
 			ResultSet rs = ps.executeQuery();
 			List<OrthopedicOVRecordBean> list = orthopedicLoader.loadList(rs);
@@ -47,17 +56,19 @@ public class OrthopedicOVRecordDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
-	
+
 	/**
-	 * Returns an orthopedic office visit record correlating to the given 
+	 * Returns an orthopedic office visit record correlating to the given
 	 * orthopedicVisitID.
-	 * @param oid The orthopedic office visit id.
-	 * @return OrthopedicOVRecordBean containing the information from the 
-	 * Orthopedic office visit record.
-	 * @throws DBException thrown when the database throws a SQLException.
+	 * 
+	 * @param oid
+	 *            The orthopedic office visit id.
+	 * @return OrthopedicOVRecordBean containing the information from the
+	 *         Orthopedic office visit record.
+	 * @throws DBException
+	 *             thrown when the database throws a SQLException.
 	 */
-	public OrthopedicOVRecordBean getOrthopedicOVRecord(long oid) 
-			throws DBException {
+	public OrthopedicOVRecordBean getOrthopedicOVRecord(long oid) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -70,7 +81,7 @@ public class OrthopedicOVRecordDAO {
 				rs.close();
 				ps.close();
 				return pat;
-			} else{
+			} else {
 				rs.close();
 				ps.close();
 				return null;
@@ -81,9 +92,10 @@ public class OrthopedicOVRecordDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
-	
+
 	/**
 	 * Add a record to DB.
+	 * 
 	 * @param p
 	 * @throws DBException
 	 */
@@ -92,15 +104,15 @@ public class OrthopedicOVRecordDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			//first, insert the record
+			// first, insert the record
 			ps = conn.prepareStatement("INSERT INTO orthopedic(PatientID,"
-					+ "HCPID, DateVisit, Injured, XRay, MRI, MRIReport)"
-					+ " VALUES(?,?,?,?,?,?,?)");
+					+ "HCPID, DateVisit, Injured, XRay, MRI, MRIReport)" + " VALUES(?,?,?,?,?,?,?)");
 			ps = orthopedicLoader.loadParameters(ps, p);
 			ps.executeUpdate();
 			ps.close();
-			
-			//then, set the OID of the original bean to the one the database generates
+
+			// then, set the OID of the original bean to the one the database
+			// generates
 			ps = conn.prepareStatement("SELECT * FROM orthopedic ORDER BY OrthopedicVisitID DESC limit 1");
 			ResultSet rs = ps.executeQuery();
 			rs.first();
@@ -112,13 +124,17 @@ public class OrthopedicOVRecordDAO {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
-	
+
 	/**
 	 * Updates an orthopedic office visit record for the given OID.
-	 * @param oid the orthopedic office visit id.
-	 * @param p The OrthopedicOVRecordBean representing the new information for
-	 * the orthopedic office visit record.
-	 * @throws DBException thrown when the database throws a SQLException.
+	 * 
+	 * @param oid
+	 *            the orthopedic office visit id.
+	 * @param p
+	 *            The OrthopedicOVRecordBean representing the new information
+	 *            for the orthopedic office visit record.
+	 * @throws DBException
+	 *             thrown when the database throws a SQLException.
 	 */
 	public void editOrthopedicOVRecordsRecord(long oid, OrthopedicOVRecordBean p) throws DBException {
 		Connection conn = null;
@@ -126,8 +142,7 @@ public class OrthopedicOVRecordDAO {
 		try {
 			conn = factory.getConnection();
 			ps = conn.prepareStatement("UPDATE orthopedic SET PatientID=?, HCPID=?, DateVisit=?, Injured=?, "
-					+ "XRay=?, MRI=?, MRIReport=?"
-					+ "WHERE OrthopedicVisitID=?");
+					+ "XRay=?, MRI=?, MRIReport=?" + "WHERE OrthopedicVisitID=?");
 			orthopedicLoader.loadParameters(ps, p);
 			ps.setLong(8, oid);
 			ps.executeUpdate();
