@@ -17,17 +17,26 @@ import edu.ncsu.csc.itrust.unit.DBBuilder;
 import edu.ncsu.csc.itrust.unit.datagenerators.TestDataGenerator;
 import edu.ncsu.csc.itrust.unit.testutils.TestDAOFactory;
 
+/**
+ * Test for physical therapy office DAO
+ *
+ */
 public class PhysicalTherapyOVRecordDAOTest {
 	DAOFactory factory = TestDAOFactory.getTestInstance();
 	PhysicalTherapyOVRecordDAO dao = new PhysicalTherapyOVRecordDAO(factory);
 	PhysicalTherapyOVRecordBean bean;
-	
+
+	/**
+	 * set up for test environment
+	 * 
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		TestDataGenerator gen = new TestDataGenerator();
 		gen.clearAllTables();
-		
-		//Make the test bean
+
+		// Make the test bean
 		bean = new PhysicalTherapyOVRecordBean();
 		bean.setMid(401L);
 		bean.setOid(2L);
@@ -40,30 +49,38 @@ public class PhysicalTherapyOVRecordDAOTest {
 		String exercise = "false,true,false,false,true,false,false,true,false,true";
 		bean.setExercise(exercise);
 	}
-	
+
+	/**
+	 * Test for add physical therapy bean and edit physical therapy bean
+	 * 
+	 * @throws DBException
+	 */
 	@Test
-	public void testAddEditRecord() throws DBException{
+	public void testAddEditRecord() throws DBException {
 		dao.addPhysicalTherapyOVRecord(bean);
 		assertNull(dao.getPhysicalTherapyOVRecord(-1));
 		assertEquals(dao.getPhysicalTherapyOVRecord(1), bean);
 		List<PhysicalTherapyOVRecordBean> beans = dao.getPhysicalTherapyOVRecordsByMID(401);
 		assertEquals(beans.get(0), bean);
-		
-		//edit the bean
+
+		// edit the bean
 		bean.setFirstName("Povis");
 		dao.editPhysicalTherapyOVRecordsRecord(1, bean);
 		assertEquals(dao.getPhysicalTherapyOVRecord(1), bean);
 		beans = dao.getPhysicalTherapyOVRecordsByMID(401);
 		assertEquals(beans.get(0), bean);
 	}
-	
+
+	/**
+	 * Test for some errors of bean for null data
+	 */
 	@Test
-	public void testErrors(){
+	public void testErrors() {
 		DBBuilder builder = new DBBuilder();
 
-		//get a single record
+		// get a single record
 		try {
-			builder.dropTables(); //drop all tables in the DB
+			builder.dropTables(); // drop all tables in the DB
 			PhysicalTherapyOVRecordBean bean = null;
 			try {
 				bean = dao.getPhysicalTherapyOVRecord(1);
@@ -71,14 +88,15 @@ public class PhysicalTherapyOVRecordDAOTest {
 				assertNull(bean);
 			}
 
-			builder.createTables(); //now put them back so future tests aren't broken
-		} catch(Exception e) {
+			builder.createTables(); // now put them back so future tests aren't
+									// broken
+		} catch (Exception e) {
 			fail();
 		}
-		
-		//get all physicalTherapy records
+
+		// get all physicalTherapy records
 		try {
-			builder.dropTables(); //drop all tables in the DB
+			builder.dropTables(); // drop all tables in the DB
 			List<PhysicalTherapyOVRecordBean> beans = null;
 			try {
 				beans = dao.getPhysicalTherapyOVRecordsByMID(1);
@@ -86,38 +104,39 @@ public class PhysicalTherapyOVRecordDAOTest {
 				assertNull(beans);
 			}
 
-			builder.createTables(); //now put them back so future tests aren't broken
-		} catch(Exception e) {
+			builder.createTables(); // now put them back so future tests aren't
+									// broken
+		} catch (Exception e) {
 			fail();
 		}
-		
-		//get all physicalTherapy records
+
+		// get all physicalTherapy records
 		try {
-			builder.dropTables(); //drop all tables in the DB
-			List<PhysicalTherapyOVRecordBean> beans = null;
+			builder.dropTables(); // drop all tables in the DB
 			try {
 				dao.editPhysicalTherapyOVRecordsRecord(1, bean);
 			} catch (DBException e) {
 				assertNull(null);
 			}
 
-			builder.createTables(); //now put them back so future tests aren't broken
-		} catch(Exception e) {
+			builder.createTables(); // now put them back so future tests aren't
+									// broken
+		} catch (Exception e) {
 			fail();
 		}
-		
-		//get all physicalTherapy records
+
+		// get all physicalTherapy records
 		try {
-			builder.dropTables(); //drop all tables in the DB
-			List<PhysicalTherapyOVRecordBean> beans = null;
+			builder.dropTables(); // drop all tables in the DB
 			try {
 				dao.addPhysicalTherapyOVRecord(bean);
 			} catch (DBException e) {
 				assertNull(null);
 			}
 
-			builder.createTables(); //now put them back so future tests aren't broken
-		} catch(Exception e) {
+			builder.createTables(); // now put them back so future tests aren't
+									// broken
+		} catch (Exception e) {
 			fail();
 		}
 	}
