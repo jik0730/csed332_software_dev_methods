@@ -16,6 +16,11 @@ import edu.ncsu.csc.itrust.enums.TransactionType;
  */
 public class TransactionLogBeanLoader implements BeanLoader<TransactionLogBean> {
 
+	/**
+	 * loadList is for converting from ResultSet to list of TransactionLogBean
+	 * @param ResultSet
+	 * @result List<TransactionLogBean>
+	 */
 	public List<TransactionLogBean> loadList(ResultSet rs) throws SQLException {
 		List<TransactionLogBean> list = new ArrayList<TransactionLogBean>();
 		while (rs.next()) {
@@ -23,11 +28,14 @@ public class TransactionLogBeanLoader implements BeanLoader<TransactionLogBean> 
 		}
 		return list;
 	}
-
 	public PreparedStatement loadParameters(PreparedStatement ps, TransactionLogBean bean) throws SQLException {
 		throw new IllegalStateException("unimplemented!");
 	}
-
+	/**
+	 * loadSingle is for converting from ResultSet to TransactionLogBean
+	 *@param ResultSet
+	 *@return TransactionLogBean
+	 */
 	public TransactionLogBean loadSingle(ResultSet rs) throws SQLException {
 		TransactionLogBean t = new TransactionLogBean();
 		t.setAddedInfo(rs.getString("addedInfo"));

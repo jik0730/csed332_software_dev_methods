@@ -21,15 +21,17 @@ import edu.ncsu.csc.itrust.enums.TransactionLogColumnType;
 /**
  * Used for the logging mechanism.
  * 
- * DAO stands for Database Access Object. All DAOs are intended to be reflections of the database, that is,
- * one DAO per table in the database (most of the time). For more complex sets of queries, extra DAOs are
- * added. DAOs can assume that all data has been validated and is correct.
+ * DAO stands for Database Access Object. All DAOs are intended to be
+ * reflections of the database, that is, one DAO per table in the database (most
+ * of the time). For more complex sets of queries, extra DAOs are added. DAOs
+ * can assume that all data has been validated and is correct.
  * 
- * DAOs should never have setters or any other parameter to the constructor than a factory. All DAOs should be
- * accessed by DAOFactory (@see {@link DAOFactory}) and every DAO should have a factory - for obtaining JDBC
+ * DAOs should never have setters or any other parameter to the constructor than
+ * a factory. All DAOs should be accessed by DAOFactory (@see
+ * {@link DAOFactory}) and every DAO should have a factory - for obtaining JDBC
  * connections and/or accessing other DAOs.
  * 
- *  
+ * 
  * 
  */
 public class TransactionDAO {
@@ -39,7 +41,10 @@ public class TransactionDAO {
 
 	/**
 	 * The typical constructor.
-	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 * 
+	 * @param factory
+	 *            The {@link DAOFactory} associated with this DAO, which is used
+	 *            for obtaining SQL connections, etc.
 	 */
 	public TransactionDAO(DAOFactory factory) {
 		this.factory = factory;
@@ -63,7 +68,7 @@ public class TransactionDAO {
 			ps.close();
 			return loadlist;
 		} catch (SQLException e) {
-			
+
 			throw new DBException(e);
 		} finally {
 			DBUtil.closeConnection(conn, ps);
@@ -71,13 +76,19 @@ public class TransactionDAO {
 	}
 
 	/**
-	 * Log a transaction, with all of the info. The meaning of secondaryMID and addedInfo changes depending on
-	 * the transaction type.
+	 * Log a transaction, with all of the info. The meaning of secondaryMID and
+	 * addedInfo changes depending on the transaction type.
 	 * 
-	 * @param type The {@link TransactionType} enum representing the type this transaction is.
-	 * @param loggedInMID The MID of the user who is logged in.
-	 * @param secondaryMID Typically, the MID of the user who is being acted upon.
-	 * @param addedInfo A note about a subtransaction, or specifics of this transaction (for posterity).
+	 * @param type
+	 *            The {@link TransactionType} enum representing the type this
+	 *            transaction is.
+	 * @param loggedInMID
+	 *            The MID of the user who is logged in.
+	 * @param secondaryMID
+	 *            Typically, the MID of the user who is being acted upon.
+	 * @param addedInfo
+	 *            A note about a subtransaction, or specifics of this
+	 *            transaction (for posterity).
 	 * @throws DBException
 	 */
 	public void logTransaction(TransactionType type, long loggedInMID, long secondaryMID, String addedInfo)
@@ -95,7 +106,7 @@ public class TransactionDAO {
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
-			
+
 			throw new DBException(e);
 		} finally {
 			DBUtil.closeConnection(conn, ps);
@@ -103,63 +114,68 @@ public class TransactionDAO {
 	}
 
 	/**
-	 * Return a list of all transactions in which an HCP accessed the given patient's record
+	 * Return a list of all transactions in which an HCP accessed the given
+	 * patient's record
 	 * 
-	 * @param patientID The MID of the patient in question.
+	 * @param patientID
+	 *            The MID of the patient in question.
 	 * @return A java.util.List of transactions.
 	 * @throws DBException
 	 */
-	public List<TransactionBean> getAllRecordAccesses(long patientID, long dlhcpID, boolean getByRole) throws DBException {
+	public List<TransactionBean> getAllRecordAccesses(long patientID, long dlhcpID, boolean getByRole)
+			throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 
 		try {
 			conn = factory.getConnection();
-			ps = conn
-					.prepareStatement("SELECT * FROM transactionlog WHERE secondaryMID=? AND transactionCode "
-							+ "IN(" + TransactionType.patientViewableStr + ") AND loggedInMID!=? ORDER BY timeLogged DESC");
+			ps = conn.prepareStatement("SELECT * FROM transactionlog WHERE secondaryMID=? AND transactionCode " + "IN("
+					+ TransactionType.patientViewableStr + ") AND loggedInMID!=? ORDER BY timeLogged DESC");
 			ps.setLong(1, patientID);
 			ps.setLong(2, dlhcpID);
 			ResultSet rs = ps.executeQuery();
 			List<TransactionBean> tbList = loader.loadList(rs);
 
 			tbList = addAndSortRoles(tbList, patientID, getByRole);
-			
+
 			rs.close();
 			ps.close();
 			return tbList;
 		} catch (SQLException e) {
-			
+
 			throw new DBException(e);
 		} finally {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
-	
+
 	/**
-	 * The Most Thorough Fetch 
-	 * @param mid MID of the logged in user
-	 * @param dlhcpID MID of the user's DLHCP
-	 * @param start Index to start pulling entries from
-	 * @param range Number of entries to retrieve
-	 * @return List of <range> TransactionBeans affecting the user starting from the <start>th entry
+	 * The Most Thorough Fetch
+	 * 
+	 * @param mid
+	 *            MID of the logged in user
+	 * @param dlhcpID
+	 *            MID of the user's DLHCP
+	 * @param start
+	 *            Index to start pulling entries from
+	 * @param range
+	 *            Number of entries to retrieve
+	 * @return List of <range> TransactionBeans affecting the user starting from
+	 *         the <start>th entry
 	 * @throws DBException
 	 */
-	public List<TransactionBean> getTransactionsAffecting(long mid, long dlhcpID, java.util.Date start, int range) throws DBException {
+	public List<TransactionBean> getTransactionsAffecting(long mid, long dlhcpID, java.util.Date start, int range)
+			throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 
 		try {
 			conn = factory.getConnection();
-			ps = conn
-					.prepareStatement("SELECT * FROM transactionlog WHERE ((timeLogged <= ?) " +
-							"AND  (secondaryMID=? AND transactionCode " +
-								"IN (" + 
-								TransactionType.patientViewableStr+ ")) " +
-							"OR (loggedInMID=? AND transactionCode=?) ) " +
-							"AND NOT (loggedInMID=? AND transactionCode IN (" + //exclude if DLHCP as specified in UC43
-								TransactionType.dlhcpHiddenStr + ")) " +
-							"ORDER BY timeLogged DESC LIMIT 0,?");
+			ps = conn.prepareStatement("SELECT * FROM transactionlog WHERE ((timeLogged <= ?) "
+					+ "AND  (secondaryMID=? AND transactionCode " + "IN (" + TransactionType.patientViewableStr + ")) "
+					+ "OR (loggedInMID=? AND transactionCode=?) ) " + "AND NOT (loggedInMID=? AND transactionCode IN ("
+					+ // exclude if DLHCP as specified in UC43
+					TransactionType.dlhcpHiddenStr + ")) " + "ORDER BY timeLogged DESC LIMIT 0,?");
 			ps.setString(2, mid + "");
 			ps.setString(3, mid + "");
 			ps.setInt(4, TransactionType.LOGIN_SUCCESS.getCode());
@@ -172,7 +188,7 @@ public class TransactionDAO {
 			ps.close();
 			return tbList;
 		} catch (SQLException e) {
-			
+
 			throw new DBException(e);
 		} finally {
 			DBUtil.closeConnection(conn, ps);
@@ -180,26 +196,27 @@ public class TransactionDAO {
 	}
 
 	/**
-	 * Return a list of all transactions in which an HCP accessed the given patient's record, within the dates
+	 * Return a list of all transactions in which an HCP accessed the given
+	 * patient's record, within the dates
 	 * 
-	 * @param patientID The MID of the patient in question.
-	 * @param lower The starting date as a java.util.Date
-	 * @param upper The ending date as a java.util.Date
+	 * @param patientID
+	 *            The MID of the patient in question.
+	 * @param lower
+	 *            The starting date as a java.util.Date
+	 * @param upper
+	 *            The ending date as a java.util.Date
 	 * @return A java.util.List of transactions.
 	 * @throws DBException
 	 */
-	public List<TransactionBean> getRecordAccesses(long patientID, long dlhcpID, java.util.Date lower, java.util.Date upper, boolean getByRole) throws DBException {
+	public List<TransactionBean> getRecordAccesses(long patientID, long dlhcpID, java.util.Date lower,
+			java.util.Date upper, boolean getByRole) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn
-					.prepareStatement("SELECT * FROM transactionlog WHERE secondaryMID=? AND transactionCode IN ("
-							+ TransactionType.patientViewableStr
-							+ ") "
-							+ "AND timeLogged >= ? AND timeLogged <= ? "
-							+ "AND loggedInMID!=? "
-							+ "ORDER BY timeLogged DESC");
+			ps = conn.prepareStatement("SELECT * FROM transactionlog WHERE secondaryMID=? AND transactionCode IN ("
+					+ TransactionType.patientViewableStr + ") " + "AND timeLogged >= ? AND timeLogged <= ? "
+					+ "AND loggedInMID!=? " + "ORDER BY timeLogged DESC");
 			ps.setLong(1, patientID);
 			ps.setTimestamp(2, new Timestamp(lower.getTime()));
 			// add 1 day's worth to include the upper
@@ -207,13 +224,13 @@ public class TransactionDAO {
 			ps.setLong(4, dlhcpID);
 			ResultSet rs = ps.executeQuery();
 			List<TransactionBean> tbList = loader.loadList(rs);
-			
+
 			tbList = addAndSortRoles(tbList, patientID, getByRole);
 			rs.close();
 			ps.close();
 			return tbList;
 		} catch (SQLException e) {
-			
+
 			throw new DBException(e);
 		} finally {
 			DBUtil.closeConnection(conn, ps);
@@ -241,13 +258,13 @@ public class TransactionDAO {
 			ps.close();
 			return result;
 		} catch (SQLException e) {
-			
+
 			throw new DBException(e);
 		} finally {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param tbList
@@ -256,107 +273,105 @@ public class TransactionDAO {
 	 * @return
 	 * @throws DBException
 	 */
-	private List<TransactionBean> addAndSortRoles(List<TransactionBean> tbList, long patientID, boolean sortByRole) throws DBException {
+	private List<TransactionBean> addAndSortRoles(List<TransactionBean> tbList, long patientID, boolean sortByRole)
+			throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
-		
+
 		try {
 			conn = factory.getConnection();
-			
-			for(TransactionBean t : tbList) {
-				ps = conn
-						.prepareStatement("SELECT Role FROM users WHERE MID=?");
+
+			for (TransactionBean t : tbList) {
+				ps = conn.prepareStatement("SELECT Role FROM users WHERE MID=?");
 				ps.setLong(1, t.getLoggedInMID());
 				ResultSet rs = ps.executeQuery();
 				String role = "";
-				if(rs.next())
+				if (rs.next())
 					role = rs.getString("Role");
-				if(role.equals("er"))
+				if (role.equals("er"))
 					role = "Emergency Responder";
-				else if(role.equals("uap"))
+				else if (role.equals("uap"))
 					role = "UAP";
-				else if(role.equals("hcp")) {
+				else if (role.equals("hcp")) {
 					role = "LHCP";
 					ps.close();
-					ps = conn
-							.prepareStatement("SELECT PatientID FROM declaredhcp WHERE HCPID=?");
+					ps = conn.prepareStatement("SELECT PatientID FROM declaredhcp WHERE HCPID=?");
 					ps.setLong(1, t.getLoggedInMID());
 					ResultSet rs2 = ps.executeQuery();
-					while(rs2.next()) {
-						if (rs2.getLong("PatientID") == patientID){
+					while (rs2.next()) {
+						if (rs2.getLong("PatientID") == patientID) {
 							role = "DLHCP";
 							break;
 						}
 					}
 					rs2.close();
-				}
-				else if(role.equals("patient")){
+				} else if (role.equals("patient")) {
 					role = "Patient";
 					ps.close();
-					ps = conn
-							.prepareStatement("SELECT representeeMID FROM representatives WHERE representerMID=?");
+					ps = conn.prepareStatement("SELECT representeeMID FROM representatives WHERE representerMID=?");
 					ps.setLong(1, t.getLoggedInMID());
 					ResultSet rs2 = ps.executeQuery();
-					while(rs2.next()) {
-						if (rs2.getLong("representeeMID") == patientID){
+					while (rs2.next()) {
+						if (rs2.getLong("representeeMID") == patientID) {
 							role = "Personal Health Representative";
 							break;
 						}
 					}
 					rs2.close();
 				}
-					
+
 				t.setRole(role);
 				rs.close();
 				ps.close();
 			}
-			
-			if(sortByRole){
+
+			if (sortByRole) {
 				TransactionBean[] array = new TransactionBean[tbList.size()];
 				array[0] = tbList.get(0);
 				TransactionBean t;
-				for(int i = 1; i < tbList.size(); i++) {
+				for (int i = 1; i < tbList.size(); i++) {
 					t = tbList.get(i);
 					String role = t.getRole();
 					int j = 0;
-					while(array[j] != null && role.compareToIgnoreCase(array[j].getRole()) >= 0)
+					while (array[j] != null && role.compareToIgnoreCase(array[j].getRole()) >= 0)
 						j++;
-					for(int k = i; k > j; k--) {
-						array[k] = array[k-1];
+					for (int k = i; k > j; k--) {
+						array[k] = array[k - 1];
 					}
 					array[j] = t;
 				}
 				int size = tbList.size();
-				for(int i = 0; i < size; i++)
+				for (int i = 0; i < size; i++)
 					tbList.set(i, array[i]);
 			}
-		
+
 			return tbList;
 		} catch (SQLException e) {
-			
+
 			throw new DBException(e);
 		} finally {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
 
-
 	/**
 	 * 
-	 * @param type : attributes(type 0 : loggedinMID, type 1 : secondary MID, type 2 : transactionType(Code)
+	 * @param type
+	 *            : attributes(type 0 : loggedinMID, type 1 : secondary MID,
+	 *            type 2 : transactionType(Code)
 	 * @return List<TransactionBean>
 	 * @throws DBException
-	 * To get transaction log data grouped by type
+	 *             To get transaction log data grouped by type
 	 */
-	public List<TransactionBean> getTransactionGroupBy(TransactionLogColumnType type) throws DBException, ITrustException {
+	public List<TransactionBean> getTransactionGroupBy(TransactionLogColumnType type)
+			throws DBException, ITrustException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		String s;
 		try {
 			conn = factory.getConnection();
 			s = "SELECT * FROM transactionlog ";
-			switch(type.getCode())
-			{
+			switch (type.getCode()) {
 			case 1:
 				s += "GROUP BY loggedinMID ";
 				break;
@@ -377,48 +392,49 @@ public class TransactionDAO {
 			ps.close();
 			return tbList;
 		} catch (SQLException e) {
-			
+
 			throw new DBException(e);
 		} finally {
 			DBUtil.closeConnection(conn, ps);
 		}
 	}
+
 	/**
 	 * Get transaction list which is satisfying some criteria(inputs).
-	 * @param mid MID of the logged in user
-	 * @param second MID of the logged in user
-	 * @param start Index to start pulling entries from
-	 * @param end Index to end pulling entries to
-	 * @param trasaction code 
+	 * 
+	 * @param mid
+	 *            MID of the logged in user
+	 * @param second
+	 *            MID of the logged in user
+	 * @param start
+	 *            Index to start pulling entries from
+	 * @param end
+	 *            Index to end pulling entries to
+	 * @param trasaction
+	 *            code
 	 * @return List of <range> TransactionBeans satisfying some criteria
 	 * @throws DBException
 	 */
-	public List<TransactionBean> getTransactionList(long mid, long secMid, 
-			java.util.Date start, java.util.Date end, 
+	public List<TransactionBean> getTransactionList(long mid, long secMid, java.util.Date start, java.util.Date end,
 			int transactionCode) throws DBException {
-		
+
 		Connection conn = null;
 		PreparedStatement ps = null;
 		String s;
 		try {
 			conn = factory.getConnection();
-			s = "SELECT * FROM transactionlog "
-					+ "WHERE "
-					+ "(timeLogged >= ? AND timeLogged <= ?)";
-			if (mid >= 0)
-			{
+			s = "SELECT * FROM transactionlog " + "WHERE " + "(timeLogged >= ? AND timeLogged <= ?)";
+			if (mid >= 0) {
 				s += " AND (loggedInMID = " + Long.toString(mid) + ")";
 			}
-			if (secMid >= 0)
-			{
+			if (secMid >= 0) {
 				s += " AND (secondaryMID = " + Long.toString(secMid) + ")";
 			}
-			if (transactionCode >= 0)
-			{
+			if (transactionCode >= 0) {
 				s += " AND (transactionCode = " + Integer.toString(transactionCode) + ")";
 			}
 			s += " ORDER BY timeLogged DESC";
-			
+
 			ps = conn.prepareStatement(s);
 			ps.setTimestamp(1, new Timestamp(start.getTime()));
 			// Adjustment of end date.
@@ -430,7 +446,7 @@ public class TransactionDAO {
 			ps.close();
 			return tbList;
 		} catch (SQLException e) {
-			
+
 			throw new DBException(e);
 		} finally {
 			DBUtil.closeConnection(conn, ps);

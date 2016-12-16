@@ -169,13 +169,13 @@ session.removeAttribute("personnelList");
 	</tr>
 	<tr>
 		<td colspan=5 align=right><input type="submit"
-			style="font-size: 16pt; font-weight: bold;" name = "view" value="View"></td>
+			style="font-size: 16pt; font-weight: bold;" name = "ViewButton" value="View"></td>
 		<td colspan=5 align=right><input type="submit"
-			style="font-size: 16pt; font-weight: bold;" name = "graph" value = "Summarize"></td>
+			style="font-size: 16pt; font-weight: bold;" name = "Graph" value = "Summarize"></td>
 	</tr>
 </table>
 <%
-if (TransactionLogResults != null && request.getParameter("view") != null) {
+if (TransactionLogResults != null && request.getParameter("ViewButton") != null) {
 %>
 <table id = "list_table" class="fTable">
 	<tr class="subHeader">
@@ -190,11 +190,12 @@ if (TransactionLogResults != null && request.getParameter("view") != null) {
 	</tr>
 	<%
 	// Iterate through TransactionLog logs results to build logs list.
+	int i = 0;
 	for (TransactionLogBean t : TransactionLogResults) {
 	%>
-	<tr>
+	<tr name="<%="row" + i%>">
 		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionID())) %></td>
-		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTimeLogged())) %></td>
+		<td name="<%="timelog" + (i++)%>"><%= StringEscapeUtils.escapeHtml("" + (t.getTimeLogged())) %></td>
 		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().name())) %></td>
 		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().getCode())) %></td>
 		<td><%= StringEscapeUtils.escapeHtml("" + (t.getTransactionType().getDescription())) %></td>
@@ -210,37 +211,37 @@ if (TransactionLogResults != null && request.getParameter("view") != null) {
 }
 %>
 <%
-if (TransactionLogResults != null && request.getParameter("graph") != null) {
+if (TransactionLogResults != null && request.getParameter("Graph") != null) {
 	HashMap<String, Integer> loggedInUser = new HashMap<String, Integer>();
 	HashMap<String, Integer> secondaryUser = new HashMap<String, Integer>();
 	HashMap<String, Integer> TransactionLogMonth = new HashMap<String, Integer>();
 	HashMap<String, Integer> TransactionType = new HashMap<String, Integer>();
-	// Iterate TransactionLog logs results to build graphs.
+	// Iterate TransactionLog logs results to build Graphs.
 	for (TransactionLogBean tb : TransactionLogResults) {
 		String key = tb.getLoggedInRole();
 		String key2 = tb.getSecondaryRole();
 		String key3 = tb.getTimeLogged().toString();
 		key3 = key3.substring(0, 7);
 		String key4 = tb.getTransactionType().getDescription();
-		// For first graph.
+		// For first Graph.
 		if (loggedInUser.get(key) == null) {
 			loggedInUser.put(key, 1);
 		} else {
 			loggedInUser.put(key, loggedInUser.get(key) + 1);
 		}
-		// For second graph.
+		// For second Graph.
 		if (secondaryUser.get(key2) == null) {
 			secondaryUser.put(key2, 1);
 		} else {
 			secondaryUser.put(key2, secondaryUser.get(key2) + 1);
 		}
-		// For third graph.
+		// For third Graph.
 		if (TransactionLogMonth.get(key3) == null){
 			TransactionLogMonth.put(key3, 1);
 		} else {
 			TransactionLogMonth.put(key3, TransactionLogMonth.get(key3) + 1);
 		}
-		// For fourth graph.
+		// For fourth Graph.
 		if (TransactionType.get(key4) == null) {
 			TransactionType.put(key4, 1);
 		} else {
@@ -326,7 +327,7 @@ if (TransactionLogResults != null && request.getParameter("graph") != null) {
 	        chart4.draw(data4, options4);
 	      }
 	</script>
-<table id="graph_table" class="fTable">
+<table id="Graph_table" class="fTable">
 	<tr>
 		<td>
 			<div id="chart_div"></div>
