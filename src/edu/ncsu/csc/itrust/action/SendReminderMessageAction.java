@@ -37,9 +37,9 @@ public class SendReminderMessageAction extends ApptAction {
 	TransactionDAO transactionDAO;
 	AuthDAO authDAO;
 	long loggedInMID;
-	
+
 	// Constructor
-	/** 
+	/**
 	 * @param factory
 	 * @param loggedInMID
 	 * @throws ITrustException
@@ -53,18 +53,19 @@ public class SendReminderMessageAction extends ApptAction {
 		messageDAO = factory.getMessageDAO();
 		transactionDAO = factory.getTransactionDAO();
 		authDAO = factory.getAuthDAO();
-		
+
 		try {
 			if (authDAO.getUserRole(loggedInMID).getUserRolesString() != "admin")
 				throw new ITrustException("Only admin can use this feature.");
 		} catch (ITrustException e) {
 			throw e;
 		}
-			
+
 		this.loggedInMID = loggedInMID;
 	}
-	
-	// Send reminder Messages to patients who have appointments within given days
+
+	// Send reminder Messages to patients who have appointments within given
+	// days
 	/**
 	 *
 	 * @param apptDaysLeftUpperBound
@@ -74,37 +75,37 @@ public class SendReminderMessageAction extends ApptAction {
 	 */
 	public void sendReminderMessage(long apptDaysLeftUpperBound) throws SQLException, DBException, ITrustException {
 		List<ApptBean> appts = apptDAO.getApptsIn(apptDaysLeftUpperBound);
-		
-		for (ApptBean appt: appts) {
+
+		for (ApptBean appt : appts) {
 			sendReminders(appt);
 		}
-		
+
 		transactionDAO.logTransaction(TransactionType.SYSTEM_REMINDERS_VIEW, loggedInMID, 0, "");
 	}
-	
+
 	private void sendReminders(ApptBean appt) throws SQLException, DBException, ITrustException {
-		long from = 9000000009L; //System Reminder
+		long from = 9000000009L; // System Reminder
 		long to = appt.getPatient();
-		long daysLeft = appt.getDate().getTime()/(24 * 1000 * 60 * 60) - new Date().getTime() / (24 * 60 * 60 * 1000);
+		long daysLeft = appt.getDate().getTime() / (24 * 1000 * 60 * 60) - new Date().getTime() / (24 * 60 * 60 * 1000);
 		String doctorLastName = personnelDAO.getName(appt.getHcp()).split("\\s")[0];
 		String body = genBody(appt.getDate(), doctorLastName);
 		String subject = genSubject(daysLeft);
-	
+
 		sendMessage(from, to, subject, body);
 		sendEmail(from, to, subject, body);
 	}
-	
+
 	private void sendMessage(long from, long to, String subject, String body) throws SQLException, DBException {
 		MessageBean message = new MessageBean();
 		message.setFrom(from);
 		message.setTo(to);
 		message.setSubject(subject);
 		message.setBody(body);
-		
+
 		messageDAO.addMessage(message);
 	}
 
-	private void sendEmail(long from, long to, String subject, String body) throws ITrustException{
+	private void sendEmail(long from, long to, String subject, String body) throws ITrustException {
 		Email email = new Email();
 		email.setFrom("System Reminder");
 		List<String> toList = Arrays.asList(patientDAO.getEmailFor(to));
