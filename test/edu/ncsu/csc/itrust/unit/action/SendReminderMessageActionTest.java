@@ -55,6 +55,16 @@ public class SendReminderMessageActionTest {
 	}
 
 	@Test
+	public void testSendReminderMessageAction() {
+		try {
+			SendReminderMessageAction actionWithInvalidRole = new SendReminderMessageAction(factory, 9000000000L);
+		} catch (ITrustException e) {
+		}
+		
+		assertTrue(false);
+	}
+	
+	@Test
 	public void testSendReminderMessage() throws DBException, SQLException, ITrustException {
 		action.sendReminderMessage(7);
 		checkMessages();
