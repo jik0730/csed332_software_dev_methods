@@ -11,6 +11,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import edu.ncsu.csc.itrust.enums.TransactionType;
+
 public class ViewReminderMessageOutboxTest extends iTrustSeleniumTest {
 	
 	@Override
@@ -73,6 +75,7 @@ public class ViewReminderMessageOutboxTest extends iTrustSeleniumTest {
 		
 		assertTrue(contains6);
 		assertTrue(contains7);
+		assertLogged(TransactionType.SYSTEM_REMINDERS_VIEW, 9000000001L, 0L, "");
 	}
 	
 	@Test

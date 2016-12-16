@@ -14,6 +14,7 @@ import edu.ncsu.csc.itrust.beans.Email;
 import edu.ncsu.csc.itrust.beans.MessageBean;
 import edu.ncsu.csc.itrust.dao.DAOFactory;
 import edu.ncsu.csc.itrust.dao.mysql.ApptDAO;
+import edu.ncsu.csc.itrust.dao.mysql.AuthDAO;
 import edu.ncsu.csc.itrust.dao.mysql.FakeEmailDAO;
 import edu.ncsu.csc.itrust.dao.mysql.MessageDAO;
 import edu.ncsu.csc.itrust.dao.mysql.PatientDAO;
@@ -33,12 +34,13 @@ public class SendReminderMessageAction extends ApptAction {
 	FakeEmailDAO fakeEmailDAO;
 	MessageDAO messageDAO;
 	TransactionDAO transactionDAO;
+	AuthDAO authDAO;
 	long loggedInMID;
 	
 	/**
 	 * SendReminderMessageAction
 	 */
-	public SendReminderMessageAction(DAOFactory factory, long loggedInMID) {
+	public SendReminderMessageAction(DAOFactory factory, long loggedInMID) throws ITrustException {
 		super(factory);
 		apptDAO = factory.getApptDAO();
 		patientDAO = factory.getPatientDAO();
@@ -46,7 +48,15 @@ public class SendReminderMessageAction extends ApptAction {
 		fakeEmailDAO = factory.getFakeEmailDAO();
 		messageDAO = factory.getMessageDAO();
 		transactionDAO = factory.getTransactionDAO();
+		authDAO = factory.getAuthDAO();
 		
+		try {
+			if (authDAO.getUserRole(loggedInMID).getUserRolesString() != "admin")
+				throw new ITrustException("Only admin can use this feature.");
+		} catch (ITrustException e) {
+			throw e;
+		}
+			
 		this.loggedInMID = loggedInMID;
 	}
 	

@@ -43,13 +43,15 @@ public class SendReminderMessageActionTest {
 	private final Date curDate = new Date();
 	private final Date ltDate = new Date(curDate.getTime() + oneDay * 6);
 	private final Date eqDate = new Date(curDate.getTime() + oneDay * 7);
+	
+	private final long adminMID = 9000000001L;
 
 	@Before
 	public void setUp() throws Exception {
 		gen.clearAllTables();
 		gen.standardData();
 		gen.uc41_add_appointments();
-		action = new SendReminderMessageAction(factory, 9000000000L);
+		action = new SendReminderMessageAction(factory, adminMID);
 	}
 
 	@Test
@@ -98,7 +100,7 @@ public class SendReminderMessageActionTest {
 	}
 	
 	private void checkLogs() throws DBException, SQLException {
-		List<TransactionBean> transactions = transactionDAO.getTransactionList(9000000000L, 0, new Date(curDate.getTime() - oneSecond), new Date(curDate.getTime() + oneMinute), 4100);
+		List<TransactionBean> transactions = transactionDAO.getTransactionList(adminMID, 0, new Date(curDate.getTime() - oneSecond), new Date(curDate.getTime() + oneMinute), 4100);
 		assertTrue(transactions.size() == 1);
 		
 		TransactionBean log = transactions.get(0);
