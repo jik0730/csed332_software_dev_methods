@@ -61,13 +61,13 @@ These are main use cases that we have to implement in iTrust. ( -> ) means chang
 
 |__Use Case__|__Comment__|__User Stories__|__Story Points__|
 |:---:|---|---|---|
-| UC39 | Theme: View Transaction Logs.  See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc39.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC39/userstories/uc39.md) |4|
-| UC41 | Theme: Reminder.  See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc41.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC41/userstories/uc41.md) |6|
-| UC88 | Theme: Orthopedic Office Visit. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc88.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/feature/UC88/userstories/uc88.md) |8 -> 13|
-| UC89 | Theme: Physical Therapy Visit. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc89.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/feature/UC89/userstories/uc89.md)|11|
-| UC90 | Theme: Orthopedic Surgery. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc90.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC90/userstories/uc90.md)|11|
+| UC39 | Theme: View Transaction Logs.  See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc39.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/master/userstories/uc39.md) |4|
+| UC41 | Theme: Reminder.  See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc41.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/master/userstories/uc41.md) |6|
+| UC88 | Theme: Orthopedic Office Visit. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc88.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/master/userstories/uc88.md) |8 -> 13|
+| UC89 | Theme: Physical Therapy Visit. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc89.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/master/userstories/uc89.md)|11|
+| UC90 | Theme: Orthopedic Surgery. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc90.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/master/userstories/uc90.md)|11|
 | UC91 | Theme: Patient View. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc91.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/master/userstories/uc91.md) |5|
-| UC92 | Theme: Schedule Physical Therapy/Orthopedic Appointment. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc92.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/blob/feature/UC92/Usercase/UC92) |7 -> 10|
+| UC92 | Theme: Schedule Physical Therapy/Orthopedic Appointment. See details [here](http://141.223.163.190/kmbae/CSED332-2016-project/blob/master/uc92.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/master/userstories/UC92) |7 -> 10|
 | Our Own UC | Theme: Room Change Request and Acceptance. See details [here](usecases/custom_use_case.md) | See details [here](http://141.223.163.190/teamgreen/iTrust/tree/master/userstories/uc_custom.md) |10|
 
 Risks
