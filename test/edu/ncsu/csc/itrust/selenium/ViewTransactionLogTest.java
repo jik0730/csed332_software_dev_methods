@@ -33,7 +33,7 @@ public class ViewTransactionLogTest extends iTrustSeleniumTest {
 		fmt = new SimpleDateFormat("yyyy-MM-dd");
 		start = fmt.parse("2007-06-22");
 		end = fmt.parse("2007-06-22");
-		check = fmt.parse("2007-06-22");
+		check = fmt.parse("2007-06-23");
 		gen = new TestDataGenerator();
 		gen.clearAllTables();
 		gen.standardData();
